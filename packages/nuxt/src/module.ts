@@ -1,14 +1,16 @@
 import { addImportsDir, createResolver, defineNuxtModule, useLogger } from '@nuxt/kit';
 import type { Component } from '@nuxt/schema';
 import * as fs from 'node:fs';
+import { promises as fsp } from 'node:fs';
+
 import * as path from 'node:path';
 import { IconSize, type ComposeIconSize } from './runtime/types';
 import {
   createComponentFromName,
   createComponentsDir,
   createSvgComponentCode,
+  generateComponentName,
   generateCssFile,
-  normalizeAndGenerateComponentName,
   readDirectoryRecursively,
   writeComponentFile,
 } from './utils';
@@ -25,7 +27,7 @@ export interface GeneratedComponentOptions {
   /**
    * The prefix to use for the component - default false
    */
-  prefix: boolean | string;
+  prefix?: string;
   /**
    * The suffix to use for the component
    * default "Icon" ( PascalCase ) and "-icon" ( kebab-case )
@@ -70,7 +72,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     // If not provided, the default will be to use the "Icon" suffix for the component without a prefix
     // e.g. "arrow-up.svg" will be "ArrowUpIcon"
     generatedComponentOptions: {
-      prefix: false,
+      prefix: undefined,
       suffix: 'Icon',
       case: 'pascal',
 
@@ -80,7 +82,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     },
     iconComponentList: {},
   },
-  setup(options, nuxt) {
+  async setup(options, nuxt) {
     const logger = useLogger('nuxt-compose-icons');
     const { pathToIcons, iconComponentList, iconSizes } = options;
     const componentsDestDir = options.generatedComponentOptions.componentsDestDir as string;
@@ -97,15 +99,13 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     // Create components directory and remove it first if it exists
     const componentsDir = createComponentsDir(resolver.resolve(componentsDestDir));
 
-    // const resolver = createResolver(import.meta.url);
-
     if (pathToIcons) {
       // Resolve the path to the icons directory provided
       const absolutePathToIcons = path.resolve(nuxt.options.rootDir, pathToIcons);
 
       if (fs.existsSync(absolutePathToIcons) && fs.statSync(absolutePathToIcons).isDirectory()) {
         // We first read all the files recursively to flatten the structure
-        const files = readDirectoryRecursively(absolutePathToIcons);
+        const files = await readDirectoryRecursively(absolutePathToIcons);
 
         /*
          * For each file we:
@@ -119,17 +119,21 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
          * 6. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
          *
          * We use a literal string template to create the Vue component
-         * see https://nuxt-compose-icons.arthurplazanet.com//why-literal-strings-to-create-vue-components
+         * see https://nuxt-compose-icons.arthurplazanet.com/why-literal-strings-to-create-vue-components
          */
-        files.forEach((filePath) => {
+        files.forEach(async (filePath) => {
           const fileInfo = path.parse(filePath);
 
+          if (fileInfo.ext !== '.svg') {
+            return;
+          }
+
           // 1. Parse the content (as HTML string)
-          const svgContent = fs.readFileSync(filePath, 'utf-8');
+          const svgContent = await fsp.readFile(filePath, 'utf-8');
 
           // TODO: Check if necessary to handle snake case as well
           // TODO: handle double dashes "--", and if ".svg" already present
-          const componentName = normalizeAndGenerateComponentName(fileInfo.name, options);
+          const componentName = generateComponentName(fileInfo.name, options);
 
           // 2. Create the component code as literal string template
           const componentCode = createSvgComponentCode(componentName, svgContent);
@@ -169,19 +173,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         const cssContent = generateCssFile(iconSizes);
 
         // Define the path to save the CSS file within the module
-        const cssFilePath = path.resolve(__dirname, './runtime/assets/compose-sizes.css');
+        const iconRootVars = path.resolve(__dirname, './runtime/assets/compose-sizes.css');
         // // Ensure the directory exists
-        fs.mkdirSync(path.dirname(cssFilePath), { recursive: true });
+        await fsp.mkdir(path.dirname(iconRootVars), { recursive: true });
         // // Write the CSS content to the file
-        fs.writeFileSync(cssFilePath, cssContent, 'utf-8');
+        await fsp.writeFile(iconRootVars, cssContent, 'utf-8');
 
+        const iconClasses = resolver.resolve('./runtime/assets/compose-icon.css');
         // nuxt.options.alias = {
         //   '@': './runtime',
         // };
+        // 2. Register a single template that merges them
+        // const tpl = addTemplate({
+        //   filename: 'compose-icons.css',
+        //   getContents: () => `${iconRootVars}\n\n${iconClasses}`,
+        // });
+        // console.log('📟 - tpl → ', tpl);
 
+        // 3. Inject into the Nuxt build
+        // nuxt.options.css.push(tpl.dst);
         // // Push the CSS file into the Nuxt app's CSS array
-        nuxt.options.css.push(cssFilePath);
-        nuxt.options.css.push(path.resolve(__dirname, './runtime/assets/compose-icon.css'));
+        nuxt.options.css.push(iconRootVars);
+        nuxt.options.css.push(iconClasses);
 
         addImportsDir(resolver.resolve('runtime/types'));
         addImportsDir(resolver.resolve('runtime/utils'));
@@ -193,13 +206,12 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         //   });
         // });
       } else {
-        // eslint-disable-next-line no-console
-        console.error(`Folder does not exist: ${absolutePathToIcons}`);
+        logger.error(`Folder does not exist: ${absolutePathToIcons}`);
+        throw new Error(`Folder does not exist: ${absolutePathToIcons}`);
       }
     } else if (iconComponentList) {
       Object.keys(iconComponentList).forEach((iconComponentName) => {
-        // eslint-disable-next-line no-console
-        console.log('📟 - iconComponentName → ', iconComponentName);
+        logger.info('📟 - iconComponentName → ', iconComponentName);
         // const test = resolveComponent(iconComponentList[iconComponentName]);
         // TODO: Check if necessary to handle snake case as well
         // const componentName = toPascalCase(iconComponentName).replace(/&/g, 'And');

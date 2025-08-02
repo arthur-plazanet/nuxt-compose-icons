@@ -30,11 +30,38 @@ export function normalizeComponentName(fileName: string): string {
   );
 }
 
-export function normalizeAndGenerateComponentName(
-  fileName: string,
-  options: NuxtComposeIconsOptions,
-): string {
+function isNonEmptyString(input: unknown): input is string {
+  return typeof input === 'string' && input.length > 0;
+}
+
+export function generateComponentName(fileName: string, options: NuxtComposeIconsOptions): string {
   const { prefix, suffix, case: _case } = options.generatedComponentOptions;
+
+  const normalizedBaseComponentName = normalizeComponentName(fileName);
+  const parts = normalizedBaseComponentName.split('-'); // for later suffix checks
+
+  const nameParts: string[] = [];
+
+  /*
+   * Add prefix and suffix if provided, and verify they are not already part of the base file name
+   * (e.g., icon-arrow-up.svg would become IconArrowUpIcon.svg as the suffix defaults to Icon)
+   */
+  if (isNonEmptyString(prefix)) {
+    if (!parts.includes(prefix.toLowerCase())) {
+      nameParts.push(prefix);
+    }
+  }
+
+  nameParts.push(normalizedBaseComponentName);
+
+  if (isNonEmptyString(suffix)) {
+    if (!parts.includes(suffix.toLowerCase())) {
+      nameParts.push(suffix);
+    }
+  }
+
+  const componentName = nameParts.join('-');
+
   function applyCase(str: string): string {
     if (_case === 'kebab') {
       return toKebabCase(str);
@@ -42,17 +69,6 @@ export function normalizeAndGenerateComponentName(
 
     return toPascalCase(str);
   }
-  let componentName = fileName; // applyCase(normalizeComponentName(fileName));
 
-  if (prefix) {
-    componentName = `${prefix}-${componentName}`;
-  }
-
-  if (suffix) {
-    componentName += `-${suffix || 'icon'}`;
-  }
-
-  const normalizedComponentName = normalizeComponentName(componentName);
-
-  return applyCase(normalizedComponentName);
+  return applyCase(componentName);
 }

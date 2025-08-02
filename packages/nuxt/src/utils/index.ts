@@ -2,7 +2,7 @@
  * Components utils
  */
 export { createComponentFromName } from './components/create-component-from-name';
-export { normalizeAndGenerateComponentName } from './components/normalize-and-generate-component-name';
+export { generateComponentName } from './components/generate-component-name';
 /*
  * Variable conventions utils
  */
