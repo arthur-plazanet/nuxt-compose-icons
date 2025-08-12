@@ -13,6 +13,7 @@ import {
   readDirectoryRecursively,
   writeComponentFile,
 } from './utils';
+import { optimizeSvg } from './utils/svg/svgo-optimize';
 // export { generateColorVariable, getIconSizeClass } from './runtime/utils';
 
 // export { IconSize } from './runtime/types';
@@ -152,17 +153,20 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           }
 
           // 1. Parse the content (as HTML string)
-          const svgContent = await fsp.readFile(filePath, 'utf-8');
+          let svgContent = await fsp.readFile(filePath, 'utf-8');
+
+          // 2. Optimize with SVGO
+          svgContent = optimizeSvg(svgContent);
 
           // TODO: Check if necessary to handle snake case as well
           // TODO: handle double dashes "--", and if ".svg" already present
           const componentName = generateComponentName(fileInfo.name, options);
 
-          // 2. Create the component code as literal string template
+          // 3. Create the component code as literal string template
           // const componentCode = createSvgComponentCode(componentName, svgContent);
           const componentCode = createSvgComponentCode(componentName, svgContent);
 
-          // 3. Write the component to the file system
+          // 4. Write the component to the file system
           const generatedFilePath = writeComponentFile(
             componentName,
             componentsDir,
@@ -170,14 +174,14 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             true,
           );
 
-          // 4. Create the "official" component object with the name and path
+          // 5. Create the "official" component object with the name and path
           const component = createComponentFromName({
             name: componentName,
             shortPath: generatedFilePath,
             filePath: generatedFilePath,
           });
 
-          // 5. Add the component to the Nuxt app's components array at build time
+          // 6. Add the component to the Nuxt app's components array at build time
           nuxt.hook('components:extend', (components) => {
             components.push(component);
           });
@@ -193,7 +197,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           // });
         });
 
-        // 6. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
+        // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
         const cssContent = generateCssFile(iconSizes);
 
         // Define the path to save the CSS file within the module

@@ -4,7 +4,6 @@ export function createSvgComponentCode(name: string, svgContent: string) {
   const { attributes, children } = parseAndTransformSvg(svgContent);
 
   return `
-<script lang="ts">
 import { defineComponent, h } from 'vue';
 
 export default defineComponent({
@@ -25,6 +24,5 @@ export default defineComponent({
     ]);
   }
 });
-</script>
   `;
 }

@@ -12,13 +12,13 @@ export function writeComponentFile(
   const componentsDir = componentDir;
   const indexFilePath = path.join(componentsDir, 'index.ts');
 
-  const filePath = path.join(componentsDir, `${componentName}.vue`);
+  const filePath = path.join(componentsDir, `${componentName}.ts`);
   if (componentCode) {
     fs.writeFileSync(filePath, componentCode, 'utf-8');
   }
 
   if (withIndex) {
-    const importStatement = `export { default as ${componentName} } from './${componentName}.vue';\n`;
+    const importStatement = `export { default as ${componentName} } from './${componentName}.ts';\n`;
 
     if (!fs.existsSync(indexFilePath)) {
       // Create index.ts and add the import statement
