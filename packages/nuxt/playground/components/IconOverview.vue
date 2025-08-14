@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, resolveComponent, type Component } from 'vue';
-import { useComposeIcon } from '../../src/runtime/composables/compose-icons'; // ⬅️ add this import
+import { useComposeIcon } from '../../src/runtime/composables/compose-icon';
 import type { ComposeIconSize } from '../../src/runtime/types';
 import * as AllIcons from './nuxt-compose-icons';
 

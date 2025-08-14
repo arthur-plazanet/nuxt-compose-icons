@@ -14,6 +14,7 @@ import {
   writeComponentFile,
 } from './utils';
 import { optimizeSvg } from './utils/svg/svgo-optimize';
+// export * from './runtime/composables/index';
 // export { generateColorVariable, getIconSizeClass } from './runtime/utils';
 
 // export { IconSize } from './runtime/types';
@@ -98,11 +99,11 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       throw new Error('pathToIcons or iconComponentList is required');
     }
 
-    const resolver = createResolver(import.meta.url);
+    const { resolve } = createResolver(import.meta.url);
 
     // Create components directory and remove it first if it exists
     const componentsDir = componentsDestDir
-      ? createComponentsDir(resolver.resolve(componentsDestDir)) || defaultDir
+      ? createComponentsDir(resolve(componentsDestDir)) || defaultDir
       : createComponentsDir(defaultDir);
 
     if (pathToIcons) {
@@ -202,12 +203,13 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         // Define the path to save the CSS file within the module
         const iconRootVars = path.resolve(__dirname, './runtime/assets/compose-sizes.css');
+
         // // Ensure the directory exists
         await fsp.mkdir(path.dirname(iconRootVars), { recursive: true });
         // // Write the CSS content to the file
         await fsp.writeFile(iconRootVars, cssContent, 'utf-8');
 
-        const iconClasses = resolver.resolve('./runtime/assets/compose-icon.css');
+        const iconClasses = resolve('./runtime/assets/compose-icon.css');
         // nuxt.options.alias = {
         //   '@': './runtime',
         // };
@@ -224,11 +226,17 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         nuxt.options.css.push(iconRootVars);
         nuxt.options.css.push(iconClasses);
 
-        addImportsDir(resolver.resolve('runtime/types'));
-        addImportsDir(resolver.resolve('runtime/utils'));
+        addImportsDir(resolve('runtime/types'));
+        addImportsDir(resolve('runtime/utils'));
 
         // Add composables
-        addImportsDir(resolver.resolve('runtime/composables'));
+        addImportsDir(resolve('runtime/composables'));
+
+        // addImports({
+        //   name: 'useComposeIcon', // name of the composable to be used
+        //   as: 'useComposeIcon',
+        //   from: resolve('runtime/composables/compose-icon'), // path of composable
+        // });
         // nuxt.hook('components:dirs', (dirs) => {
         //   dirs.push({
         //     path: path.resolve(__dirname, './runtime/components/icon-generated'),

@@ -1,0 +1,464 @@
+[
+  {
+    "text": "module",
+    "link": "/api/module/",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "Interfaces",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "GeneratedComponentOptions",
+            "link": "/api/module/interfaces/GeneratedComponentOptions.md"
+          },
+          {
+            "text": "NuxtComposeIconsOptions",
+            "link": "/api/module/interfaces/NuxtComposeIconsOptions.md"
+          }
+        ]
+      },
+      {
+        "text": "Variables",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "default",
+            "link": "/api/module/variables/default.md"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "render",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "parse-and-transform-svg",
+        "link": "/api/render/parse-and-transform-svg/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Functions",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "parseAndTransformSvg",
+                "link": "/api/render/parse-and-transform-svg/functions/parseAndTransformSvg.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "svg-codegen",
+        "link": "/api/render/svg-codegen/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Functions",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "createSvgComponentCode",
+                "link": "/api/render/svg-codegen/functions/createSvgComponentCode.md"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "runtime",
+    "link": "/api/runtime/",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "composables",
+        "link": "/api/runtime/composables/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "compose-icon",
+            "link": "/api/runtime/composables/compose-icon/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Interfaces",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "UseComposeIcon",
+                    "link": "/api/runtime/composables/compose-icon/interfaces/UseComposeIcon.md"
+                  }
+                ]
+              },
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "useComposeIcon",
+                    "link": "/api/runtime/composables/compose-icon/functions/useComposeIcon.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "types",
+        "link": "/api/runtime/types/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "compose-icons-props",
+            "link": "/api/runtime/types/compose-icons-props/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Interfaces",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "ComposeIconProps",
+                    "link": "/api/runtime/types/compose-icons-props/interfaces/ComposeIconProps.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "icon-sizes",
+            "link": "/api/runtime/types/icon-sizes/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Interfaces",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "ComposeIconSize",
+                    "link": "/api/runtime/types/icon-sizes/interfaces/ComposeIconSize.md"
+                  }
+                ]
+              },
+              {
+                "text": "Type Aliases",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "IconSizeKey",
+                    "link": "/api/runtime/types/icon-sizes/type-aliases/IconSizeKey.md"
+                  },
+                  {
+                    "text": "IconSizeKeyValue",
+                    "link": "/api/runtime/types/icon-sizes/type-aliases/IconSizeKeyValue.md"
+                  }
+                ]
+              },
+              {
+                "text": "Variables",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "IconSize",
+                    "link": "/api/runtime/types/icon-sizes/variables/IconSize.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "utils",
+        "link": "/api/runtime/utils/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "icon-size-class",
+            "link": "/api/runtime/utils/icon-size-class/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Variables",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "iconSizeClass",
+                    "link": "/api/runtime/utils/icon-size-class/variables/iconSizeClass.md"
+                  }
+                ]
+              },
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "getIconSizeClass",
+                    "link": "/api/runtime/utils/icon-size-class/functions/getIconSizeClass.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "icon-theme",
+            "link": "/api/runtime/utils/icon-theme/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "generateColorVariable",
+                    "link": "/api/runtime/utils/icon-theme/functions/generateColorVariable.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "type",
+    "link": "/api/type/"
+  },
+  {
+    "text": "utils",
+    "link": "/api/utils/",
+    "collapsed": true,
+    "items": [
+      {
+        "text": "components",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "create-component-from-name",
+            "link": "/api/utils/components/create-component-from-name/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "createComponentFromName",
+                    "link": "/api/utils/components/create-component-from-name/functions/createComponentFromName.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "generate-component-name",
+            "link": "/api/utils/components/generate-component-name/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "generateComponentName",
+                    "link": "/api/utils/components/generate-component-name/functions/generateComponentName.md"
+                  },
+                  {
+                    "text": "normalizeComponentName",
+                    "link": "/api/utils/components/generate-component-name/functions/normalizeComponentName.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "convert-cases",
+        "link": "/api/utils/convert-cases/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Functions",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "pascalCaseToKebabCase",
+                "link": "/api/utils/convert-cases/functions/pascalCaseToKebabCase.md"
+              },
+              {
+                "text": "toKebabCase",
+                "link": "/api/utils/convert-cases/functions/toKebabCase.md"
+              },
+              {
+                "text": "toPascalCase",
+                "link": "/api/utils/convert-cases/functions/toPascalCase.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "convert-node-to-vnode",
+        "link": "/api/utils/convert-node-to-vnode/",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "Functions",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "convertNodeToVNode",
+                "link": "/api/utils/convert-node-to-vnode/functions/convertNodeToVNode.md"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "filesystem",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "create-components-dir",
+            "link": "/api/utils/filesystem/create-components-dir/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "createComponentsDir",
+                    "link": "/api/utils/filesystem/create-components-dir/functions/createComponentsDir.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "read-directory-recursively",
+            "link": "/api/utils/filesystem/read-directory-recursively/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "readDirectoryRecursively",
+                    "link": "/api/utils/filesystem/read-directory-recursively/functions/readDirectoryRecursively.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "write-component-file",
+            "link": "/api/utils/filesystem/write-component-file/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "writeComponentFile",
+                    "link": "/api/utils/filesystem/write-component-file/functions/writeComponentFile.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "styles",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "generate-css-file",
+            "link": "/api/utils/styles/generate-css-file/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "generateCssFile",
+                    "link": "/api/utils/styles/generate-css-file/functions/generateCssFile.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "text": "svg",
+        "collapsed": true,
+        "items": [
+          {
+            "text": "create-svg-component",
+            "link": "/api/utils/svg/create-svg-component/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "createSvgComponentCode",
+                    "link": "/api/utils/svg/create-svg-component/functions/createSvgComponentCode.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "parse-svg",
+            "link": "/api/utils/svg/parse-svg/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "parseSvg",
+                    "link": "/api/utils/svg/parse-svg/functions/parseSvg.md"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "text": "svgo-optimize",
+            "link": "/api/utils/svg/svgo-optimize/",
+            "collapsed": true,
+            "items": [
+              {
+                "text": "Functions",
+                "collapsed": true,
+                "items": [
+                  {
+                    "text": "optimizeSvg",
+                    "link": "/api/utils/svg/svgo-optimize/functions/optimizeSvg.md"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

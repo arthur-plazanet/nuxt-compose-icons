@@ -59,8 +59,8 @@ The aim is to combine the control and quality of hand-authored components with t
 :::code-group
 
 ```xml [user-badge.svg]
-<svg fill="#000" stroke="#fff" stroke-width="2">
-  <path d="..." />
+<svg viewBox="0 0 24 24" <!-- other attributes...--> >
+  <path d="..." fill="#000" stroke="#fff" stroke-width="2" />
 </svg>
 ```
 
@@ -72,12 +72,13 @@ The aim is to combine the control and quality of hand-authored components with t
 
 ```vue [UserBadgeIcon.vue]
 <template>
-  <svg
-    :fill="var(--icon-fill, #000)"
-    :stroke="var(--icon-stroke, #fff)"
-    :stroke-width="var(--icon-stroke-width, 2)"
-  >
-    <path d="..." />
+  <svg viewBox="0 0 24 24">
+    <path
+      d="..."
+      fill="var(--icon-fill, #000)"
+      stroke="var(--icon-stroke, #fff)"
+      stroke-width="var(--icon-stroke-width, 2)"
+    />
   </svg>
 </template>
 ```

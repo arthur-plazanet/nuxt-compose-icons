@@ -3,6 +3,8 @@ import type { ComposeIconProps, IconSizeKeyValue } from '../types';
 import { IconSize } from '../types';
 import { getIconSizeClass } from '../utils';
 
+export { useComposeIcon };
+export type { UseComposeIcon };
 interface UseComposeIcon {
   iconStyles: Record<string, string | undefined>;
   iconClasses: string[];
@@ -16,7 +18,7 @@ interface UseComposeIcon {
     class: string[];
   };
 }
-export function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
+function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
   // 1) Size
   const size = computed<IconSizeKeyValue>(() => props.size ?? IconSize.MD);
   const iconSizeClass = computed(() => getIconSizeClass(size.value));

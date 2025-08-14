@@ -269,6 +269,7 @@
   --vp-font-family-mono:
     ui-monospace, 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
   font-optical-sizing: auto;
+  --vp-font-family-base: 'gotham', sans-serif;
 }
 
 :root:where(:lang(zh)) {

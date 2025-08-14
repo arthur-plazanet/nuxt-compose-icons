@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["@nuxt/schema", "vue"]
+  },
+  "exclude": [
+    "packages/nuxt/playground",
+    "packages/nuxt/test",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*/node_modules/**"
+  ]
+}

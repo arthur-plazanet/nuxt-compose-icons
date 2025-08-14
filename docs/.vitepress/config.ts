@@ -1,9 +1,8 @@
 import { defineConfig } from 'vitepress';
+import typedocSidebar from '../api/typedoc-sidebar.json';
 
 const sidebar = {
-  // This sidebar gets displayed when a user
-  // is on `guide` directory.
-  '/guide/': [
+  '/': [
     {
       text: 'Guide',
       items: [
@@ -11,6 +10,11 @@ const sidebar = {
         { text: 'Features', link: '/guide/features' },
         { text: 'Getting Started', link: '/guide/getting-started' },
       ],
+    },
+    {
+      text: 'API',
+      link: '/api',
+      items: typedocSidebar,
     },
   ],
 };

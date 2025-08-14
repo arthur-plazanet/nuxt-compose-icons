@@ -1,18 +1,25 @@
 {
-  "entryPoints": ["./packages/nuxt/src/module.ts"],
+  "entryPoints": ["./packages/nuxt/src/**/*.ts"],
   "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
-  "out": "./docs/typedoc-api",
-  "docsRoot": "./docs/typedoc-api",
+  "out": "./docs/api", // This is where the documentation will be written
+  "tsconfig": "./tsconfig.typedoc.json", // Reference the root tsconfig to include docs/
+  "docsRoot": "./docs",
   "theme": "markdown",
-  "exclude": ["**/node_modules/**", "**/dist/**", "**/test/**", "**/tests/**", "**/__tests__/**"],
-  "excludeExternals": true,
-  "indexFormat": "table",
+  "exclude": [
+    "**/*/node_modules/**/*",
+    "node_modules",
+    "**/dist/**",
+    "**/test/**",
+    "**/tests/**",
+    "**/__tests__/**",
+    "**/.pnpm/**"
+  ],
+  "indexFormat": "list",
   "useCodeBlocks": true,
-  "disableSources": true,
   "sidebar": {
+    "collapsed": true,
     "autoConfiguration": true,
     "format": "vitepress",
-    "pretty": false,
-    "collapsed": true
+    "pretty": true
   }
 }
