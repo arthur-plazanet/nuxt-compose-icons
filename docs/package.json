@@ -26,7 +26,7 @@
     "@use-compose/ui": "0.3.0",
     "@wdns/vue-code-block": "2.3.5",
     "highlight.js": "11.11.1",
-    "vue": "3.5.20",
+    "vue": "3.5.25",
     "vue-code-highlighter": "1.1.3"
   }
 }
