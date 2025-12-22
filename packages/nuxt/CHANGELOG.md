@@ -1,5 +1,15 @@
 # nuxt-compose-icons
 
+## 0.2.0
+
+### Minor Changes
+
+- 8af99dc: Icon registry and more robust registration of icon components
+
+### Patch Changes
+
+- f50cade: WIP with componentsDestDir
+
 ## 0.1.1
 
 ### Patch Changes
