@@ -76,7 +76,7 @@
   "module": "./dist/module.mjs",
   "repository": {
     "type": "git",
-    "url": "https://github.com/use-compose/nuxt-compose-icons"
+    "url": "https://github.com/arthur-plazanet/nuxt-compose-icons"
   },
   "type": "module",
   "types": "./dist/types.d.ts",
