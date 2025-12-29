@@ -36,7 +36,7 @@ jobs:
         run: pnpm --filter ./packages/nuxt/playground exec nuxi build
 
       - name: Upload-artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: playground-build
           path: ./packages/nuxt/playground/.output/public/
@@ -59,7 +59,7 @@ jobs:
         run: pnpm docs:build
 
       - name: Upload-artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: docs-build
           path: ./docs/.vitepress/dist/
