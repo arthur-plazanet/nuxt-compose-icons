@@ -2,19 +2,36 @@ name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
   release:
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: pnpm/action-setup@v4
         with:
-          version: 10
-      - run: pnpm install
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Enable Corepack (pnpm)
+        run: |
+          corepack enable
+          corepack prepare pnpm@10 --activate
+          node --version
+          npm --version
+          pnpm --version
+
+      - run: pnpm install --no-frozen-lockfile
 
       - name: Nuxt prepare
         run: pnpm dev:prepare
@@ -25,7 +42,7 @@ jobs:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
 
       - name: Push the release tags back
         run: git push --follow-tags
