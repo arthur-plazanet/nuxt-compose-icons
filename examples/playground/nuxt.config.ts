@@ -14,10 +14,10 @@ const options: NuxtComposeIconsOptions = {
     case: 'pascal',
 
     // relative path
-    componentsDestDir: './app/components/nuxt-compose-icons',
+    componentsDestDir: './app/components/ui/icons',
 
     // absolute path
-    // componentsDestDir: path.resolve('./app/components/nuxt-compose-icons'),
+    // componentsDestDir: path.resolve('./app/components/ui/icons'),
   },
 
   // dryRun: true,
@@ -30,4 +30,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   compatibilityDate: '2024-12-14',
   // css: ['@use-compose/ui/style.css'],
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
+  css: ['~/assets/css/main.css'],
 });

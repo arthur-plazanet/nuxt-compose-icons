@@ -1,12 +1,13 @@
 <template>
   <div class="icon-overview">
-    <input v-model="q" placeholder="Search icons…" />
-    <ul>
-      <li v-for="i in filtered" :key="i.name">
-        <component :is="i.name" class="w-6 h-6" />
-        <span>{{ i.kebabName }}</span>
-      </li>
-    </ul>
+    <div>
+      <input v-model="q" placeholder="Search icons…" />
+      <input type="text" name="sm" placeholder="SM icon size" />
+    </div>
+
+    <div v-for="i in filtered" :key="i.name">
+      <component :is="i.name" />
+    </div>
     <!-- <Component
       :is="component"
       v-for="(component, index) in components"
@@ -25,10 +26,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, resolveComponent, type Component } from 'vue';
 // import { useComposeIcon } from '../../src/runtime/composables/compose-icon';
-import { useComposeIconRegistry } from 'nuxt-compose-icons';
-import * as AllIcons from './nuxt-compose-icons';
+// import { useComposeIconRegistry } from 'nuxt-compose-icons';
+// import * as AllIcons from 'nuxt-compose-icons';
 
-const { searchIcons } = useComposeIconRegistry();
+const { searchIcons, icons } = useComposeIconRegistry();
 const q = ref('');
 
 const filtered = computed(() => searchIcons(q.value));
@@ -37,7 +38,7 @@ const filtered = computed(() => searchIcons(q.value));
 const components = ref<(Component | string)[]>([]);
 
 const loadComponents = () => {
-  return Object.keys(AllIcons).map((file) => {
+  return Object.keys(icons).map((file) => {
     const component = resolveComponent(file);
     return component;
   });

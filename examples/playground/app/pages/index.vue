@@ -1,20 +1,19 @@
 <template>
-  <div class="container">
-    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
-  </div>
+  <GettingStarted />
+  <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
 </template>
 
 <script setup lang="ts">
+import GettingStarted from '~/components/GettingStarted.vue';
+
 // import { useComposeIcon } from 'nuxt-compose-icons';
 </script>
 
 <style>
-body {
-  background-color: #1c1b1b;
-}
-
-.container {
-  min-height: 100svh;
-  align-content: center;
+.presentation {
+  background-color: black;
+  display: grid;
+  grid-template-rows: 50px auto;
+  grid-template-columns: auto;
 }
 </style>
