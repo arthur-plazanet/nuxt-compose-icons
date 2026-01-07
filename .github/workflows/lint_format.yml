@@ -1,12 +1,12 @@
-name: Lint & Format & Build
+name: Lint & Format
 
 on:
   workflow_call:
     inputs:
       node_version:
         required: true
-        type: string
-        default: 20
+        type: number
+        default: 22
 
 jobs:
   lint:
