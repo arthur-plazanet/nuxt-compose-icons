@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.1
+
+### Patch Changes
+
+- 1e04014: Remove unused import in component generation
+
 ## 0.2.0
 
 ### Minor Changes
