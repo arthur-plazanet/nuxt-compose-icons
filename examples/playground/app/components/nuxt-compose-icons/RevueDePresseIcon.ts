@@ -1,0 +1,87 @@
+
+    import { defineComponent, h, type PropType } from 'vue';
+
+    // TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
+    import { useComposeIcon } from '#imports';
+    // import type { IconSizeKeyValue } from 'nuxt-compose-icons/types';
+
+    export default defineComponent({
+      name: 'RevueDePresseIcon',
+      props: {
+        color: String,
+        stroke: String,
+        strokeWidth: [String, Number],
+        fill: String,
+        size: {
+          type: String,
+          default: 'md'
+        }
+      },
+      setup(props) {
+        const { buildSvgAttributes } = useComposeIcon(props);
+        const svgAttributes = {
+  "width": 78,
+  "height": 85,
+  "fill": "none",
+  "viewBox": "0 0 78 85"
+};
+
+        return () => h('svg', buildSvgAttributes(svgAttributes), [
+          h('g', {
+  "clip-path": "url(#clip0_1_267)"
+}, [h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-linejoin": "round",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M27.1835 82.4432L22.183 71.4432M52.503 8.9999L50.0433 2.1604L3.57635 18.8917L19.5008 62.4996"
+}, []),
+h('path', {
+  "fill": "var(--icon-fill, #000)",
+  "d": "M17.922 23.001 12.5 24.974 13.526 27.793 18.948 25.82 17.922 23.001ZM19.728 30.857 15.236 32.492 16.262 35.311 20.754 33.676 19.728 30.857Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-linejoin": "round",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M21.4995 44.0005L15.9985 15.6699L64.2541 7.16113L65.6363 15"
+}, []),
+h('path', {
+  "fill": "var(--icon-fill, #000)",
+  "d": "M26.735 21.393 22.717 22.101 23.238 25.056 27.256 24.347 26.735 21.393ZM26.785 29.507 24.106 29.98 24.627 32.934 27.306 32.462 26.785 29.507Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-linejoin": "round",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M26.9985 38.5005V15.1611H75.9985V82.1611H26.9985V68.0005"
+}, []),
+h('path', {
+  "fill": "var(--icon-fill, #000)",
+  "d": "M69.499 22.661H32.499V25.661H69.499V22.661ZM69.499 30.661H32.499V33.661H69.499V30.661ZM41 38.661H50.499V41.661H41V38.661ZM43.5 62.661H69.499V65.661H43.5V62.661Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-linejoin": "round",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M67.9985 40.1611H54.9985V56.1611H67.9985V40.1611Z"
+}, []),
+h('path', {
+  "fill": "var(--icon-fill, #000)",
+  "d": "M32.4985 70.6611H69.4985V73.6611H32.4985V70.6611Z"
+}, []),
+h('path', {
+  "fill": "var(--icon-fill, #000)",
+  "fill-rule": "evenodd",
+  "d": "M43.0457 43.4537C37.774 38.1821 29.2237 38.1821 23.952 43.4537C19.6955 47.7092 18.873 54.1103 21.5029 59.1809L21.5099 59.1946C22.117 60.3951 22.937 61.529 23.9518 62.5469C24.9705 63.5615 26.1039 64.3801 27.3062 64.99L27.3187 64.9963C32.3868 67.6268 38.7888 66.8039 43.0457 62.5471C48.3174 57.2755 48.3174 48.7254 43.0457 43.4537ZM18.1692 59.0962C15.8036 53.1664 17.028 46.134 21.8308 41.3323C28.2741 34.8892 38.7238 34.8892 45.167 41.3324C51.6103 47.7756 51.6103 58.2252 45.167 64.6684C40.3003 69.5352 33.1422 70.7287 27.1646 68.2329L12.9361 82.4635C10.4339 84.9627 6.36866 84.9643 3.86789 82.4636C2.62621 81.2219 1.99174 79.5753 2.00058 77.9295C1.99174 76.2832 2.62654 74.6382 3.86727 73.396L18.1692 59.0962ZM19.5498 61.9581L5.98983 75.5161C5.32855 76.1782 4.99445 77.0499 5.00057 77.9189V77.9401C4.99445 78.8096 5.32889 79.6819 5.98921 80.3422C7.31773 81.6708 9.48376 81.6716 10.8153 80.3416L24.3738 66.7812C23.437 66.1543 22.5502 65.4273 21.7275 64.6069L21.7241 64.6035C20.9047 63.7811 20.1771 62.895 19.5498 61.9581Z",
+  "clip-rule": "evenodd"
+}, [])]),h('defs', {}, [h('clipPath', {
+  "id": "clip0_1_267"
+}, [h('path', {
+  "fill": "var(--icon-fill, #fff)",
+  "d": "M0 0H77V85H0z",
+  "transform": "translate(0.5)"
+}, [])])])
+        ]);
+      }
+    });
+ 

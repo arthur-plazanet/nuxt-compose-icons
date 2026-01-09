@@ -1,0 +1,28 @@
+/* 
+ * Override default icon styles
+ * to allow icon theming on user interactions like hover
+*/
+:root {
+  --icon-hover-color: oklch(from var(--icon-stroke), 70% c h);
+  --icon-active-color: oklch(from var(--icon-stroke), 60% c h);
+  --icon-focus-size: calc(var(--icon-size) + 0.5rem);
+}
+
+.container {
+  box-sizing: border-box;
+  max-width: min(700px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.compose-icon:hover {
+  stroke: var(--icon-hover-color);
+  fill: var(--icon-hover-color);
+}
+
+.compose-icon:active {
+  --icon-stroke: var(--icon-active-color);
+}
+
+.compose-icon:focus {
+  --icon-size: var(--icon-focus-size);
+}
