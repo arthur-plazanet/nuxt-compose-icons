@@ -140,8 +140,8 @@ importers:
         specifier: 0.0.6
         version: 0.0.6
       node-html-parser:
-        specifier: 7.0.1
-        version: 7.0.1
+        specifier: 7.0.2
+        version: 7.0.2
       svg-parser:
         specifier: 2.0.4
         version: 2.0.4
@@ -4907,6 +4907,9 @@ packages:
 
   node-html-parser@7.0.1:
     resolution: {integrity: sha512-KGtmPY2kS0thCWGK0VuPyOS+pBKhhe8gXztzA2ilAOhbUbxa9homF1bOyKvhGzMLXUoRds9IOmr/v5lr/lqNmA==}
+
+  node-html-parser@7.0.2:
+    resolution: {integrity: sha512-DxodLVh7a6JMkYzWyc8nBX9MaF4M0lLFYkJHlWOiu7+9/I6mwNK9u5TbAMC7qfqDJEPX9OIoWA2A9t4C2l1mUQ==}
 
   node-mock-http@1.0.4:
     resolution: {integrity: sha512-8DY+kFsDkNXy1sJglUfuODx1/opAGJGyrTuFqEoN90oRc2Vk0ZbD4K2qmKXBBEhZQzdKHIVfEJpDU8Ak2NJEvQ==}
@@ -12096,6 +12099,11 @@ snapshots:
       css-select: 5.2.2
       he: 1.2.0
 
+  node-html-parser@7.0.2:
+    dependencies:
+      css-select: 5.2.2
+      he: 1.2.0
+
   node-mock-http@1.0.4: {}
 
   node-releases@2.0.27: {}
@@ -12310,7 +12318,7 @@ snapshots:
       unplugin-vue-router: 0.19.1(@vue/compiler-sfc@3.6.0-beta.2)(vue-router@4.6.3(vue@3.5.26(typescript@5.9.3)))(vue@3.5.26(typescript@5.9.3))
       untyped: 2.0.0
       vue: 3.5.26(typescript@5.9.3)
-      vue-router: 4.6.3(vue@3.5.26(typescript@5.9.3))
+      vue-router: 4.6.3(vue@3.6.0-beta.2(typescript@5.9.3))
     optionalDependencies:
       '@parcel/watcher': 2.5.1
       '@types/node': 25.0.3
@@ -13865,7 +13873,7 @@ snapshots:
       unplugin-utils: 0.3.1
       yaml: 2.8.2
     optionalDependencies:
-      vue-router: 4.6.3(vue@3.5.26(typescript@5.9.3))
+      vue-router: 4.6.3(vue@3.6.0-beta.2(typescript@5.9.3))
     transitivePeerDependencies:
       - vue
 
@@ -14240,6 +14248,11 @@ snapshots:
     dependencies:
       '@vue/devtools-api': 6.6.4
       vue: 3.6.0-alpha.2(typescript@5.9.3)
+
+  vue-router@4.6.3(vue@3.6.0-beta.2(typescript@5.9.3)):
+    dependencies:
+      '@vue/devtools-api': 6.6.4
+      vue: 3.6.0-beta.2(typescript@5.9.3)
 
   vue-sfc-transformer@0.1.17(@vue/compiler-core@3.6.0-beta.2)(esbuild@0.27.2)(vue@3.6.0-beta.2(typescript@5.9.3)):
     dependencies:
