@@ -1,11 +1,11 @@
 <template>
   <VueCodeHighlighter
     v-if="!multi"
-    :code="simpleCode"
+    :code="finalCode"
     :lang="lang || 'plaintext'"
     :file-name="fileName"
   />
-  <VueCodeHighlighterMulti v-if="multi" :code="code" />
+  <VueCodeHighlighterMulti v-if="multi" :code="finalCode" />
 </template>
 
 <script setup lang="ts">
@@ -38,12 +38,13 @@ interface SimpleCode {
   title?: string;
 }
 
-let simpleCode: string;
-let code: Array<SimpleCode> = [];
-
-if (props.multi) {
-  code = props.code as Array<SimpleCode>;
-} else {
-  simpleCode = props.code as string;
+function getCode(): Array<SimpleCode> | string {
+  if (props.multi) {
+    return props.code as Array<SimpleCode>;
+  } else {
+    return props.code as string;
+  }
 }
+
+const finalCode = getCode();
 </script>
