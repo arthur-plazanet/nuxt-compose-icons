@@ -34,7 +34,7 @@ jobs:
         run: pnpm test
 
       - name: Upload HTML report
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && inputs.node_version == 24 }}
         uses: actions/upload-artifact@v6
         with:
           name: test-coverage-${{ inputs.node_version }}
@@ -42,7 +42,7 @@ jobs:
           retention-days: 30
 
       - name: Upload Screenshot
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && inputs.node_version == 24 }}
         uses: actions/upload-artifact@v6
         with:
           name: screenshot-${{ inputs.node_version }}
