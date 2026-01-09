@@ -1,0 +1,65 @@
+
+    import { defineComponent, h, type PropType } from 'vue';
+
+    // TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
+    import { useComposeIcon } from '#imports';
+    // import type { IconSizeKeyValue } from 'nuxt-compose-icons/types';
+
+    export default defineComponent({
+      name: 'GroupeIcon',
+      props: {
+        color: String,
+        stroke: String,
+        strokeWidth: [String, Number],
+        fill: String,
+        size: {
+          type: String,
+          default: 'md'
+        }
+      },
+      setup(props) {
+        const { buildSvgAttributes } = useComposeIcon(props);
+        const svgAttributes = {
+  "width": 70,
+  "height": 53,
+  "fill": "none",
+  "viewBox": "0 0 70 53"
+};
+
+        return () => h('svg', buildSvgAttributes(svgAttributes), [
+          h('g', {
+  "clip-path": "url(#clip0_1_181)"
+}, [h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-miterlimit": "10",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M20.711 38.819V50.807H2.086L2.005 38.807C2.005 38.807 2 38.654 2 38.571C2 30.247 8.745 23.502 17.072 23.502C20.486 23.502 23.768 24.642 26.294 26.555C22.666 29.306 20.711 33.91 20.711 38.819Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-miterlimit": "10",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M24.248 12.502C24.248 14.804 24.954 16.939 26.159 18.702 24.182 21.6 20.848 23.511 17.072 23.511 10.994 23.511 6.065 18.582 6.065 12.502 6.065 6.425 10.995 1.5 17.072 1.5 20.848 1.5 24.182 3.405 26.159 6.305 24.954 8.068 24.248 10.204 24.248 12.502ZM48.711 50.808H20.711C20.711 50.808 20.711 38.899 20.711 38.82 20.711 33.91 22.665 29.309 26.294 26.557 28.823 24.644 31.901 23.512 35.314 23.512 38.731 23.512 41.85 24.644 44.376 26.554 48.008 29.306 49.037 33.671 49.037 38.581 49.036 38.66 48.711 50.808 48.711 50.808Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-miterlimit": "10",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M46.255 12.502C46.255 14.804 45.547 16.939 44.339 18.702 42.36 21.6 39.026 23.511 35.247 23.511 31.473 23.511 28.14 21.6 26.158 18.702 24.953 16.939 24.247 14.805 24.247 12.502 24.247 10.203 24.953 8.068 26.158 6.305 28.14 3.405 31.473 1.5 35.247 1.5 39.026 1.5 42.359 3.405 44.339 6.305 45.547 8.068 46.255 10.204 46.255 12.502ZM68.295 50.808H48.711C48.711 50.808 49.017 38.66 49.017 38.581 49.017 33.671 48.005 29.307 44.375 26.554 46.901 24.641 49.689 23.512 53.105 23.512 61.431 23.512 68.338 30.248 68.338 38.572 68.339 38.654 68.295 50.808 68.295 50.808Z"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #000)",
+  "stroke-miterlimit": "10",
+  "stroke-width": "var(--icon-stroke-width, 3)",
+  "d": "M64.434 12.502C64.434 18.582 59.508 23.511 53.428 23.511C49.657 23.511 46.321 21.6 44.34 18.702C45.548 16.939 46.256 14.805 46.256 12.502C46.256 10.203 45.548 8.068 44.34 6.305C46.32 3.405 49.657 1.5 53.428 1.5C59.507 1.5 64.434 6.425 64.434 12.502Z"
+}, [])]),h('defs', {}, [h('clipPath', {
+  "id": "clip0_1_181"
+}, [h('path', {
+  "fill": "var(--icon-fill, #fff)",
+  "d": "M0 0H69.339V52.308H0z",
+  "transform": "translate(0.5)"
+}, [])])])
+        ]);
+      }
+    });
+ 

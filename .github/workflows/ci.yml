@@ -12,13 +12,13 @@ on:
   workflow_dispatch:
 
 jobs:
-  lint_format_build:
+  lint_format:
     if: ${{ ! startsWith(github.event.pull_request.head.ref, 'renovate/') }}
     name: Lint, Format and build - Node version ${{ matrix.node_version }}
     strategy:
       matrix:
         node_version: [20, 22, 24]
-    uses: ./.github/workflows/lint_format_build.yml
+    uses: ./.github/workflows/lint_format.yml
     with:
       node_version: ${{ matrix.node_version }}
 
@@ -81,98 +81,3 @@ jobs:
 
       - name: Deploy playground-build with rsync
         run: rsync -avz ./playground-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons-playground.use-compose.com/
-
-  # build-playground:
-  #   # The type of runner that the job will run on
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v5
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Install dependencies
-  #       uses: ./.github/actions/install-dependencies
-  #       with:
-  #         node_version: ${{ inputs.node_version }}
-  #         pnpm_version: 9
-  #         cache: 'pnpm'
-
-  #     - name: Playground prepare
-  #       run: pnpm dev:prepare
-
-  #     - name: Build the playground
-  #       run: pnpm dev:build
-
-  #     - name: Upload-artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: playground-build
-  #         path: ./packages/nuxt/playground/.output/public/
-
-  # build-and-deploy-docs:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v5
-
-  #     - name: Install dependencies
-  #       uses: ./.github/actions/install-dependencies
-  #       with:
-  #         node_version: ${{ inputs.node_version }}
-  #         pnpm_version: 9
-  #         cache: 'pnpm'
-
-  #     - name: Build with VitePress
-  #       run: pnpm docs:build
-
-  #     - name: Upload-artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: docs-build
-  #         path: ./docs/.vitepress/dist/
-
-  # deploy:
-  #   # if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-  #   needs: build-playground
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout 🛎
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Download artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: docs-build
-  #         path: ./docs-build
-
-  #     - name: Download playground artifact
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: playground-build
-  #         path: ./playground-build
-
-  #     - name: Install SSH Key
-  #       uses: shimataro/ssh-key-action@v2
-  #       with:
-  #         # TODO: add to Wiki https://github.com/github/vscode-github-actions/issues/222
-  #         key: ${{ secrets.SSH_KEY }}
-  #         known_hosts: unnecessary
-
-  #     - name: Set up SSH key
-  #       run: |
-  #         ls -la ~/.ssh
-
-  #     - name: Adding Known Hosts
-  #       run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-
-  #     - name: Deploy docs-build with rsync
-  #       run: rsync -avz ./docs-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons.use-compose.com/
-
-  #     - name: Deploy playground-build with rsync
-  #       run: rsync -avz ./playground-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons-playground.use-compose.com/

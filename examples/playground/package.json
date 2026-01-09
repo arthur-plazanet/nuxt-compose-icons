@@ -8,13 +8,14 @@
     "preview": "nuxt preview"
   },
   "dependencies": {
+    "vue-code-highlighter": "1.1.3",
     "@nuxt/kit": "4.2.2",
     "nuxt": "4.2.1",
     "vue": "3.6.0-alpha.2",
     "vue-router": "4.6.3"
   },
   "devDependencies": {
-    "nuxt-compose-icons": "workspace:*"
+    "nuxt-compose-icons": "0.2.0"
   },
   "type": "module"
 }
