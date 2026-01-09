@@ -11,7 +11,7 @@ export function createSvgComponentCode(name: string, svgContent: string) {
   const { attributes, children } = parseAndTransformSvg(svgContent);
 
   return `
-    import { defineComponent, h, type PropType } from 'vue';
+    import { defineComponent, h } from 'vue';
 
     // TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
     import { useComposeIcon } from '#imports';

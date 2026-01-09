@@ -238,6 +238,10 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       throw new Error('pathToIcons or iconComponentList is required');
     }
 
+    if (!options.generatedComponentOptions.componentsDestDir) {
+      logger.info('⚠️ - componentsDestDir is not set, using default directory → ', defaultDir);
+    }
+
     // let componentsDir: string = userComponentsDestDirOption;
 
     // /**
