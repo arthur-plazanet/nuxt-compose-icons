@@ -1,5 +1,6 @@
 <template>
   <GettingStarted />
+  <IconTheming />
   <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
 </template>
 
