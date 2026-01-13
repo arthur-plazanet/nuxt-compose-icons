@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.2
+
+### Patch Changes
+
+- e835610: Remove explicit type template
+
 ## 0.2.1
 
 ### Patch Changes
