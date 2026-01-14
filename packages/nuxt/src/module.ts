@@ -1,4 +1,5 @@
 import {
+  addComponent,
   addImportsDir,
   addTemplate,
   checkNuxtCompatibility,
@@ -11,7 +12,8 @@ import * as fs from 'node:fs';
 import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { createSvgComponentCode } from './render/svg-codegen';
-import { IconSize, type ComposeIconSize } from './runtime/types';
+import { IconSize } from './runtime/types';
+import { ComposeIconSize } from './runtime/types/icon-sizes';
 import {
   createComponentFromName,
   generateComponentName,
@@ -22,6 +24,7 @@ import {
 } from './utils';
 import { generateIconsIndex, generateIconsRegistry } from './utils/filesystem/generate-icon-index';
 import { createDir, writeFile } from './utils/filesystem/helpers';
+import { optimizeCss } from './utils/styles/optimize-css';
 // export * from './runtime/composables/index';
 // export { generateColorVariable, getIconSizeClass } from './runtime/utils';
 
@@ -112,12 +115,11 @@ export interface NuxtComposeIconsOptions {
    *   xl: '2.5rem',
    * }
    *
-   * @type {?ComposeIconSize}
+   * @type {?IconSizes}
    */
   iconSizes?: ComposeIconSize;
 
   /**
-   *
    * @type {GeneratedComponentOptions}
    */
   generatedComponentOptions: GeneratedComponentOptions;
@@ -365,7 +367,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           const componentName = generateComponentName(fileInfo.name, options);
 
           // 3. Create the component code as literal string template
-          // const componentCode = createSvgComponentCode(componentName, svgContent);
           const componentCode = createSvgComponentCode(componentName, svgContent);
 
           // 4. Write the component to the file system
@@ -418,14 +419,14 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // });
 
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
-        const cssContent = generateCssFile(iconSizes);
+        const { iconRootVars, cssClasses } = generateCssFile(iconSizes);
 
         // Define the path to save the CSS file within the module
         // const iconRootVars = resolve('./runtime/assets/compose-sizes.css');
         // await writeFile(iconRootVars, cssContent);
         // nuxt.options.css.push(iconRootVars);
 
-        const iconClasses = resolve('./runtime/assets/compose-icon.css');
+        // const iconClasses = resolve('./runtime/assets/compose-icon.css');
         // nuxt.options.alias = {
         //   '@': './runtime',
         // };
@@ -436,16 +437,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // });
         // logger.log('📟 - tpl → ', tpl);
 
+        const optimizedIconRootVars = optimizeCss(iconRootVars);
         const tpl = addTemplate({
           filename: 'nuxt-compose-icons/compose-sizes.css',
-          getContents: () => cssContent,
+          getContents: () => optimizedIconRootVars,
         });
         nuxt.options.css.push(tpl.dst); // ✅ this is in buildDir
 
+        const optimizedCssClasses = optimizeCss(cssClasses);
+        const tplClasses = addTemplate({
+          filename: 'nuxt-compose-icons/compose-icon.css',
+          getContents: () => optimizedCssClasses,
+        });
+        nuxt.options.css.push(tplClasses.dst); // ✅ this is in buildDir
+        //  write file locally
+        await writeFile(
+          resolve('./runtime/assets/compose-icons.css'),
+          `${optimizedIconRootVars}\n\n${optimizedCssClasses}`,
+        );
         // Inject into the Nuxt build
         // nuxt.options.css.push(tpl.dst);
         // // Push the CSS file into the Nuxt app's CSS array
-        nuxt.options.css.push(iconClasses);
+        // nuxt.options.css.push(cssClasses);
 
         addImportsDir(resolve('runtime/types'));
         addImportsDir(resolve('runtime/utils'));
@@ -456,15 +469,16 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // 9. Generate the icons index file
         const iconsIndexContent = generateIconsIndex(generatedComponents);
         const indexPath = resolve(componentsDir, 'index.ts');
-        await writeFile(indexPath, iconsIndexContent.join('\n'));
+        await writeFile(indexPath, iconsIndexContent);
 
         // 10. Generate the icon registry file
         const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
         const registryPath = resolve(componentsDir, 'icon-registry.ts');
-        await writeFile(registryPath, iconsRegistryContent.join('\n'));
+        await writeFile(registryPath, iconsRegistryContent);
+
         // write also localy TODO:
         const localRegistryPath = resolve('./runtime/utils/icon-registry.ts');
-        await writeFile(localRegistryPath, iconsRegistryContent.join('\n'));
+        await writeFile(localRegistryPath, iconsRegistryContent);
 
         /**
          * TODO: description
@@ -507,13 +521,19 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         //     prefix: 'Compose',
         //   });
         // });
-        nuxt.hook('components:extend', async (components) => {
-          for (const c of generatedComponents) {
-            components.push({
-              ...c,
-            });
-          }
-        });
+        for (const c of generatedComponents) {
+          addComponent({
+            name: c.pascalName,
+            filePath: c.filePath,
+          });
+        }
+        //     nuxt.hook('components:extend', async (components) => {
+        //   for (const c of generatedComponents) {
+        //     components.push({
+        //       ...c,
+        //     });
+        //   }
+        // });
       } else {
         logger.error(`Folder does not exist: ${absolutePathToIcons}`);
         throw new Error(`Folder does not exist: ${absolutePathToIcons}`);

@@ -2,11 +2,10 @@ import { fileURLToPath } from 'node:url';
 import { type ComposeIconSize } from '../src/runtime/types';
 
 const iconSizes: ComposeIconSize = {
-  xs: '0.5rem',
-  sm: '0.875rem',
-  md: '1rem',
-  lg: '2rem',
-  xl: '4rem',
+  sm: '14px',
+  md: '18px',
+  lg: '24px',
+  hero: '48px',
 };
 
 export default defineNuxtConfig({
