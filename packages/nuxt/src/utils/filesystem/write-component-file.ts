@@ -16,23 +16,5 @@ export async function writeComponentFile(
     await writeFile(filePath, componentCode);
   }
 
-  // const declarationFilePath = path.join(componentsDir, 'icon-components-completion.d.ts');
-
-  // writeDeclarationFile(declarationFilePath, componentName);
-
-  // if (withIndex) {
-  //   const importStatement = `export { default as ${componentName} } from './${componentName}';\n`;
-
-  //   if (!(await isFileExist(indexFilePath))) {
-  //     // Create index.ts and add the import statement
-  //     fs.writeFileSync(indexFilePath, importStatement, 'utf-8');
-  //   } else {
-  //     const indexContent = fs.readFileSync(indexFilePath, 'utf-8');
-  //     if (!indexContent.includes(importStatement.trim())) {
-  //       fs.appendFileSync(indexFilePath, importStatement, 'utf-8');
-  //     }
-  //   }
-  // }
-
   return filePath;
 }

@@ -8,4 +8,4 @@ export type {
   IconSizeKey,
   IconSizeKeyValue,
 } from './src/runtime/types';
-export { generateColorVariable, getIconSizeClass } from './src/runtime/utils';
+export { defaultIconSizeClass, generateColorVariable, getIconSizeClass } from './src/runtime/utils';

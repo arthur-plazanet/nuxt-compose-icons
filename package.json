@@ -25,6 +25,8 @@
     "syncpack:format": "syncpack format",
     "syncpack:lint": "syncpack lint --dependency-types prod,dev",
     "test": "pnpm --filter nuxt-compose-icons test",
+    "test:unit": "vitest --project unit",
+    "test:e2e": "vitest --project e2e",
     "typedoc": "typedoc"
   },
   "devDependencies": {
@@ -50,6 +52,7 @@
     "typedoc-vitepress-theme": "1.1.2",
     "typescript": "5.9.3",
     "typescript-eslint": "8.52.0",
+    "vitest": "4.0.16",
     "vite": "7.3.1"
   },
   "keywords": [],
