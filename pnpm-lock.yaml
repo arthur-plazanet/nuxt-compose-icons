@@ -185,9 +185,6 @@ importers:
       eslint:
         specifier: 9.39.2
         version: 9.39.2(jiti@2.6.1)
-      lightningcss:
-        specifier: 1.30.2
-        version: 1.30.2
       nuxt:
         specifier: 4.2.2
         version: 4.2.2(@parcel/watcher@2.5.1)(@types/node@25.0.8)(@vue/compiler-sfc@3.6.0-beta.3)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.2(jiti@2.6.1))(ioredis@5.8.2)(lightningcss@1.30.2)(magicast@0.5.1)(meow@13.2.0)(optionator@0.9.4)(rollup@4.54.0)(sass@1.97.2)(stylelint@16.26.1(typescript@5.9.3))(terser@5.44.1)(tsx@4.21.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.0.8)(jiti@2.6.1)(lightningcss@1.30.2)(sass@1.97.2)(terser@5.44.1)(tsx@4.21.0)(yaml@2.8.2))(vue-tsc@3.2.2(typescript@5.9.3))(yaml@2.8.2)
@@ -11005,6 +11002,7 @@ snapshots:
       lightningcss-linux-x64-musl: 1.30.2
       lightningcss-win32-arm64-msvc: 1.30.2
       lightningcss-win32-x64-msvc: 1.30.2
+    optional: true
 
   lilconfig@3.1.3: {}
 
