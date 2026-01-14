@@ -23,7 +23,7 @@ export default defineNuxtConfig({
       prefix: 'build',
       suffix: 'icon',
       case: 'kebab',
-      componentsDestDir: './components/nuxt-compose-icons',
+      // componentsDestDir: './components/nuxt-compose-icons',
     },
   },
   components: {
