@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, resolveComponent, type Component } from 'vue';
 // import { useComposeIcon } from '../../src/runtime/composables/compose-icon';
-// import { useComposeIconRegistry } from 'nuxt-compose-icons/composables';
+import { useComposeIconRegistry } from '#imports';
 // import * as AllIcons from 'nuxt-compose-icons';
 
 const { searchIcons, icons } = useComposeIconRegistry();

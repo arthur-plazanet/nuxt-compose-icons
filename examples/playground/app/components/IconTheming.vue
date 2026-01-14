@@ -10,6 +10,9 @@
 </template>
 
 <script setup lang="ts">
+import { setRootCssVar } from '@/utils/root-css-vars';
+import { ref, watch } from 'vue';
+
 const iconSizes = ref({
   xs: '12px',
   sm: '16px',
