@@ -38,12 +38,12 @@
     "@vitest/ui": "4.0.16",
     "changelogen": "0.6.2",
     "eslint": "9.39.2",
+    "lightningcss": "1.30.2",
     "nuxt": "4.2.2",
     "playwright-core": "1.57.0",
     "typescript": "5.9.3",
     "vitest": "4.0.16",
-    "vue-tsc": "3.2.2",
-    "lightningcss": "1.30.2"
+    "vue-tsc": "3.2.2"
   },
   "exports": {
     "./package.json": "./package.json",
