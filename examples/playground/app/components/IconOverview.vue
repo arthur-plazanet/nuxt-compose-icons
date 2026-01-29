@@ -1,10 +1,5 @@
 <template>
   <div class="icon-overview">
-    <div>
-      <input v-model="q" placeholder="Search icons…" />
-      <input type="text" name="sm" placeholder="SM icon size" />
-    </div>
-
     <div v-for="i in filtered" :key="i.name">
       <component :is="i.name" />
     </div>
@@ -26,7 +21,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, resolveComponent, type Component } from 'vue';
 // import { useComposeIcon } from '../../src/runtime/composables/compose-icon';
-import { useComposeIconRegistry } from 'nuxt-compose-icons/composables';
+import { useComposeIconRegistry } from '#imports';
 // import * as AllIcons from 'nuxt-compose-icons';
 
 const { searchIcons, icons } = useComposeIconRegistry();

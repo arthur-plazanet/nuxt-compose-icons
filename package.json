@@ -25,6 +25,8 @@
     "syncpack:format": "syncpack format",
     "syncpack:lint": "syncpack lint --dependency-types prod,dev",
     "test": "pnpm --filter nuxt-compose-icons test",
+    "test:e2e": "vitest --project e2e",
+    "test:unit": "vitest --project unit",
     "typedoc": "typedoc"
   },
   "devDependencies": {
@@ -34,11 +36,11 @@
     "@eslint/js": "9.39.2",
     "eslint": "9.39.2",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-vue": "10.6.2",
+    "eslint-plugin-vue": "10.7.0",
     "globals": "17.0.0",
     "husky": "9.1.7",
     "lint-staged": "16.2.7",
-    "prettier": "3.7.4",
+    "prettier": "3.8.1",
     "prettier-plugin-organize-imports": "4.3.0",
     "stylelint": "16.26.1",
     "stylelint-config-recommended-vue": "1.6.1",
@@ -49,8 +51,9 @@
     "typedoc-plugin-markdown": "4.9.0",
     "typedoc-vitepress-theme": "1.1.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.52.0",
-    "vite": "7.3.1"
+    "typescript-eslint": "8.53.1",
+    "vite": "7.3.1",
+    "vitest": "4.0.18"
   },
   "keywords": [],
   "license": "ISC",

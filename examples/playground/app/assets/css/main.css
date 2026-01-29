@@ -8,9 +8,13 @@
   --icon-focus-size: calc(var(--icon-size) + 0.5rem);
 }
 
+body {
+  margin: 0;
+}
+
 .container {
   box-sizing: border-box;
-  max-width: min(700px, calc(100% - 2rem));
+  max-width: min(1280px, calc(100% - 2rem));
   margin-inline: auto;
 }
 
