@@ -1,4 +1,6 @@
-// Define the icon sizes as a literal object
+export type ComposeIconSize = Record<string, string>;
+
+// keep IconSize as your *default* tokens (optional convenience)
 export const IconSize = {
   XS: 'xs',
   SM: 'sm',
@@ -7,12 +9,4 @@ export const IconSize = {
   XL: 'xl',
 } as const;
 
-export type IconSizeKey = keyof typeof IconSize;
-export type IconSizeKeyValue = (typeof IconSize)[IconSizeKey];
-export interface ComposeIconSize {
-  [IconSize.XS]: string;
-  [IconSize.SM]: string;
-  [IconSize.MD]: string;
-  [IconSize.LG]: string;
-  [IconSize.XL]: string;
-}
+export type IconSizeKeyValue = (typeof IconSize)[keyof typeof IconSize];

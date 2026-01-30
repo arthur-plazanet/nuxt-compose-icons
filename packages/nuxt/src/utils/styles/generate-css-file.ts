@@ -1,5 +1,6 @@
 import type { ComposeIconSize } from '../../runtime/types';
 import { IconSize } from '../../runtime/types';
+import { formatCssRootVars } from '../template';
 
 // Default icon sizes if none have been provided to the module
 const defaultSizes: ComposeIconSize = {
@@ -31,17 +32,40 @@ const defaultSizes: ComposeIconSize = {
  * @param {?ComposeIconSize} [iconSizes]
  * @returns {string} CSS generated content
  */
-export function generateCssFile(iconSizes?: ComposeIconSize): string {
-  const sizes = { ...defaultSizes, ...iconSizes };
+// export function generateCssFile(iconSizes?: ComposeIconSize): string {
+//   const sizes = { ...defaultSizes, ...iconSizes };
 
-  const cssContent = `:root {
-  --icon-size-${IconSize.XS}: ${sizes[IconSize.XS]};
-  --icon-size-${IconSize.SM}: ${sizes[IconSize.SM]};
-  --icon-size-${IconSize.MD}: ${sizes[IconSize.MD]};
-  --icon-size-${IconSize.LG}: ${sizes[IconSize.LG]};
-  --icon-size-${IconSize.XL}: ${sizes[IconSize.XL]};
-}
-`;
+//   const cssContent = `:root {
+//   --icon-size-${IconSize.XS}: ${sizes[IconSize.XS]};
+//   --icon-size-${IconSize.SM}: ${sizes[IconSize.SM]};
+//   --icon-size-${IconSize.MD}: ${sizes[IconSize.MD]};
+//   --icon-size-${IconSize.LG}: ${sizes[IconSize.LG]};
+//   --icon-size-${IconSize.XL}: ${sizes[IconSize.XL]};
+// }
+// `;
 
-  return cssContent;
+//   return cssContent;
+// }
+
+export function generateCssFile(iconSizes?: ComposeIconSize): Record<string, string> {
+  const sizes: ComposeIconSize = { ...defaultSizes, ...(iconSizes ?? {}) };
+
+  let rootCssVarsContent: string = ``;
+
+  // Base width and height class for icons
+  let cssClassesContent: string = `.compose-icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+\n`;
+
+  Object.entries(sizes).forEach(([key, value]) => {
+    rootCssVarsContent += `  --icon-size-${key}: ${value};\n`;
+
+    // Generate corresponding CSS class
+    cssClassesContent += `&.size-${key} { --icon-size: var(--icon-size-${key}); }`;
+  });
+
+  cssClassesContent += `}`;
+
+  return { iconRootVars: formatCssRootVars(rootCssVarsContent), cssClasses: cssClassesContent };
 }
