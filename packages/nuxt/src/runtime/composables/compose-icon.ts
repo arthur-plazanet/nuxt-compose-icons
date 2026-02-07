@@ -19,6 +19,11 @@ interface UseComposeIcon {
   };
 }
 
+function isRawCssSize(v: string) {
+  // crude but effective: tokens are simple words, raw sizes contain digits or '(' or 'var('
+  return /[\d(]/.test(v) || v.startsWith('var(');
+}
+
 /**
  * Composes the icon styles, classes, and attributes based on the provided props.
  *
@@ -28,12 +33,16 @@ interface UseComposeIcon {
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
   // 1) Size
   const size = computed<IconSizeKeyValue>(() => props.size ?? IconSize.MD);
-  const iconSizeClass = computed(() => getIconSizeClass(size.value));
 
+  const iconSizeClass = computed(() => getIconSizeClass(size.value));
   // 2) Styles: only include what’s defined
   const iconStyles = computed<Record<string, string>>(() => {
     const style: Record<string, string> = {};
     const strokeOrColor = props.stroke ?? props.color;
+
+    if (size.value && isRawCssSize(size.value)) {
+      style['--icon-size'] = size.value;
+    }
 
     if (strokeOrColor != null && strokeOrColor !== '') {
       style['--icon-stroke'] = String(strokeOrColor);

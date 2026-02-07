@@ -1,0 +1,44 @@
+name: CI (Renovate)
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  lint_format_build:
+    if: ${{ startsWith(github.event.pull_request.head.ref, 'renovate/') }}
+    name: Lint, Format & Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+        with:
+          node_version: 22
+          pnpm_version: 9
+          cache: 'pnpm'
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Lint Style
+        run: pnpm lint:style
+
+      - name: Format
+        run: pnpm format
+
+      - name: Build the module (prepack)
+        run: pnpm --filter nuxt-compose-icons prepack
+
+      - name: Prepare playground
+        run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
+
+      - name: Build playground
+        run: pnpm --filter ./packages/nuxt/playground exec nuxi build

@@ -1,25 +1,23 @@
 <template>
   <div class="getting-started">
     <h2 class="title">Getting Started (source: https://nuxt-icons.use-compose.com/)</h2>
-    <CodeHighlighter
-      class="codeSvg"
-      language="graphql"
-      :code="codeSvg"
-      title="SVG Directory Structure"
-    />
-    <CodeHighlighter class="codeVue" language="vue" :code="codeVue" title="Vue Component Usage" />
-    <CodeHighlighter
-      class="codeConfig"
-      language="typescript"
-      :code="codeConfig"
-      title="nuxt.config.ts"
-    />
-    <CodeHighlighter
-      class="codeDotNuxt"
-      language="typescript"
-      :code="codeDotNuxt"
-      title=".nuxt/icons-generated/components.ts"
-    />
+    <div class="code-svg">
+      <CodeHighlighter language="graphql" :code="codeSvg" title="SVG Directory Structure" />
+    </div>
+
+    <div class="code-vue">
+      <CodeHighlighter language="vue" :code="codeVue" title="Vue Component Usage" />
+    </div>
+    <div class="code-config">
+      <CodeHighlighter language="typescript" :code="codeConfig" title="nuxt.config.ts" />
+    </div>
+    <div class="code-dot-nuxt">
+      <CodeHighlighter
+        language="typescript"
+        :code="codeDotNuxt"
+        title=".nuxt/icons-generated/components.ts"
+      />
+    </div>
   </div>
 </template>
 
@@ -84,25 +82,27 @@ const codeDotNuxt = `/* At build time,
 .getting-started {
   max-height: 35%;
   background-color: #1c1b1b;
+  padding: 1rem;
   display: grid;
   grid-template-areas:
     'title title . .'
-    'codeSvg codeConfig codeVue codeDotNuxt';
+    'code-svg code-config code-vue code-dot-nuxt';
   grid-template-rows: 50px 1fr;
 }
 .title {
   grid-area: title;
+  color: white;
 }
-.codeSvg {
-  grid-area: codeSvg;
+.code-svg {
+  grid-area: code-svg;
 }
-.codeConfig {
-  grid-area: codeConfig;
+.code-config {
+  grid-area: code-config;
 }
-.codeVue {
-  grid-area: codeVue;
+.code-vue {
+  grid-area: code-vue;
 }
-.codeDotNuxt {
-  grid-area: codeDotNuxt;
+.code-dot-nuxt {
+  grid-area: code-dot-nuxt;
 }
 </style>
