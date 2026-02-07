@@ -1,0 +1,32 @@
+:root {
+  --icon-size-xs: 0.5rem;
+  --icon-size-sm: 14px;
+  --icon-size-md: 18px;
+  --icon-size-lg: 24px;
+  --icon-size-xl: 2.5rem;
+  --icon-size-hero: 48px;
+}
+
+.compose-icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  &.size-xs {
+    --icon-size: var(--icon-size-xs);
+  }
+  &.size-sm {
+    --icon-size: var(--icon-size-sm);
+  }
+  &.size-md {
+    --icon-size: var(--icon-size-md);
+  }
+  &.size-lg {
+    --icon-size: var(--icon-size-lg);
+  }
+  &.size-xl {
+    --icon-size: var(--icon-size-xl);
+  }
+  &.size-hero {
+    --icon-size: var(--icon-size-hero);
+  }
+}
