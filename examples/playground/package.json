@@ -15,7 +15,7 @@
     "vue-router": "4.6.3"
   },
   "devDependencies": {
-    "nuxt-compose-icons": "0.2.3"
+    "nuxt-compose-icons": "0.2.2"
   },
   "type": "module"
 }
