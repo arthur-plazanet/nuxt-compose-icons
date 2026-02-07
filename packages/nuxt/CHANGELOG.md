@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.3
+
+### Patch Changes
+
+- 038745a: Allow dynamic number of icon sizes to be configurable
+
 ## 0.2.2
 
 ### Patch Changes
