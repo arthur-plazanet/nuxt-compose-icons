@@ -1,11 +1,6 @@
 <template>
-  <VueCodeHighlighter
-    v-if="!multi"
-    :code="finalCode"
-    :lang="lang || 'plaintext'"
-    :file-name="fileName"
-  />
-  <VueCodeHighlighterMulti v-if="multi" :code="finalCode" />
+  <VueCodeHighlighter v-if="!multi" :code="simpleCode" :lang="lang" :fileName="fileName" />
+  <VueCodeHighlighterMulti v-if="multi" :code="code" />
 </template>
 
 <script setup lang="ts">
@@ -32,19 +27,22 @@ const props: CodeHighlighterProps = withDefaults(defineProps<CodeHighlighterProp
   fileName: undefined,
 });
 
-interface SimpleCode {
-  code: string;
-  lang: string;
-  title?: string;
-}
+let simpleCode: string,
+  code: Array<{
+    code: string;
+    lang: string;
+    title?: string;
+  }>;
 
-function getCode(): Array<SimpleCode> | string {
-  if (props.multi) {
-    return props.code as Array<SimpleCode>;
-  } else {
-    return props.code as string;
-  }
+if (props.multi) {
+  code = props.code as Array<{
+    code: string;
+    lang: string;
+    title?: string;
+  }>;
+} else {
+  simpleCode = props.code as string;
 }
-
-const finalCode = getCode();
+const lang: string = props.multi ? '' : (props.lang as string);
+const codeHighlighter = props.multi ? VueCodeHighlighterMulti : VueCodeHighlighter;
 </script>

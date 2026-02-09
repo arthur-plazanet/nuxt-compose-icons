@@ -1,3 +1,3 @@
-export { useComposeIcon } from './composables/compose-icon';
+export * from './composables';
 export * from './types';
 export * from './utils';

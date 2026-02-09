@@ -75,6 +75,12 @@ export default defineConfig({
       { text: 'Introduction', link: '/guide/concept' },
       // { text: 'Playground', link: 'https://compose-icons-playground.vercel.app/' },
       { text: 'Playground', link: 'https://nuxt-icons-playground.use-compose.com' },
+      {
+        text: 'Interactive',
+        link: import.meta.url.includes('localhost')
+          ? 'http://localhost:'
+          : 'https://nuxt-icons-playground.use-compose.com',
+      },
     ],
 
     search: {

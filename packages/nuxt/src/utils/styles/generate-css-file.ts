@@ -1,6 +1,6 @@
 import type { ComposeIconSize } from '../../runtime/types';
 import { IconSize } from '../../runtime/types';
-import { formatCssRootVars } from '../template';
+import { formatCssClass, formatCssRootVars } from '../template';
 
 // Default icon sizes if none have been provided to the module
 const defaultSizes: ComposeIconSize = {
@@ -48,24 +48,26 @@ const defaultSizes: ComposeIconSize = {
 // }
 
 export function generateCssFile(iconSizes?: ComposeIconSize): Record<string, string> {
-  const sizes: ComposeIconSize = { ...defaultSizes, ...(iconSizes ?? {}) };
+  const rootIconSizes: ComposeIconSize = { ...defaultSizes, ...(iconSizes ?? {}) };
 
-  let rootCssVarsContent: string = ``;
+  const rootCssVarsContent: string = `${formatCssRootVars(rootIconSizes)}\n`;
+
+  let cssClassesContent: string = `&.compose-icon {\n`;
+  Object.entries(rootIconSizes).forEach(([key]) => {
+    // Generate corresponding CSS class
+    cssClassesContent += `&.size-${key} { --icon-size: var(--icon-size-${key}); }\n`;
+  });
 
   // Base width and height class for icons
-  let cssClassesContent: string = `.compose-icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
-\n`;
-
-  Object.entries(sizes).forEach(([key, value]) => {
-    rootCssVarsContent += `  --icon-size-${key}: ${value};\n`;
-
-    // Generate corresponding CSS class
-    cssClassesContent += `&.size-${key} { --icon-size: var(--icon-size-${key}); }`;
+  const cssClasses: string = formatCssClass('compose-icon', {
+    cssClassesContent,
   });
 
   cssClassesContent += `}`;
 
-  return { iconRootVars: formatCssRootVars(rootCssVarsContent), cssClasses: cssClassesContent };
+  return {
+    iconSizesRootVars: rootCssVarsContent,
+    cssClasses: cssClassesContent,
+    cssFileContent: `${rootCssVarsContent}\n${cssClasses}`,
+  };
 }

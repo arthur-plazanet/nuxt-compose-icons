@@ -8,7 +8,7 @@
   width: var(--icon-size);
   height: var(--icon-size);
 }
-
+/* 
 .compose-icon.size-xs {
   --icon-size: var(--icon-size-xs);
 }
@@ -27,4 +27,4 @@
 
 .compose-icon.size-xl {
   --icon-size: var(--icon-size-xl);
-}
+} */

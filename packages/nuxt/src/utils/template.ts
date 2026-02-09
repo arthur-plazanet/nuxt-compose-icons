@@ -1,4 +1,5 @@
 export {
+  formatCssClass,
   formatCssRootVars,
   generateCommentBlock,
   generateCommentLine,
@@ -89,10 +90,21 @@ function generateSubheader(subheader: string): string {
  *    --variable: value;
  *  }
  */
-function formatCssRootVars(content: string): string {
+function formatCssRootVars(cssVars: Record<string, string>): string {
   let result = `  :root {`;
   result += `\n`;
-  result += `${content}`;
+  Object.entries(cssVars).forEach(([key, value]) => {
+    result += `    --${key}: ${value};\n`;
+  });
+  result += `}\n`;
+  return result;
+}
+
+function formatCssClass(className: string, cssVars: Record<string, string>): string {
+  let result = `.${className} {\n`;
+  Object.entries(cssVars).forEach(([key, value]) => {
+    result += `  --${key}: ${value};\n`;
+  });
   result += `}\n`;
   return result;
 }
