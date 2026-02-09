@@ -74,10 +74,7 @@
   "license": "MIT",
   "main": "./dist/module.js",
   "module": "./dist/module.mjs",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arthur-plazanet/nuxt-compose-icons"
-  },
+  "repository": "arthur-plazanet/nuxt-compose-icons",
   "type": "module",
   "types": "./dist/types.d.ts",
   "unbuild": {
