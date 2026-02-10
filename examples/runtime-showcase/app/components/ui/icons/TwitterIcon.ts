@@ -1,0 +1,84 @@
+import { defineComponent, h } from 'vue';
+
+// TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
+import { useComposeIcon } from '#imports';
+// import type { IconSizeKeyValue } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'TwitterIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md',
+    },
+  },
+  setup(props) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+      width: 49,
+      height: 49,
+      fill: 'none',
+      viewBox: '0 0 49 49',
+    };
+
+    return () =>
+      h('svg', buildSvgAttributes(svgAttributes), [
+        h(
+          'g',
+          {
+            'clip-path': 'url(#clip0_1_522)',
+          },
+          [
+            h(
+              'path',
+              {
+                stroke: 'var(--icon-stroke, #000)',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-miterlimit': '10',
+                'stroke-width': 'var(--icon-stroke-width, 3)',
+                d: 'M47.5 1.5H1.5V47.5H47.5V1.5Z',
+              },
+              [],
+            ),
+            h(
+              'path',
+              {
+                'fill-rule': 'evenodd',
+                stroke: 'var(--icon-stroke, #000)',
+                'stroke-linecap': 'round',
+                'stroke-linejoin': 'round',
+                'stroke-miterlimit': '10',
+                'stroke-width': 'var(--icon-stroke-width, 3)',
+                d: 'M5.88403 37.159C10.059 37.547 13.705 36.526 17.014 34.077C16.561 33.884 16.133 33.934 15.731 33.841C13.085 33.225 11.237 31.67 10.18 29.172C10.126 29.045 9.99603 28.885 10.1 28.766C10.202 28.652 10.377 28.746 10.521 28.763C11.434 28.864 12.34 28.864 13.333 28.563C12.069 28.229 10.987 27.734 10.067 26.944C8.38303 25.496 7.46603 23.662 7.36603 21.428C7.34703 21.043 7.48703 21.066 7.75303 21.195C8.64203 21.624 9.57703 21.886 10.696 21.941C9.97703 21.352 9.36203 20.821 8.90103 20.152C7.14703 17.621 6.93003 14.955 8.21503 12.16C8.37403 11.815 8.49103 11.821 8.73803 12.108C11.961 15.885 16.015 18.28 20.867 19.319C21.81 19.521 22.765 19.65 23.73 19.704C24.053 19.723 24.103 19.672 24.052 19.348C23.621 16.689 24.355 14.389 26.281 12.504C29.171 9.67798 33.893 9.67498 36.799 12.488C37.031 12.713 37.232 12.772 37.532 12.698C38.825 12.382 40.069 11.937 41.249 11.319C41.435 11.221 41.619 11.121 41.923 10.959C41.336 12.789 40.227 14.058 38.706 15.125C40.19 14.951 41.513 14.568 42.837 14.007C42.843 14.222 42.718 14.33 42.632 14.45C41.751 15.664 40.726 16.737 39.525 17.637C39.295 17.809 39.195 17.986 39.195 18.286C39.239 24.167 37.322 29.336 33.418 33.724C30.467 37.04 26.766 39.143 22.422 40.058C16.777 41.246 11.434 40.429 6.43403 37.517C6.28503 37.43 6.14403 37.329 5.88403 37.159Z',
+                'clip-rule': 'evenodd',
+              },
+              [],
+            ),
+          ],
+        ),
+        h('defs', {}, [
+          h(
+            'clipPath',
+            {
+              id: 'clip0_1_522',
+            },
+            [
+              h(
+                'path',
+                {
+                  fill: 'var(--icon-fill, #fff)',
+                  d: 'M0 0H49V49H0z',
+                },
+                [],
+              ),
+            ],
+          ),
+        ]),
+      ]);
+  },
+});
