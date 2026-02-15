@@ -1,6 +1,6 @@
 <template>
-  <VueCodeHighlighter v-if="!multi" :code="simpleCode" :lang="lang" :fileName="fileName" />
-  <VueCodeHighlighterMulti v-if="multi" :code="code" />
+  <VueCodeHighlighter v-if="!multi" :code="simpleCode" :lang="lang" :file-name="fileName" />
+  <VueCodeHighlighterMulti v-if="multi" :code="codeMulti" />
 </template>
 
 <script setup lang="ts">
@@ -8,15 +8,15 @@
 import * as vueCodeH from 'vue-code-highlighter';
 import 'vue-code-highlighter/dist/style.css'; // dont forget to import
 const { VueCodeHighlighterMulti, VueCodeHighlighter } = vueCodeH;
+
+interface CodeHighlighterMulti {
+  code: string;
+  lang: string;
+  title?: string;
+}
 interface CodeHighlighterProps {
   fileName?: string; // File name to display as metadata
-  code:
-    | Array<{
-        code: string;
-        lang: string;
-        title?: string;
-      }>
-    | string; // Code to highlight, can be a single string or an array of objects
+  code: Array<CodeHighlighterMulti> | string; // Code to highlight, can be a single string or an array of objects
   multi?: boolean; // Flag to indicate if multiple code blocks are present
   lang?: string; // Language for syntax highlighting, default is 'html'
 }
@@ -27,19 +27,9 @@ const props: CodeHighlighterProps = withDefaults(defineProps<CodeHighlighterProp
   fileName: undefined,
 });
 
-let simpleCode: string,
-  code: Array<{
-    code: string;
-    lang: string;
-    title?: string;
-  }>;
-
+let simpleCode: string, codeMulti: Array<CodeHighlighterMulti>;
 if (props.multi) {
-  const code = props.code as Array<{
-    code: string;
-    lang: string;
-    title?: string;
-  }>;
+  codeMulti = props.code as Array<CodeHighlighterMulti>;
 } else {
   simpleCode = props.code as string;
 }

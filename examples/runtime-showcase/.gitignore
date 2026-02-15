@@ -24,4 +24,4 @@ logs
 !.env.example
 
 
-app/components/ui/icons
+app/components/icons

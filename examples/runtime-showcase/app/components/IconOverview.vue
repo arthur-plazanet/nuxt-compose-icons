@@ -2,7 +2,7 @@
   <div class="icon-overview">
     <input v-model="q" placeholder="Search icons…" />
 
-    <component v-for="i in filteredResolved" :key="i.name" :is="i.component" />
+    <component :is="i.component" v-for="i in filteredResolved" :key="i.name" />
   </div>
 </template>
 
