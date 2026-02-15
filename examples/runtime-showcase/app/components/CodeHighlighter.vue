@@ -35,7 +35,7 @@ let simpleCode: string,
   }>;
 
 if (props.multi) {
-  code = props.code as Array<{
+  const code = props.code as Array<{
     code: string;
     lang: string;
     title?: string;
@@ -44,5 +44,5 @@ if (props.multi) {
   simpleCode = props.code as string;
 }
 const lang: string = props.multi ? '' : (props.lang as string);
-const codeHighlighter = props.multi ? VueCodeHighlighterMulti : VueCodeHighlighter;
+// const codeHighlighter = props.multi ? VueCodeHighlighterMulti : VueCodeHighlighter;
 </script>
