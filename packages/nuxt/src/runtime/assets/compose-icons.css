@@ -14,18 +14,23 @@
   & > .size-xs {
     --icon-size: var(--icon-size-xs);
   }
+
   & > .size-sm {
     --icon-size: var(--icon-size-sm);
   }
+
   & > .size-md {
     --icon-size: var(--icon-size-md);
   }
+
   & > .size-lg {
     --icon-size: var(--icon-size-lg);
   }
+
   & > .size-xl {
     --icon-size: var(--icon-size-xl);
   }
+
   & > .size-hero {
     --icon-size: var(--icon-size-hero);
   }
