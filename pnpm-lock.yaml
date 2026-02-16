@@ -74,6 +74,9 @@ importers:
       typescript-eslint:
         specifier: 8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
       vite:
         specifier: 7.3.1
         version: 7.3.1(@types/node@25.2.2)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
@@ -136,6 +139,9 @@ importers:
       nuxt-compose-icons:
         specifier: 0.2.2
         version: 0.2.2(magicast@0.5.2)
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
 
   packages/nuxt:
     dependencies:
@@ -197,6 +203,9 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@types/node@25.2.2)(@vitest/ui@4.0.18)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
@@ -5970,6 +5979,9 @@ packages:
   unplugin@2.3.11:
     resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
     engines: {node: '>=18.12.0'}
+
+  unreadable-typescript@1.5.0:
+    resolution: {integrity: sha512-6qTC2YuwOxyVl3Yp/HKuuZlmaSMXqw9YIp9S9OCYffbfMIuHLlL8BopMs+30cJRtBE+4gGLQX0RSZ4rdh4IRAA==}
 
   unrs-resolver@1.11.1:
     resolution: {integrity: sha512-bSjt9pjaEBnNiGgc9rUiHGKv5l4/TGzDmYw3RhnkJGtLhbnnA/5qJj7x3dNDCRx/PJxu774LlH8lCOlB4hEfKg==}
@@ -12962,6 +12974,8 @@ snapshots:
       acorn: 8.15.0
       picomatch: 4.0.3
       webpack-virtual-modules: 0.6.2
+
+  unreadable-typescript@1.5.0: {}
 
   unrs-resolver@1.11.1:
     dependencies:
