@@ -57,6 +57,7 @@ export default defineConfig([
       '**/icons-generated/',
       '**/.vitepress/theme/components/',
       '**/nuxt-compose-icons/',
+      '**/*/icons/',
     ],
   },
   eslintConfigPrettier,

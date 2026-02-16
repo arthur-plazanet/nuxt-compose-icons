@@ -74,6 +74,9 @@ importers:
       typescript-eslint:
         specifier: 8.54.0
         version: 8.54.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
       vite:
         specifier: 7.3.1
         version: 7.3.1(@types/node@25.2.2)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
@@ -112,11 +115,14 @@ importers:
         specifier: 1.6.4
         version: 1.6.4(@algolia/client-search@5.48.0)(@types/node@25.2.2)(change-case@5.4.4)(fuse.js@7.1.0)(postcss@8.5.6)(sass@1.97.3)(search-insights@2.17.3)(terser@5.46.0)(typescript@5.9.3)
 
-  examples/playground:
+  examples/runtime-showcase:
     dependencies:
       '@nuxt/kit':
         specifier: 4.2.2
         version: 4.2.2(magicast@0.5.2)
+      '@use-compose/ui':
+        specifier: 0.5.0
+        version: 0.5.0(typescript@5.9.3)
       nuxt:
         specifier: 4.2.2
         version: 4.2.2(@parcel/watcher@2.5.6)(@types/node@25.2.2)(@vue/compiler-sfc@3.6.0-beta.5)(cac@6.7.14)(commander@13.1.0)(db0@0.3.4)(eslint@9.39.2(jiti@2.6.1))(ioredis@5.9.2)(magicast@0.5.2)(meow@13.2.0)(optionator@0.9.4)(rollup@4.57.1)(sass@1.97.3)(stylelint@16.26.1(typescript@5.9.3))(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.2.2)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vue-tsc@3.2.4(typescript@5.9.3))(yaml@2.8.2)
@@ -133,6 +139,9 @@ importers:
       nuxt-compose-icons:
         specifier: 0.2.2
         version: 0.2.2(magicast@0.5.2)
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
 
   packages/nuxt:
     dependencies:
@@ -194,6 +203,9 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+      unreadable-typescript:
+        specifier: 1.5.0
+        version: 1.5.0
       vitest:
         specifier: 4.0.18
         version: 4.0.18(@types/node@25.2.2)(@vitest/ui@4.0.18)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2)
@@ -5967,6 +5979,9 @@ packages:
     resolution: {integrity: sha512-5uKD0nqiYVzlmCRs01Fhs2BdkEgBS3SAVP6ndrBsuK42iC2+JHyxM05Rm9G8+5mkmRtzMZGY8Ct5+mliZxU/Ww==}
     engines: {node: '>=18.12.0'}
 
+  unreadable-typescript@1.5.0:
+    resolution: {integrity: sha512-6qTC2YuwOxyVl3Yp/HKuuZlmaSMXqw9YIp9S9OCYffbfMIuHLlL8BopMs+30cJRtBE+4gGLQX0RSZ4rdh4IRAA==}
+
   unrs-resolver@1.11.1:
     resolution: {integrity: sha512-bSjt9pjaEBnNiGgc9rUiHGKv5l4/TGzDmYw3RhnkJGtLhbnnA/5qJj7x3dNDCRx/PJxu774LlH8lCOlB4hEfKg==}
 
@@ -11482,7 +11497,7 @@ snapshots:
       unctx: 2.5.0
       unimport: 5.6.0
       unplugin: 2.3.11
-      unplugin-vue-router: 0.19.2(@vue/compiler-sfc@3.6.0-beta.5)(vue-router@4.6.3(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
+      unplugin-vue-router: 0.19.2(@vue/compiler-sfc@3.6.0-beta.5)(vue-router@4.6.3(vue@3.6.0-beta.3(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3))
       untyped: 2.0.0
       vue: 3.5.28(typescript@5.9.3)
       vue-router: 4.6.3(vue@3.5.28(typescript@5.9.3))
@@ -12927,7 +12942,7 @@ snapshots:
       pathe: 2.0.3
       picomatch: 4.0.3
 
-  unplugin-vue-router@0.19.2(@vue/compiler-sfc@3.6.0-beta.5)(vue-router@4.6.3(vue@3.5.28(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3)):
+  unplugin-vue-router@0.19.2(@vue/compiler-sfc@3.6.0-beta.5)(vue-router@4.6.3(vue@3.6.0-beta.3(typescript@5.9.3)))(vue@3.5.28(typescript@5.9.3)):
     dependencies:
       '@babel/generator': 7.29.1
       '@vue-macros/common': 3.1.2(vue@3.5.28(typescript@5.9.3))
@@ -12948,7 +12963,7 @@ snapshots:
       unplugin-utils: 0.3.1
       yaml: 2.8.2
     optionalDependencies:
-      vue-router: 4.6.3(vue@3.5.28(typescript@5.9.3))
+      vue-router: 4.6.3(vue@3.6.0-beta.3(typescript@5.9.3))
     transitivePeerDependencies:
       - vue
 
@@ -12958,6 +12973,8 @@ snapshots:
       acorn: 8.15.0
       picomatch: 4.0.3
       webpack-virtual-modules: 0.6.2
+
+  unreadable-typescript@1.5.0: {}
 
   unrs-resolver@1.11.1:
     dependencies:
