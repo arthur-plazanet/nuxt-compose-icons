@@ -89,19 +89,24 @@ const codeDotNuxt = `/* At build time,
     'code-svg code-config code-vue code-dot-nuxt';
   grid-template-rows: 50px 1fr;
 }
+
 .title {
   grid-area: title;
   color: white;
 }
+
 .code-svg {
   grid-area: code-svg;
 }
+
 .code-config {
   grid-area: code-config;
 }
+
 .code-vue {
   grid-area: code-vue;
 }
+
 .code-dot-nuxt {
   grid-area: code-dot-nuxt;
 }

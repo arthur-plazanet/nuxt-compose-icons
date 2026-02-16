@@ -1,5 +1,4 @@
 // Define the enum with size keys
-// TODO-NEW-DESIGN-SYSTEM: use specific values from the custom Tailwind theme?
 export enum IconSize {
   xs = 'xs',
   sm = 'sm',
