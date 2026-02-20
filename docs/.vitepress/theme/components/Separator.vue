@@ -31,7 +31,7 @@ const getStyles = computed(() => {
 
 .separator {
   margin: 6px 0 12px;
-  background-color: var(--clr-primary);
+  background-color: var(--color-primary);
   height: 5px;
 
   @include media('lg') {
