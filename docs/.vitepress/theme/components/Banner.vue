@@ -1,17 +1,17 @@
 <template>
   <section class="banner">
     <header class="heading">
-      <h1>
+      <h1 class="heading-h1">
         <YHighlightedText level="span" active stick-to-left>
           <!-- <span style="color: white">Compose</span> -->
           Compose
         </YHighlightedText>
         your own Icon components library
       </h1>
-      <h2 class="tagline text-xl">
+      <Separator width="15%" />
+      <h2 class="tagline">
         Automatically generates customizable Vue components based on SVG files
       </h2>
-      <Separator width="15%" />
       <p>
         No extra wrapper needed. <br />
         <span class="brand">Generated</span> at build time,
@@ -98,7 +98,7 @@ import Separator from './Separator.vue';
 }
 
 .highlighted-text > span {
-  padding: 4.55px 2px 0 2px;
+  // padding: 4.55px 2px 0 2px;
 }
 
 .heading {
@@ -106,15 +106,33 @@ import Separator from './Separator.vue';
   grid-area: heading;
   align-self: end;
   color: white;
+
+  .heading-h1 {
+    position: relative;
+
+    span {
+      color: white;
+    }
+
+    // &::after {
+    //   content: '';
+    //   display: block;
+    //   position: absolute;
+    //   margin: 6px 0 12px;
+    //   background-color: var(--color-primary);
+    //   height: 8px;
+    //   width: 20%;
+    //   // bottom: 0;
+    // }
+  }
 }
 
 .tagline {
   grid-area: tagline;
   align-self: end;
-  font-size: var(--text-lg);
 
   &::first-letter {
-    color: var(--clr-primary);
+    color: var(--color-primary);
   }
 }
 
@@ -130,11 +148,11 @@ import Separator from './Separator.vue';
   .banner {
     // height: 100%;
     // align-content: center;
-    grid-template-columns: 1fr 1fr auto;
+    grid-template-columns: 1fr auto;
     grid-template-rows: auto;
     grid-template-areas:
-      'heading heading module-template-example'
-      'features features features';
+      'heading heading'
+      'module-template-example features';
     // 'description description module-template-example'
     // 'module-example module-example module-template-example';
     // grid-template-columns: 1.5fr 1fr;

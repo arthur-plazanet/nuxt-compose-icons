@@ -64,3 +64,45 @@ jobs:
         with:
           name: docs-build
           path: ./docs/.vitepress/dist/
+
+  build-runtime-showcase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+        with:
+          node_version: ${{ inputs.node_version }}
+          pnpm_version: 9
+          cache: 'pnpm'
+
+      - name: Build the module (prepack)
+        run: pnpm --filter nuxt-compose-icons prepack
+
+      - name: Prepare runtime showcase
+        run: pnpm showcase:prepare
+
+      - name: Build showcase
+        run: pnpm showcase:build
+
+      - name: Generate showcase
+        run: pnpm showcase:generate
+
+      - name: Upload-artifact if will deploy
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: showcase-build
+          path: ./examples/runtime-showcase/.output/public/
+
+      - name: Upload build artifacts generate
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: actions/upload-artifact@v6
+        with:
+          name: runtime-showcase-static
+          path: ./examples/runtime-showcase/.output/

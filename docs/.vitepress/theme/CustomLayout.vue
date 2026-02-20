@@ -1,8 +1,10 @@
 <!--.vitepress/theme/MyLayout.vue-->
 <script setup lang="ts">
 import { AppCompose, YTheme } from '@use-compose/ui';
-// import '@use-compose/ui/style.css';
 import DefaultTheme from 'vitepress/theme';
+
+import '@use-compose/ui/style.css';
+import './assets/main.css';
 import LogoIcon from './components/icons/LogoIcon.vue';
 
 const theme: YTheme = {
