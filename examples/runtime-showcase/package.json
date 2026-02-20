@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "4.2.2",
-    "@use-compose/ui": "0.5.1",
+    "@use-compose/ui": "0.5.2",
     "nuxt": "4.2.2",
     "vue": "3.6.0-beta.3",
     "vue-code-highlighter": "1.1.3",

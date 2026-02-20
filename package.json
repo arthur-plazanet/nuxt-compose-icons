@@ -21,6 +21,8 @@
     "release": "pnpm --filter nuxt-compose-icons release",
     "rimraf": "./node_modules/rimraf/bin.js",
     "showcase": "pnpm --filter runtime-showcase dev",
+    "showcase:build": "pnpm --filter runtime-showcase build",
+    "showcase:prepare": "pnpm --filter runtime-showcase prepare",
     "syncpack": "pnpm syncpack:fix && pnpm syncpack:format",
     "syncpack:fix": "syncpack fix-mismatches",
     "syncpack:format": "syncpack format",

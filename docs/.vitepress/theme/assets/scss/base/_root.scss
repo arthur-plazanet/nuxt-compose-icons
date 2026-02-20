@@ -1,6 +1,6 @@
 @use '../abstracts' as *;
 
-:root {
+/* :root {
   --ff-primary: 'CaviarDreams', sans-serif;
 
   @each $key, $value in $font-sizes {
@@ -14,4 +14,4 @@
   @each $key, $value in $colors {
     --clr-#{$key}: #{$value};
   }
-}
+} */

@@ -3,11 +3,11 @@ import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import 'vue-code-highlighter/dist/style.css'; // dont forget to import
 import './assets/compose.css';
-import './assets/custom.css';
+import './assets/main.css';
 import './assets/scss/main.scss';
 import './assets/scss/style.scss';
 import CustomLayout from './CustomLayout.vue';
-import './theme.css';
+// import './theme.css';
 
 export default {
   extends: DefaultTheme,
