@@ -90,8 +90,8 @@ importers:
         specifier: 0.0.6
         version: 0.0.6
       '@use-compose/ui':
-        specifier: 0.5.2
-        version: 0.5.2(typescript@5.9.3)
+        specifier: 0.6.0
+        version: 0.6.0(typescript@5.9.3)
       '@wdns/vue-code-block':
         specifier: 2.3.5
         version: 2.3.5(typescript@5.9.3)
@@ -216,8 +216,8 @@ importers:
   packages/nuxt/playground:
     dependencies:
       '@use-compose/ui':
-        specifier: 0.5.2
-        version: 0.5.2(typescript@5.9.3)
+        specifier: 0.6.0
+        version: 0.6.0(typescript@5.9.3)
       nuxt:
         specifier: 4.2.2
         version: 4.2.2(@parcel/watcher@2.5.6)(@types/node@25.3.0)(@vue/compiler-sfc@3.6.0-beta.6)(cac@6.7.14)(commander@13.1.0)(db0@0.3.4)(eslint@9.39.3(jiti@2.6.1))(ioredis@5.9.2)(magicast@0.5.2)(meow@13.2.0)(optionator@0.9.4)(rollup@4.57.1)(sass@1.97.3)(stylelint@17.3.0(typescript@5.9.3))(terser@5.46.0)(typescript@5.9.3)(vite@7.3.1(@types/node@25.3.0)(jiti@2.6.1)(sass@1.97.3)(terser@5.46.0)(yaml@2.8.2))(vue-tsc@3.2.5(typescript@5.9.3))(yaml@2.8.2)
@@ -2426,6 +2426,10 @@ packages:
 
   '@use-compose/ui@0.5.2':
     resolution: {integrity: sha512-O6M6xpl0I3mj1KNIYAlY4KcBx3tLUyrms4eZnBrNjZtFJ9unOnDIXltqC6CfwYKWo3vGC7Izq72uk4tC0Gdvyg==}
+    hasBin: true
+
+  '@use-compose/ui@0.6.0':
+    resolution: {integrity: sha512-RXJr06R16x5cGn6zLhVdbKBtAkyYR6olQf6MxUF3dwi001PUNejR6bUlOGCT35an/juab/8pP2oGGoTpyzwoZg==}
     hasBin: true
 
   '@vercel/nft@1.3.0':
@@ -8850,6 +8854,18 @@ snapshots:
   '@use-compose/logger@0.0.6': {}
 
   '@use-compose/ui@0.5.2(typescript@5.9.3)':
+    dependencies:
+      '@fontsource-variable/roboto': 5.2.9
+      compression: 1.8.1
+      culori: 4.0.1
+      express: 5.1.0
+      sirv: 3.0.2
+      vue: 3.5.16(typescript@5.9.3)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
+  '@use-compose/ui@0.6.0(typescript@5.9.3)':
     dependencies:
       '@fontsource-variable/roboto': 5.2.9
       compression: 1.8.1
