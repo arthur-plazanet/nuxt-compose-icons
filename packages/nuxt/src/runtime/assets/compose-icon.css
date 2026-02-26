@@ -8,24 +8,3 @@
   width: var(--icon-size);
   height: var(--icon-size);
 }
-
-/* 
-.compose-icon.size-xs {
-  --icon-size: var(--icon-size-xs);
-}
-
-.compose-icon.size-sm {
-  --icon-size: var(--icon-size-sm);
-}
-
-.compose-icon.size-md {
-  --icon-size: var(--icon-size-md);
-}
-
-.compose-icon.size-lg {
-  --icon-size: var(--icon-size-lg);
-}
-
-.compose-icon.size-xl {
-  --icon-size: var(--icon-size-xl);
-} */

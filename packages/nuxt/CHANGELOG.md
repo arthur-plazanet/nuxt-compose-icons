@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.6
+
+### Patch Changes
+
+- Update CSS virtual file
+
 ## 0.2.5
 
 ### Patch Changes

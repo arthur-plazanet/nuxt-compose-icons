@@ -1,2 +1,2 @@
-export { defaultIconSizeClass, getIconSizeClass } from './icon-size-class';
+export { getIconSizeClass } from './icon-theming';
 // export { generateColorVariable } from './icon-theme';

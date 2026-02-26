@@ -6,6 +6,7 @@ const iconSizes: ComposeIconSize = {
   md: '18px',
   lg: '24px',
   hero: '48px',
+  lolilol: '100px',
 };
 
 export default defineNuxtConfig({

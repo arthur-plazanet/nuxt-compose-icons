@@ -94,10 +94,11 @@ function transformAttributes(
   const transformed: Record<string, string | number> = {};
 
   for (const [key, value] of Object.entries(attrs)) {
+    const colorValue = String(value).toLowerCase();
     if (key === 'fill') {
-      transformed.fill = `var(--icon-fill, ${value})`;
+      transformed.fill = `var(--icon-fill, ${colorValue})`;
     } else if (key === 'stroke') {
-      transformed.stroke = `var(--icon-stroke, ${value})`;
+      transformed.stroke = `var(--icon-stroke, ${colorValue})`;
     } else if (key === 'stroke-width') {
       transformed['stroke-width'] = `var(--icon-stroke-width, ${value})`;
     } else {

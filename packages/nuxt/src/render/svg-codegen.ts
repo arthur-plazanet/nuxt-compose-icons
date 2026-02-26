@@ -14,7 +14,7 @@ export function createSvgComponentCode(name: string, svgContent: string) {
     import { defineComponent, h } from 'vue';
 
     // TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
-    import { useComposeIcon } from '#imports';
+    // import { useComposeIcon } from '#imports';
     // import type { IconSizeKeyValue } from 'nuxt-compose-icons/types';
 
     export default defineComponent({
@@ -29,7 +29,7 @@ export function createSvgComponentCode(name: string, svgContent: string) {
           default: 'md'
         }
       },
-      setup(props) {
+      setup(props: ComposeIconProps) {
         const { buildSvgAttributes } = useComposeIcon(props);
         const svgAttributes = ${JSON.stringify(attributes, null, 2)};
 

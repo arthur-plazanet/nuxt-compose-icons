@@ -17,11 +17,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { IconSize } from '../../src/runtime/types';
 // import { ArticleIcon } from './nuxt-compose-icons';
 // const { searchIcons } = useComposeIconRegistry();
 const iconStyles = computed(() => {
-  return { color: getRandomColor(), size: IconSize.XL };
+  return { color: getRandomColor(), size: 'lg' };
 });
 
 function getRandomColor() {

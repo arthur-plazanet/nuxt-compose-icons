@@ -1,20 +1,20 @@
 import { computed, type SVGAttributes } from 'vue';
-import type { ComposeIconProps, IconSizeKeyValue } from '../types';
-import { IconSize } from '../types';
+import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
+import { iconSizeDefault } from '../utils/icon-theming';
 
 export { useComposeIcon };
 export type { UseComposeIcon };
 interface UseComposeIcon {
-  iconStyles: Record<string, string | undefined>;
+  iconStyles: Record<string, string | number | undefined>;
   iconClasses: string[];
   iconAttributes: {
-    style: Record<string, string | undefined>;
+    style: Record<string, string | number | undefined>;
     class: string[];
     viewBox?: string;
   };
   buildSvgAttributes: (svgAttributes?: SVGAttributes) => SVGAttributes & {
-    style: Record<string, string | undefined>;
+    style: Record<string, string | number | undefined>;
     class: string[];
   };
 }
@@ -32,12 +32,12 @@ function isRawCssSize(v: string) {
  */
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
   // 1) Size
-  const size = computed<IconSizeKeyValue>(() => props.size ?? IconSize.MD);
+  const size = computed<string>(() => (props.size ? props.size : iconSizeDefault.md));
 
   const iconSizeClass = computed(() => getIconSizeClass(size.value));
   // 2) Styles: only include what’s defined
-  const iconStyles = computed<Record<string, string>>(() => {
-    const style: Record<string, string> = {};
+  const iconStyles = computed<Record<string, string | number | undefined>>(() => {
+    const style: Record<string, string | number | undefined> = {};
     const strokeOrColor = props.stroke ?? props.color;
 
     if (size.value && isRawCssSize(size.value)) {
@@ -45,13 +45,13 @@ function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
     }
 
     if (strokeOrColor != null && strokeOrColor !== '') {
-      style['--icon-stroke'] = String(strokeOrColor);
+      style['--icon-stroke'] = strokeOrColor;
     }
     if (props.strokeWidth != null && props.strokeWidth !== '') {
-      style['--icon-stroke-width'] = String(props.strokeWidth);
+      style['--icon-stroke-width'] = props.strokeWidth;
     }
     if (props.fill != null && props.fill !== '') {
-      style['--icon-fill'] = String(props.fill);
+      style['--icon-fill'] = props.fill;
     }
 
     return style;
@@ -62,7 +62,7 @@ function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
 
   const buildSvgAttributes = (
     svgAttributes?: SVGAttributes,
-  ): SVGAttributes & { style: Record<string, string | undefined>; class: string[] } => {
+  ): SVGAttributes & { style: Record<string, string | number | undefined>; class: string[] } => {
     return {
       ...svgAttributes,
       style: iconStyles.value,

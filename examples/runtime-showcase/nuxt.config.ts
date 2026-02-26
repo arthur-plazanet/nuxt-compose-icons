@@ -24,10 +24,17 @@ const options: NuxtComposeIconsOptions = {
 };
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  debug: true,
   modules: ['nuxt-compose-icons'],
   // Module options
   composeIcons: options,
-  devtools: { enabled: true },
+  devtools: {
+    enabled: true,
+
+    timeline: {
+      enabled: true,
+    },
+  },
   compatibilityDate: '2024-12-14',
   // css: ['@use-compose/ui/style.css'],
   components: [
@@ -36,5 +43,5 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', '@use-compose/ui/style.css'],
 });
