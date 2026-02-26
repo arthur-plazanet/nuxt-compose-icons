@@ -44,23 +44,19 @@
   "exports": {
     ".": {
       "types": "./dist/module.d.mts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.js"
+      "import": "./dist/module.mjs"
     },
     "./utils": {
-      "types": "./dist/runtime/utils/index.d.mts",
-      "import": "./dist/runtime/utils/index.mjs",
-      "require": "./dist/runtime/utils/index.js"
+      "types": "./dist/runtime/utils/index.d.ts",
+      "import": "./dist/runtime/utils/index.js"
     },
     "./types": {
-      "types": "./dist/runtime/types/index.d.mts",
-      "import": "./dist/runtime/types/index.mjs",
-      "require": "./dist/runtime/types/index.js"
+      "types": "./dist/runtime/types/index.d.ts",
+      "import": "./dist/runtime/types/index.js"
     },
     "./composables": {
-      "types": "./dist/runtime/composables/index.d.mts",
-      "import": "./dist/runtime/composables/index.mjs",
-      "require": "./dist/runtime/composables/index.js"
+      "types": "./dist/runtime/composables/index.d.ts",
+      "import": "./dist/runtime/composables/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -68,11 +64,11 @@
     "dist/**"
   ],
   "license": "MIT",
-  "main": "./dist/module.js",
+  "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
+  "types": "./dist/module.d.mts",
   "repository": "arthur-plazanet/nuxt-compose-icons",
   "type": "module",
-  "types": "./dist/module.d.mts",
   "unbuild": {
     "failOnWarn": false
   }
