@@ -16,7 +16,7 @@ export function useComposeIconRegistry() {
   //   importPath: string;
   // }> = iconRegistryModule.default || iconRegistryModule;
 
-  const icons = iconRegistry;
+  const icons = [...iconRegistry];
 
   /**
    * Get an Icon Component by itsname
@@ -37,7 +37,7 @@ export function useComposeIconRegistry() {
 
   function searchIcons(query: string): IconRegistryEntry[] {
     const searchTerms = query.trim().toLowerCase();
-    if (!searchTerms) return iconRegistry;
+    if (!searchTerms) return icons;
     return filterIcons(searchTerms);
   }
 

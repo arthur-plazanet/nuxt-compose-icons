@@ -1,18 +1,16 @@
 // utils/optimize-css.ts
 // import { transform } from 'lightningcss';
 
-// TODO: https://github.com/arthur-plazanet/nuxt-compose-icons/issues/193
+// TODO: https://github.com/arthur-plazanet/nuxt-compose-icons/issues/197 issue with CJS dependency
 export function optimizeCss(css: string): string {
-  // const { code } = transform({
+  // TODO: https://github.com/arthur-plazanet/nuxt-compose-icons/issues/193 update config
+  // const res = transform({
   //   filename: 'compose-icons.css',
   //   code: Buffer.from(css),
   //   minify: true,
-  //   targets: {
-  //     chrome: 100,
-  //     firefox: 100,
-  //     safari: 15,
-  //   },
+  //   sourceMap: true,
   // });
 
+  // return res.code.toString();
   return css;
 }

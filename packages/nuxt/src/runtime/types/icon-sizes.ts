@@ -1,12 +1,20 @@
-export type ComposeIconSize = Record<string, string>;
+export type ComposeIconSize = Record<string | number | symbol, unknown> | unknown;
 
-// keep IconSize as your *default* tokens (optional convenience)
-export const IconSize = {
-  XS: 'xs',
-  SM: 'sm',
-  MD: 'md',
-  LG: 'lg',
-  XL: 'xl',
-} as const;
+// (optional convenience) keep IconSizeDefault as your *default* tokens type
+// and extend it with your custom tokens as needed, e.g.:
+// export interface IconSizeDefault {
+//   xs: 'xs';
+//   sm: 'sm';
+//   md: 'md';
+//   lg: 'lg';
+//   xl: 'xl';
+// }
+export interface IconSizeDefault {
+  xs: string | number;
+  sm: string | number;
+  md: string | number;
+  lg: string | number;
+}
 
-export type IconSizeKeyValue = (typeof IconSize)[keyof typeof IconSize];
+export type IconSizeKey = keyof IconSizeDefault;
+export type IconSizeKeyValue = IconSizeDefault[keyof IconSizeDefault];

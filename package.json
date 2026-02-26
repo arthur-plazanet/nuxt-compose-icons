@@ -3,6 +3,10 @@
   "author": "",
   "private": true,
   "scripts": {
+    "changeset": "changeset",
+    "changeset:publish": "changeset publish",
+    "changeset:snapshot": "changeset version --snapshot && changeset publish --tag snapshot",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
     "clean": "find . -name 'node_modules' -exec rm -rf '{}' + && find . -name 'dist' -exec rm -rf '{}' + && find . -name '.nuxt' -exec rm -rf '{}' + && rm -rf pnpm-lock.yaml",
     "dev": "pnpm --filter nuxt-compose-icons dev",
     "dev:build": "pnpm --filter nuxt-compose-icons dev:build",

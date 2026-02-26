@@ -1,4 +1,6 @@
-export function useTheme() {
+export function useRuntimeIconsState() {
+  const search = ref('');
+
   const iconSizes: Ref<ComposeIconSize> = ref({
     xs: '0.5rem',
     sm: '0.875rem',
@@ -14,5 +16,6 @@ export function useTheme() {
     iconSizes,
     primaryColor,
     secondaryColor,
+    search,
   };
 }

@@ -1,12 +1,8 @@
 {
   "name": "nuxt-compose-icons",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": false,
   "scripts": {
-    "changeset": "changeset",
-    "changeset:publish": "changeset publish",
-    "changeset:snapshot": "changeset version --snapshot && changeset publish --tag snapshot",
-    "changeset:version": "changeset version && pnpm install --lockfile-only",
     "dev": "PORT=3008 nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:generate": "nuxi generate playground",
@@ -46,38 +42,33 @@
     "vue-tsc": "3.2.5"
   },
   "exports": {
-    "./package.json": "./package.json",
     ".": {
-      "types": "./dist/types.d.ts",
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.js"
+      "types": "./dist/module.d.mts",
+      "import": "./dist/module.mjs"
     },
     "./utils": {
       "types": "./dist/runtime/utils/index.d.ts",
-      "import": "./dist/runtime/utils/index.mjs",
-      "require": "./dist/runtime/utils/index.js"
+      "import": "./dist/runtime/utils/index.js"
     },
     "./types": {
       "types": "./dist/runtime/types/index.d.ts",
-      "import": "./dist/runtime/types/index.mjs",
-      "require": "./dist/runtime/types/index.js"
+      "import": "./dist/runtime/types/index.js"
     },
     "./composables": {
       "types": "./dist/runtime/composables/index.d.ts",
-      "import": "./dist/runtime/composables/index.mjs",
-      "require": "./dist/runtime/composables/index.js"
-    }
+      "import": "./dist/runtime/composables/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
-    "dist",
-    "package.json"
+    "dist/**"
   ],
   "license": "MIT",
-  "main": "./dist/module.js",
+  "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
+  "types": "./dist/module.d.mts",
   "repository": "arthur-plazanet/nuxt-compose-icons",
   "type": "module",
-  "types": "./dist/types.d.ts",
   "unbuild": {
     "failOnWarn": false
   }

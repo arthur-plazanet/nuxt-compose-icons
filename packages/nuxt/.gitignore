@@ -59,7 +59,7 @@ Temporary Items
 src/runtime/components/icons-generated
 
 # Generated CSS
-src/runtime/assets/compose-sizes.css
+src/runtime/assets/compose-icon-sizes.css
 
 # Generated Icon Registry
 src/runtime/utils/icon-registry.ts
