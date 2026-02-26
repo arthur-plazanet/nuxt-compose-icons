@@ -1,6 +1,7 @@
 export {
   formatCssClass,
   formatCssRootVars,
+  generateComment,
   generateCommentBlock,
   generateCommentLine,
   generateHeader,
@@ -85,6 +86,29 @@ function generateSubheader(subheader: string): string {
 }
 
 /**
+ * Generate a comment block for a given string.
+ *
+ * If the content is longer than the header length, it will generate a block comment in several lines, otherwise it will generate a single line comment.
+ *
+ * Example of block comment:
+ * /*
+ *  * This is a first line
+ *  * This is a second line
+ *  */
+function generateComment(content: string | string[]): string {
+  if (!content) return '';
+
+  let contentStr: string = `${startComment}\n`;
+
+  if (Array.isArray(content)) {
+    contentStr += ` * ${content.join('\n * ' + '')} `;
+    return `${contentStr}\n${endComment}\n`;
+  }
+
+  return generateCommentLine(capitalizeFirstLetter(content));
+}
+
+/**
  * Formats content within a :root CSS block.
  *  :root {
  *    --variable: value;
@@ -100,11 +124,15 @@ function formatCssRootVars(cssVars: Record<string, string>): string {
   return result;
 }
 
-function formatCssClass(className: string, cssVars: Record<string, string>): string {
-  let result = `.${className} {\n`;
-  Object.entries(cssVars).forEach(([key, value]) => {
-    result += `  --${key}: ${value};\n`;
-  });
+function formatCssClass(className: string, cssVars: Record<string, string> | string): string {
+  let result = `.${className} {`;
+  if (typeof cssVars === 'string') {
+    result += cssVars;
+  } else {
+    Object.entries(cssVars).forEach(([key, value]) => {
+      result += `  --${key}: ${value};\n`;
+    });
+  }
   result += `}\n`;
   return result;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex">
+  <YRow type="cluster">
     <input
       v-for="size in sizes"
       :key="size"
@@ -8,11 +8,12 @@
       :name="size"
       :placeholder="`${size.toUpperCase()} icon size`"
     />
-  </div>
+  </YRow>
 </template>
 
 <script setup lang="ts">
 import { setRootCssVar } from '@/utils/root-css-vars';
+import { YRow } from '@use-compose/ui';
 import { reactive, watchEffect } from 'vue';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
@@ -29,7 +30,7 @@ watchEffect(() => {
   if (!import.meta.client) return;
 
   for (const [size, value] of Object.entries(iconSizes)) {
-    setRootCssVar(`--icon-size-${size}`, value);
+    setRootCssVar(`--size-${size}`, value);
   }
 });
 </script>

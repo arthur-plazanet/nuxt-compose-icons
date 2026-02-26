@@ -12,7 +12,6 @@ import * as fs from 'node:fs';
 import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { createSvgComponentCode } from './render/svg-codegen';
-import { IconSize } from './runtime/types';
 import { ComposeIconSize } from './runtime/types/icon-sizes';
 import {
   createComponentFromName,
@@ -25,16 +24,6 @@ import {
 import { generateIconsIndex, generateIconsRegistry } from './utils/filesystem/generate-icon-index';
 import { createDir, writeFile } from './utils/filesystem/helpers';
 import { optimizeCss } from './utils/styles/optimize-css';
-// export * from './runtime/composables/index';
-// export { generateColorVariable, getIconSizeClass } from './runtime/utils';
-
-// export { IconSize } from './runtime/types';
-// export type {
-//   ComposeIconProps,
-//   ComposeIconSize,
-//   IconSizeKey,
-//   IconSizeKeyValue,
-// } from './runtime/types';
 export interface GeneratedComponentOptions {
   /**
    * The prefix to use for the component
@@ -145,13 +134,13 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
   // Default configuration options of the Nuxt module
   defaults: {
     reRunOnBuild: true,
-    iconSizes: {
-      [IconSize.XS]: '0.5rem',
-      [IconSize.SM]: '0.875rem',
-      [IconSize.MD]: '1rem',
-      [IconSize.LG]: '1.5rem',
-      [IconSize.XL]: '2.5rem',
-    },
+    // iconSizes: {
+    //   [IconSize.XS]: '0.5rem',
+    //   [IconSize.SM]: '0.875rem',
+    //   [IconSize.MD]: '1rem',
+    //   [IconSize.LG]: '1.5rem',
+    //   [IconSize.XL]: '2.5rem',
+    // },
     // If not provided, the default will be to use the "Icon" suffix for the component without a prefix
     // e.g. "arrow-up.svg" will be "ArrowUpIcon"
     generatedComponentOptions: {
@@ -167,9 +156,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
   },
 
   hooks: {
-    'build:before'() {
-      // console.log('🚀 - build:before hook called');
-    },
+    'build:before'() {},
   },
   async setup(options, nuxt) {
     const logger = useLogger('nuxt-compose-icons');
@@ -420,41 +407,39 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
         const { cssFileContent } = generateCssFile(iconSizes);
-
+        logger.info(`📟 - Generated CSS content for icon sizes: ${cssFileContent}`);
         // Define the path to save the CSS file within the module
         // const iconRootVars = resolve('./runtime/assets/compose-sizes.css');
         // await writeFile(iconRootVars, cssContent);
         // nuxt.options.css.push(iconRootVars);
 
-        // const iconClasses = resolve('./runtime/assets/compose-icon.css');
+        const baseIconStyles = resolve('runtime/assets/compose-icon.css');
+
+        // await writeFile(baseIconStyles, optimizeCss(cssFileContent));
         // nuxt.options.alias = {
         //   '@': './runtime',
         // };
         // 2. Register a single template that merges them
-        // const tpl = addTemplate({
-        //   filename: 'compose-icons.css',
-        //   getContents: () => `${iconRootVars}\n\n${iconClasses}`,
-        // });
+        nuxt.options.css.push(baseIconStyles);
+
+        // nuxt.options.css.push(tpls.dst); // ✅ this is in buildDir
         // logger.log('📟 - tpl → ', tpl);
 
-        const optimizedCssFileContent = optimizeCss(cssFileContent);
+        const completeIconStyles = optimizeCss(`${cssFileContent}`);
+
         const tpl = addTemplate({
-          filename: 'nuxt-compose-icons/compose-sizes.css',
-          getContents: () => optimizedCssFileContent,
+          filename: 'compose-icon-sizes.css',
+          getContents: () => `${completeIconStyles}`,
         });
         nuxt.options.css.push(tpl.dst); // ✅ this is in buildDir
 
-        // const optimizedCssClasses = optimizeCss(cssClasses);
-        // const tplClasses = addTemplate({
-        //   filename: 'nuxt-compose-icons/compose-icons.css',
-        //   getContents: () => optimizedCssClasses,
-        // });
-        // nuxt.options.css.push(tplClasses.dst); // ✅ this is in buildDir
-        // //  write file locally
-        // await writeFile(
-        //   resolve('./runtime/assets/compose-icons.css'),
-        //   `${optimizedIconRootVars}\n\n${optimizedCssClasses}`,
-        // );
+        // nuxt.options.css.push(tpl.dst); // ✅ this is in buildDir
+
+        //  write file locally
+        await writeFile(
+          resolve('./runtime/assets/compose-icon-sizes.css'),
+          `${completeIconStyles}`,
+        );
         // // Inject into the Nuxt build
         // // nuxt.options.css.push(tpl.dst);
         // // Push the CSS file into the Nuxt app's CSS array

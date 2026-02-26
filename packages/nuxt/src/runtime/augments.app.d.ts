@@ -1,5 +1,5 @@
 declare module 'nuxt-compose-icons/utils' {
-  export { generateColorVariable, getIconSizeClass } from 'nuxt-compose-icons';
+  export { getIconSizeClass } from 'nuxt-compose-icons';
   export { useComposeIcon };
   import { useComposeIcon } from 'nuxt-compose-icons/dist/runtime/composables/compose-icon';
 }

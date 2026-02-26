@@ -1,16 +1,6 @@
-import { extend } from 'unreadable-typescript';
-import { IconSize } from '../../runtime/types';
-import { formatCssClass, formatCssRootVars } from '../template';
+import { DefaultSizes, iconSizeDefault } from '../../runtime/utils/icon-theming';
+import { formatCssRootVars, generateComment } from '../template';
 import type { ComposeIconSize } from './../../runtime/types/icon-sizes';
-
-// Default icon sizes if none have been provided to the module
-const defaultSizes: ComposeIconSize = {
-  [IconSize.XS]: '1rem',
-  [IconSize.SM]: '1.5rem',
-  [IconSize.MD]: '2rem',
-  [IconSize.LG]: '3rem',
-  [IconSize.XL]: '4rem',
-};
 
 /**
  * Generate a CSS file with the custom icon sizes provided
@@ -49,17 +39,47 @@ const defaultSizes: ComposeIconSize = {
 // }
 
 export function generateCssFile(iconSizes?: ComposeIconSize): Record<string, string> {
-  let rootIconSizes = extend<ComposeIconSize>()<Record<string, string>>();
+  let rootIconSizes: Record<string, string>;
 
-  rootIconSizes = { ...defaultSizes, ...iconSizes };
+  if (!iconSizes) {
+    const defaultSizes: DefaultSizes = { ...iconSizeDefault } as DefaultSizes;
+    rootIconSizes = { ...defaultSizes };
+  } else {
+    rootIconSizes = { ...(iconSizes as Record<string, string>) };
+  }
 
-  const rootCssVarsContent: string = `${formatCssRootVars(rootIconSizes)}\n`;
+  const rootCssVarsContent: string = formatCssRootVars(
+    Object.keys(rootIconSizes).reduce(
+      (acc, key) => {
+        acc[`size-${key}`] = rootIconSizes[key];
+        return acc;
+      },
+      {} as Record<string, string>,
+    ),
+  );
 
+  let composeIconSizes = rootCssVarsContent;
+
+  composeIconSizes += generateComment([
+    "We don't define fallback values to let the initial values subsist (if any).",
+    'This could catch the case of a missing prop and instead of a default value',
+    'we would rely on the default from the SVG.',
+  ]);
+  composeIconSizes += `.compose-icon {\n`;
   // Base width and height class for icons
-  const cssClasses: string = formatCssClass('compose-icon', rootIconSizes);
+  const cssClasses = Object.entries(rootIconSizes)
+    .map(([key]) => {
+      const cssClass = `  &.size-${key} {
+    --icon-size: var(--size-${key});
+  }`;
+      return cssClass;
+    })
+    .join('\n');
+
+  composeIconSizes += cssClasses + '\n}';
 
   return {
     iconSizesRootVars: rootCssVarsContent,
-    cssFileContent: `${rootCssVarsContent}\n${cssClasses}`,
+    cssFileContent: `${composeIconSizes}`,
   };
 }

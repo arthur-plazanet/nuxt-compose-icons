@@ -103,7 +103,7 @@ describe('parseAndTransformSvg', () => {
       ${svgClosingTag}`;
       const result = parseAndTransformSvg(svg);
 
-      expect(result.children[0]).toContain('"fill": "var(--icon-fill, currentColor)"');
+      expect(result.children[0]).toContain('"fill": "var(--icon-fill, currentcolor)"');
       expect(result.children[0]).toContain('"stroke": "var(--icon-stroke, #000)"');
       expect(result.children[0]).toContain('"stroke-width": "var(--icon-stroke-width, 1.5)"');
     });
