@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.8
+
+### Patch Changes
+
+- d512094: Test update config
+
 ## 0.2.7
 
 ### Patch Changes
