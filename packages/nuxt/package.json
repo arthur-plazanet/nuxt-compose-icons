@@ -1,6 +1,6 @@
 {
   "name": "nuxt-compose-icons",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "private": false,
   "scripts": {
     "dev": "PORT=3008 nuxi dev playground",

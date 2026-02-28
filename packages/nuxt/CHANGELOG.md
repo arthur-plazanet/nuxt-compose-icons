@@ -1,5 +1,17 @@
 # nuxt-compose-icons
 
+## 0.2.8
+
+### Patch Changes
+
+- d512094: Test update config
+
+## 0.2.7
+
+### Patch Changes
+
+- bf00ac4: Update CSS virtual file
+
 ## 0.2.6
 
 ### Patch Changes
