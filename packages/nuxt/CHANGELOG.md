@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.13
+
+### Patch Changes
+
+- a07e702: Test for a tag
+
 ## 0.2.12
 
 ### Patch Changes
