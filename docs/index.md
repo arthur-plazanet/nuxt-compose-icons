@@ -9,6 +9,7 @@ description: Automatically generate customizable Vue components based on SVG fil
 
 <script setup>
 import Home from '@theme/components/Home.vue'
+import '@theme/assets/scss/main.scss'
 </script>
 
 <Home />

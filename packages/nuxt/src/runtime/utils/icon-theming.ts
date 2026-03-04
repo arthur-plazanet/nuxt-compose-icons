@@ -1,4 +1,3 @@
-import { extend } from 'unreadable-typescript';
 import { ComposeIconSize } from '../types';
 
 export { defaultSizes, iconSizeDefault };
@@ -6,9 +5,13 @@ export type { DefaultSizes };
 /**
  * Default icon sizes if none have been provided to the module
  */
-const defaultSizes = extend<ComposeIconSize>()<{ sm: string; md: string; lg: string; xl: string }>();
 
-type DefaultSizes = typeof defaultSizes;
+type DefaultSizes = ComposeIconSize & {
+  sm: string;
+  md: string;
+  lg: string;
+  xl: string;
+};
 
 // Default icon sizes if none have been provided to the module
 const iconSizeDefault: DefaultSizes = {

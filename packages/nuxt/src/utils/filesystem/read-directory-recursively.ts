@@ -4,20 +4,24 @@
  * such as: /icons/outline or /icons/solid for example
  */
 
-import * as fs from 'node:fs';
+import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 
-export function readDirectoryRecursively(dir: string, fileList: string[] = []): string[] {
-  const files = fs.readdirSync(dir);
+export async function readDirectoryRecursively(
+  dir: string,
+  fileList: string[] = [],
+): Promise<string[]> {
+  const files = await fsp.readdir(dir);
 
-  files.forEach((file) => {
+  for (const file of files) {
     const filePath = path.join(dir, file);
-    if (fs.statSync(filePath).isDirectory()) {
-      readDirectoryRecursively(filePath, fileList);
+    const stat = await fsp.stat(filePath);
+    if (stat.isDirectory()) {
+      await readDirectoryRecursively(filePath, fileList);
     } else if (filePath.endsWith('.svg')) {
       fileList.push(filePath);
     }
-  });
+  }
 
   return fileList;
 }

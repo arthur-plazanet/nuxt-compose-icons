@@ -1,6 +1,6 @@
 {
   "name": "nuxt-compose-icons",
-  "version": "0.2.6",
+  "version": "0.2.11",
   "private": false,
   "scripts": {
     "dev": "PORT=3008 nuxi dev playground",
@@ -10,7 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepack": "nuxt-module-build build",
-    "release": "pnpm publish && git push --follow-tags",
+    "release": "pnpm build && pnpm changeset:publish",
     "test": "vitest run --coverage",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test:watch": "vitest watch"
@@ -67,7 +67,10 @@
   "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
   "types": "./dist/module.d.mts",
-  "repository": "arthur-plazanet/nuxt-compose-icons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arthur-martinez/nuxt-compose-icons.git"
+  },
   "type": "module",
   "unbuild": {
     "failOnWarn": false
