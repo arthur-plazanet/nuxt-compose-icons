@@ -68,7 +68,7 @@
   "types": "./dist/module.d.mts",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arthur-martinez/nuxt-compose-icons.git"
+    "url": "https://github.com/arthur-plazanet/nuxt-compose-icons"
   },
   "type": "module",
   "unbuild": {
