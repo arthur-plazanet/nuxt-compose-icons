@@ -4,8 +4,8 @@ import { AppCompose, YTheme } from '@use-compose/ui';
 import DefaultTheme from 'vitepress/theme';
 
 import '@use-compose/ui/style.css';
-// import './assets/main.css';
-import './assets/vitepress/theme.css';
+import './assets/main.css';
+import LogoIcon from './components/icons/LogoIcon.vue';
 
 const theme: YTheme = {
   primary: '#c1272d',
@@ -19,14 +19,11 @@ const { Layout } = DefaultTheme;
 <template>
   <ClientOnly>
     <AppCompose :theme="theme">
-      <!-- <YContainer> -->
       <Layout class="home-layout">
         <template #nav-bar-title-before>
           <LogoIcon size="xl" />
         </template>
-        <!-- <Content /> -->
       </Layout>
-      <!-- </YContainer> -->
     </AppCompose>
   </ClientOnly>
 </template>

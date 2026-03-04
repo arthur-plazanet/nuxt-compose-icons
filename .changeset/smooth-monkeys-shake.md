@@ -2,4 +2,4 @@
 'nuxt-compose-icons': patch
 ---
 
-Fix
+Test update config

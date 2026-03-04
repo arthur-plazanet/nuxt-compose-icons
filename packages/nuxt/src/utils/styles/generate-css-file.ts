@@ -1,6 +1,6 @@
-import type { ComposeIconSize } from '../runtime/types/icon-sizes';
-import { DefaultSizes, iconSizeDefault } from '../runtime/utils/icon-theming';
-import { formatCssRootVars, generateComment } from './template';
+import { DefaultSizes, iconSizeDefault } from '../../runtime/utils/icon-theming';
+import { formatCssRootVars, generateComment } from '../template';
+import type { ComposeIconSize } from './../../runtime/types/icon-sizes';
 
 /**
  * Generate a CSS file with the custom icon sizes provided

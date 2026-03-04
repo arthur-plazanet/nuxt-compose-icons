@@ -1,23 +1,23 @@
 <template>
   <div class="getting-started">
     <h2 class="title">Getting Started (source: https://nuxt-icons.use-compose.com/)</h2>
-    <div class="code-highlighter">
-      <CodeHighlighter multi :code="arrayCode" />
+    <div class="code-svg">
+      <CodeHighlighter language="graphql" :code="codeSvg" title="SVG Directory Structure" />
     </div>
-    <!-- 
+
     <div class="code-vue">
-      <CodeHighlighter lang="html" :code="codeVue" title="Vue Component Usage" />
+      <CodeHighlighter language="vue" :code="codeVue" title="Vue Component Usage" />
     </div>
     <div class="code-config">
-      <CodeHighlighter lang="typescript" :code="codeConfig" title="nuxt.config.ts" />
+      <CodeHighlighter language="typescript" :code="codeConfig" title="nuxt.config.ts" />
     </div>
     <div class="code-dot-nuxt">
       <CodeHighlighter
-        lang="typescript"
+        language="typescript"
         :code="codeDotNuxt"
         title=".nuxt/icons-generated/components.ts"
       />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -25,17 +25,15 @@
 import CodeHighlighter from './CodeHighlighter.vue';
 
 // https://github.com/vuejs/vitepress/issues/603
-const codeSvg = `
-\`\`\`graphql
-icons/                                       
-  ├─ pictos_modules_chronologie.svg                     
-  ├─ add-note.svg                                       
-  ├─ delete.svg                                         
-  ├─ logo.svg                                           
-  ├─ link.svg                                           
-  ├─ trash.svg                                          
-  └─ twitter.svg                                         
-\`\`\``;
+const codeSvg = `icons/                                       
+        ├─ pictos_modules_chronologie.svg                     
+        ├─ add-note.svg                                       
+        ├─ delete.svg                                         
+        ├─ logo.svg                                           
+        ├─ link.svg                                           
+        ├─ trash.svg                                          
+        └─ twitter.svg                                         
+`;
 
 const codeConfig = `// nuxt.config.ts
 export default defineNuxtConfig({
@@ -78,29 +76,6 @@ const codeDotNuxt = `/* At build time,
 'TimeIcon': typeof import("../icons-generated/TimeIcon.vue")['default'];
 
 // with all your own components`;
-
-const arrayCode = [
-  {
-    code: codeSvg,
-    lang: 'md',
-    title: 'SVG Directory',
-  },
-  {
-    code: codeVue,
-    lang: 'html',
-    title: 'Vue Component',
-  },
-  {
-    code: codeConfig,
-    lang: 'typescript',
-    title: 'Nuxt config',
-  },
-  {
-    code: codeDotNuxt,
-    lang: 'typescript',
-    title: 'Components.ts',
-  },
-];
 </script>
 
 <style>
@@ -108,6 +83,11 @@ const arrayCode = [
   max-height: 35%;
   background-color: #1c1b1b;
   padding: 1rem;
+  display: grid;
+  grid-template-areas:
+    'title title . .'
+    'code-svg code-config code-vue code-dot-nuxt';
+  grid-template-rows: 50px 1fr;
 }
 
 .title {

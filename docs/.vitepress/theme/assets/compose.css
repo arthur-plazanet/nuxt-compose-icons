@@ -52,13 +52,3 @@
   /* avoid overflow from long content */
   min-width: 0;
 }
-
-/* TODO: Remove when fixed in @use-compose/ui */
-/* .wrapper {
-  width: 100%;
-  max-width: clamp(16rem, var(--wrapper-max-width, 80rem), 95vw);
-  padding-left: var(--layout-space-unit);
-  padding-right: var(--layout-space-unit);
-  margin-left: auto;
-  margin-right: auto;
-} */

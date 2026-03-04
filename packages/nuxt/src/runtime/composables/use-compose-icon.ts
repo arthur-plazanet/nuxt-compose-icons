@@ -1,7 +1,7 @@
 import { computed, type SVGAttributes } from 'vue';
 import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
-import { iconSizeDefault, isRawCssSize } from '../utils/icon-theming';
+import { iconSizeDefault } from '../utils/icon-theming';
 
 export { useComposeIcon };
 export type { UseComposeIcon };
@@ -17,6 +17,11 @@ interface UseComposeIcon {
     style: Record<string, string | number | undefined>;
     class: string[];
   };
+}
+
+function isRawCssSize(v: string) {
+  // crude but effective: tokens are simple words, raw sizes contain digits or '(' or 'var('
+  return /[\d(]/.test(v) || v.startsWith('var(');
 }
 
 /**

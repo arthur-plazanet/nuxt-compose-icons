@@ -5,7 +5,7 @@ export { createDir, isFileExist, writeFile };
 
 async function isFileExist(path: string): Promise<boolean> {
   try {
-    await fsp.access(path, fs.constants.F_OK);
+    await fs.promises.access(path, fs.constants.F_OK);
     return true;
   } catch {
     return false;

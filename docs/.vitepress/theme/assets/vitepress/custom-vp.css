@@ -13,13 +13,13 @@
   padding: 0.5rem 0;
 }
 
-h1.heading-h1 {
+h1 {
   line-height: var(--heading-h1-line-height);
   font-size: var(--heading-h1-size);
   font-weight: var(--heading-h1-weight);
 }
 
-h2.heading-h2 {
+h2 {
   /* font-size: var(--heading-h2-size); */
   font-weight: var(--heading-h2-weight);
   line-height: var(--heading-h2-line-height);
@@ -36,20 +36,6 @@ h2.heading-h2 {
 .home-layout .VPNavBar,
 .home-layout .VPNavBar:not(.home) {
   background-color: var(--vp-nav-bg-color);
-}
-
-.VPNav {
-  .container {
-    margin: 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .VPNav {
-    .container {
-      margin: 0 auto;
-    }
-  }
 }
 
 @media (min-width: 1440px) {

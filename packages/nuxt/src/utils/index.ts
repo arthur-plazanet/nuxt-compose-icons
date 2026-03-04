@@ -23,4 +23,4 @@ export { optimizeSvg } from './svg/svgo-optimize';
 /*
  * CSS utils
  */
-export { generateCssFile } from '../files-generation/generate-css-file';
+export { generateCssFile } from './styles/generate-css-file';

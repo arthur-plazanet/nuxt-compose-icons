@@ -1,38 +1,5 @@
 # nuxt-compose-icons
 
-## 0.2.11
-
-### Patch Changes
-
-- fix-css-file-and-consistent-icon-registry
-
-## 0.2.10
-
-### Patch Changes
-
-- Test
-
-## 0.0.0-20260302192951
-
-### Patch Changes
-
-- Test if tags
-- bf00ac4: Update CSS virtual file
-- d512094: Test update config
-
-## 0.0.0-20260301020143
-
-### Patch Changes
-
-- Fix icon registry
-
-## 0.0.0-20260301015331
-
-### Patch Changes
-
-- bf00ac4: Update CSS virtual file
-- d512094: Test update config
-
 ## 0.2.6
 
 ### Patch Changes

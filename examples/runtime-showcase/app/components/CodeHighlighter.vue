@@ -1,11 +1,5 @@
 <template>
-  <VueCodeHighlighter
-    v-if="!multi"
-    :code="simpleCode"
-    :lang="lang"
-    :file-name="fileName"
-    :title="title"
-  />
+  <VueCodeHighlighter v-if="!multi" :code="simpleCode" :lang="lang" :file-name="fileName" />
   <VueCodeHighlighterMulti v-if="multi" :code="codeMulti" />
 </template>
 
@@ -25,7 +19,6 @@ interface CodeHighlighterProps {
   code: Array<CodeHighlighterMulti> | string; // Code to highlight, can be a single string or an array of objects
   multi?: boolean; // Flag to indicate if multiple code blocks are present
   lang?: string; // Language for syntax highlighting, default is 'html'
-  title?: string; // Optional title for the code block
 }
 
 const props: CodeHighlighterProps = withDefaults(defineProps<CodeHighlighterProps>(), {
