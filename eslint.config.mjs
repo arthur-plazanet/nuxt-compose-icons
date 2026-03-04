@@ -57,7 +57,8 @@ export default defineConfig([
       '**/icons-generated/',
       '**/.vitepress/theme/components/',
       '**/nuxt-compose-icons/',
-      // '**/*/icons/',
+      // ending with Icon.ts which separator? :
+      '**/*Icon.ts',
     ],
   },
   eslintConfigPrettier,

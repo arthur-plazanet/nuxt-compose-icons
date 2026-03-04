@@ -1,6 +1,6 @@
 import { ComposeIconSize } from '../types';
 
-export { defaultSizes, iconSizeDefault };
+export { iconSizeDefault };
 export type { DefaultSizes };
 /**
  * Default icon sizes if none have been provided to the module
