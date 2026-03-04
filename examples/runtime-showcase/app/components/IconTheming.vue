@@ -1,10 +1,10 @@
 <template>
   <YRow type="cluster">
-    <input
+    <YInputText
       v-for="size in sizes"
       :key="size"
       v-model="iconSizes[size]"
-      type="text"
+      type="number"
       :name="size"
       :placeholder="`${size.toUpperCase()} icon size`"
     />
@@ -13,24 +13,24 @@
 
 <script setup lang="ts">
 import { setRootCssVar } from '@/utils/root-css-vars';
-import { YRow } from '@use-compose/ui';
+import { YInputText, YRow } from '@use-compose/ui';
 import { reactive, watchEffect } from 'vue';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
 
 const iconSizes = reactive({
-  xs: '12px',
-  sm: '16px',
-  md: '24px',
-  lg: '32px',
-  xl: '48px',
+  xs: 12,
+  sm: 16,
+  md: 24,
+  lg: 32,
+  xl: 48,
 });
 
 watchEffect(() => {
   if (!import.meta.client) return;
 
   for (const [size, value] of Object.entries(iconSizes)) {
-    setRootCssVar(`--size-${size}`, value);
+    setRootCssVar(`--size-${size}`, `${value}px`);
   }
 });
 </script>

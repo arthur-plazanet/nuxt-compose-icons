@@ -115,7 +115,7 @@ function generateComment(content: string | string[]): string {
  *  }
  */
 function formatCssRootVars(cssVars: Record<string, string>): string {
-  let result = `  :root {`;
+  let result = `:root {`;
   result += `\n`;
   Object.entries(cssVars).forEach(([key, value]) => {
     result += `    --${key}: ${value};\n`;
