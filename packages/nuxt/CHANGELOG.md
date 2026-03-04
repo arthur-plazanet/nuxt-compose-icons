@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.14
+
+### Patch Changes
+
+- 5e58cf6: Test tag #345
+
 ## 0.2.13
 
 ### Patch Changes
