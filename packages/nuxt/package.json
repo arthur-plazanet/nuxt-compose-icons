@@ -67,7 +67,10 @@
   "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
   "types": "./dist/module.d.mts",
-  "repository": "arthur-plazanet/nuxt-compose-icons",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arthur-martinez/nuxt-compose-icons.git"
+  },
   "type": "module",
   "unbuild": {
     "failOnWarn": false
