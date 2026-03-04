@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.2.15
+
+### Patch Changes
+
+- 1135006: sqd
+
 ## 0.2.14
 
 ### Patch Changes
