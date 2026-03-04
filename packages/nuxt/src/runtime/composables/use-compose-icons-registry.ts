@@ -1,30 +1,17 @@
 // runtime/composables/useComposeIconRegistry.ts
-import type { IconRegistryEntry } from '../../runtime/utils/icon-registry';
-import { iconRegistry } from '../../runtime/utils/icon-registry';
+import type { IconRegistryEntry } from '#compose-icons/registry';
+import { iconRegistry } from '#compose-icons/registry';
 
 export function useComposeIconRegistry() {
-  // const iconRegistryPath = componentsDir
-  //   ? `${componentsDir}/icon-registry.ts`
-  //   : '../../src/runtime/composables/use-compose-icons-registry.ts';
-
-  // Dynamically import the icon registry JSON file
-  // const iconRegistryModule = await import(/* @vite-ignore */ iconRegistryPath);
-  // const iconRegistry: Array<{
-  //   name: string;
-  //   pascalName: string;
-  //   kebabName: string;
-  //   importPath: string;
-  // }> = iconRegistryModule.default || iconRegistryModule;
-
   const icons = [...iconRegistry];
 
   /**
-   * Get an Icon Component by itsname
+   * Get an Icon Component by its name
    *
    * @param {string} name
-   * @returns {(IconRegistryEntry | undefined)}
+   * @returns {IconRegistryEntry[]}
    */
-  function getIconsByName(name: string): IconRegistryEntry[] {
+  function getIconByName(name: string): IconRegistryEntry[] {
     const iconByStrictName = icons.filter(
       (icon) => icon.name === name || icon.kebabName === name || icon.pascalName === name,
     );
@@ -53,7 +40,7 @@ export function useComposeIconRegistry() {
 
   return {
     icons,
-    getIconsByName,
+    getIconByName,
     searchIcons,
   };
 }
