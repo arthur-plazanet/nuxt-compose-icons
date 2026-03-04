@@ -1,21 +1,19 @@
 <template>
-  <YFlow>
-    <YRow type="cluster">
-      <YInputText
-        v-for="size in sizes"
-        :key="size"
-        v-model="iconSizes[size]"
-        type="number"
-        :name="size"
-        :placeholder="`${size.toUpperCase()} icon size`"
-      />
-    </YRow>
-  </YFlow>
+  <YRow type="cluster">
+    <YInputText
+      v-for="size in sizes"
+      :key="size"
+      v-model="iconSizes[size]"
+      type="number"
+      :name="size"
+      :placeholder="`${size.toUpperCase()} icon size`"
+    />
+  </YRow>
 </template>
 
 <script setup lang="ts">
 import { setRootCssVar } from '@/utils/root-css-vars';
-import { YFlow, YInputText, YRow } from '@use-compose/ui';
+import { YInputText, YRow } from '@use-compose/ui';
 import { reactive, watchEffect } from 'vue';
 
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
