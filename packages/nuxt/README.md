@@ -150,19 +150,19 @@ See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
 Using pnpm:
 
 ```bash
-pnpm add -D nuxt-compose-icons
+pnpm add nuxt-compose-icons
 ```
 
 Using npm
 
 ```bash
-npm install -D nuxt-compose-icons
+npm install nuxt-compose-icons
 ```
 
 Using yarn
 
 ```bash
-yarn add -D nuxt-compose-icons
+yarn add nuxt-compose-icons
 ```
 
 ## 🛠 Usage

@@ -1,8 +1,16 @@
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vitest/config';
 import baseConfig from '../../vitest.config.mts';
 
 export default defineConfig({
   ...baseConfig,
+  resolve: {
+    alias: {
+      '#compose-icons/registry': fileURLToPath(
+        new URL('./test/mocks/icon-registry.mock.ts', import.meta.url),
+      ),
+    },
+  },
   test: {
     // passWithNoTests: true,
     // reporters: [

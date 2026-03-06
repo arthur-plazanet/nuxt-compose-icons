@@ -2,8 +2,8 @@
   <GettingStarted />
   <Wrapper>
     <IconTheming />
-    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d"
-  /></Wrapper>
+    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
+  </Wrapper>
 </template>
 
 <script setup lang="ts">
