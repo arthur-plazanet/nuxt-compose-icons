@@ -20,7 +20,7 @@
     "@use-compose/logger": "0.0.6",
     "node-html-parser": "7.1.0",
     "svg-parser": "2.0.4",
-    "svgo": "4.0.0"
+    "svgo": "4.0.1"
   },
   "devDependencies": {
     "@nuxt/devtools": "3.2.2",
