@@ -11,7 +11,7 @@ export function useComposeIconRegistry() {
    * @param {string} name
    * @returns {IconRegistryEntry[]}
    */
-  function getIconByName(name: string): IconRegistryEntry[] {
+  function getIconsByName(name: string): IconRegistryEntry[] {
     const iconByStrictName = icons.filter(
       (icon) => icon.name === name || icon.kebabName === name || icon.pascalName === name,
     );
@@ -40,7 +40,7 @@ export function useComposeIconRegistry() {
 
   return {
     icons,
-    getIconByName,
+    getIconsByName,
     searchIcons,
   };
 }
