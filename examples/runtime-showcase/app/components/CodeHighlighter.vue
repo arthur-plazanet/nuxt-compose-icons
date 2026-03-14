@@ -32,6 +32,7 @@ const props: CodeHighlighterProps = withDefaults(defineProps<CodeHighlighterProp
   multi: false,
   lang: 'html',
   fileName: undefined,
+  title: undefined,
 });
 
 let simpleCode: string, codeMulti: Array<CodeHighlighterMulti>;

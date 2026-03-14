@@ -1,18 +1,18 @@
 <template>
   <!-- <VPHomeHero> -->
   <IconOverview>
-    <Wrapper>
-      <div class="home-content">
+    <div class="home-content">
+      <Wrapper>
         <Banner />
+      </Wrapper>
+    </div>
+    <details>
+      <summary style="margin-bottom: 1rem">Configuration</summary>
+      <div class="holy">
+        <CodeHighlighter :code="codeLoadModule" lang="js" />
+        <CodeHighlighter file-name=".nuxt.component.d.ts" :code="nuxtComponentBuilt" lang="js" />
       </div>
-      <details>
-        <summary style="margin-bottom: 1rem">Configuration</summary>
-        <div class="holy">
-          <CodeHighlighter :code="codeLoadModule" lang="js" />
-          <CodeHighlighter file-name=".nuxt.component.d.ts" :code="nuxtComponentBuilt" lang="js" />
-        </div>
-      </details>
-    </Wrapper>
+    </details>
   </IconOverview>
   <!-- </VPHomeHero> -->
 </template>

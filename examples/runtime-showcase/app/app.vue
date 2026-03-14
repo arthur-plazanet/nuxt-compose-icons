@@ -1,9 +1,11 @@
 <template>
   <AppCompose>
-    <!-- <YHeader /> -->
-    <!-- <YContainer> -->
-    <NuxtPage />
-    <!-- </YContainer> -->
+    <ClientOnly>
+      <!-- <YHeader /> -->
+      <!-- <YContainer> -->
+      <NuxtPage />
+      <!-- </YContainer> -->
+    </ClientOnly>
   </AppCompose>
 </template>
 

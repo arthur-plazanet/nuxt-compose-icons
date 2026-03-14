@@ -1,5 +1,5 @@
 <template>
-  <div class="separator" :style="getStyles"></div>
+  <div class="separator" :class="classes" :style="getStyles"></div>
 </template>
 
 <script lang="ts" setup>
@@ -12,8 +12,12 @@ interface SeparatorProps {
 }
 const props = withDefaults(defineProps<SeparatorProps>(), {
   width: '20%',
-  noMargin: false,
+  noMargin: true,
 });
+
+const classes = computed(() => ({
+  'no-margin': props.noMargin,
+}));
 
 const getStyles = computed(() => {
   const width = Number.isInteger(props.width) ? `${props.width}px` : props.width;
@@ -21,7 +25,7 @@ const getStyles = computed(() => {
   return {
     width: width,
     height: height,
-    ...(props.noMargin ? { margin: 0 } : {}),
+    // ...(props.noMargin ? { margin: 0 } : {}),
   };
 });
 </script>
@@ -30,9 +34,12 @@ const getStyles = computed(() => {
 @import '../assets/scss/abstracts/mixins';
 
 .separator {
-  margin: 6px 0 12px;
   background-color: var(--color-primary);
   height: 5px;
+
+  &:not(.no-margin) {
+    margin: 6px 0 12px;
+  }
 
   @include media('lg') {
     height: 0.5rem;

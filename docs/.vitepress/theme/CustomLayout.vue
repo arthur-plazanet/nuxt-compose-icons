@@ -1,9 +1,9 @@
 <!--.vitepress/theme/MyLayout.vue-->
 <script setup lang="ts">
 import { AppCompose, YTheme } from '@use-compose/ui';
-import DefaultTheme from 'vitepress/theme';
-
 import '@use-compose/ui/style.css';
+import DefaultTheme from 'vitepress/theme';
+import LogoIcon from './components/icons/LogoIcon.vue';
 // import './assets/main.css';
 import './assets/vitepress/theme.css';
 
@@ -19,14 +19,12 @@ const { Layout } = DefaultTheme;
 <template>
   <ClientOnly>
     <AppCompose :theme="theme">
-      <!-- <YContainer> -->
       <Layout class="home-layout">
         <template #nav-bar-title-before>
-          <LogoIcon size="xl" />
+          <LogoIcon size="m" />
         </template>
         <!-- <Content /> -->
       </Layout>
-      <!-- </YContainer> -->
     </AppCompose>
   </ClientOnly>
 </template>

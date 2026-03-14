@@ -25,7 +25,7 @@ const options: NuxtComposeIconsOptions = {
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   debug: true,
-  modules: ['nuxt-compose-icons'],
+  modules: ['nuxt-compose-icons', '@nuxt/test-utils/module'],
   // Module options
   composeIcons: options,
   devtools: {
