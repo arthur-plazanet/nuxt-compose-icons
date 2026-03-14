@@ -2,7 +2,7 @@
   <GettingStarted />
   <Wrapper>
     <IconTheming />
-    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
+    <ClientOnly> <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" /></ClientOnly>
   </Wrapper>
 </template>
 

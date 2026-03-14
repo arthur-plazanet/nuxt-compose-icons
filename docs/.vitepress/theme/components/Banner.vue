@@ -1,15 +1,16 @@
 <template>
   <section class="banner">
-    <header class="heading">
+    <header class="heading y-flow">
       <h1 class="heading-h1">
-        <YHighlightedText level="span" active stick-to-left>
+        <YHighlightedText active stick-to-left>
           <!-- <span style="color: white">Compose</span> -->
           Compose
         </YHighlightedText>
         your own Icon components library
       </h1>
       <Separator width="15%" />
-      <h2 class="tagline">
+
+      <h2 class="tagline heading-h2">
         Automatically generates customizable Vue components based on SVG files
       </h2>
       <p>
@@ -106,7 +107,12 @@ import Separator from './Separator.vue';
   grid-area: heading;
   align-self: end;
   color: white;
+  --gutter: 0.5rem;
+  --_stack-gap: var(--gutter);
 
+  &.y-stack {
+    --gutter: 1rem;
+  }
   .heading-h1 {
     position: relative;
 

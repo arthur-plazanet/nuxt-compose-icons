@@ -4,14 +4,14 @@
    * Use clamp responsive font size
    * Initial /https://utopia.fyi/type/calculator/?c=320,16,1.25,1620,16,1.5,5,5,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 
    */
-  --text-xs: clamp(0.4444rem, 0.6881rem - 0.2407vw, 0.64rem);
+  /* --text-xs: clamp(0.4444rem, 0.6881rem - 0.2407vw, 0.64rem);
   --text-sm: clamp(0.6667rem, 0.8328rem - 0.1641vw, 0.8rem);
   --text-md: clamp(1rem, 0.1rem + 0vw, 1rem);
   --text-lg: clamp(1.25rem, 1.1885rem + 0.3077vw, 1.5rem);
   --text-xl: clamp(1.5625rem, 1.3933rem + 0.8462vw, 2.25rem);
   --text-xxl: clamp(1.9531rem, 1.6031rem + 1.75vw, 3.375rem);
   --text-h1: clamp(2.4414rem, 1.7962rem + 3.226vi, 5.0625rem);
-  --text-h1: clamp(1.125rem, 4.1vw + 0.1rem, 4.5rem);
+  --text-h1: clamp(1.125rem, 4.1vw + 0.1rem, 4.5rem); */
   /* line-height: 1.5; */
 
   /* Title height */
@@ -29,36 +29,27 @@
   /** 
    * Spacing
    */
-  --space-unit: 1rem;
+  /* --space-unit: 1rem;
   --space-xxs: calc(0.25 * var(--space-unit));
   --space-xs: calc(0.5 * var(--space-unit));
   --space-sm: calc(0.75 * var(--space-unit));
   --space-md: calc(1 * var(--space-unit));
   --space-lg: calc(1.5 * var(--space-unit));
   --space-xl: calc(2 * var(--space-unit));
-  --space-xxl: calc(4 * var(--space-unit));
+  --space-xxl: calc(4 * var(--space-unit)); */
+
+  --gutter: var(--space-md);
 }
 
-.holy {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap, 1rem);
-  --switch: 40rem;
+.highlighted {
+  display: inline-block;
 }
-
-.holy > * {
-  flex-grow: 1;
-  flex-basis: calc((var(--switch) - 100%) * 999);
-  /* avoid overflow from long content */
-  min-width: 0;
-}
-
 /* TODO: Remove when fixed in @use-compose/ui */
-/* .wrapper {
+.wrapper {
   width: 100%;
   max-width: clamp(16rem, var(--wrapper-max-width, 80rem), 95vw);
   padding-left: var(--layout-space-unit);
   padding-right: var(--layout-space-unit);
   margin-left: auto;
   margin-right: auto;
-} */
+}

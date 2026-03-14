@@ -1,6 +1,8 @@
 // runtime/composables/useComposeIconRegistry.ts
 import type { IconRegistryEntry } from '#compose-icons/registry';
 import { iconRegistry } from '#compose-icons/registry';
+import type { MaybeRefOrGetter } from 'vue';
+import { computed, toValue } from 'vue';
 
 export function useComposeIconRegistry() {
   const icons = [...iconRegistry];
@@ -38,8 +40,13 @@ export function useComposeIconRegistry() {
     );
   }
 
+  function filteredIcons(query: MaybeRefOrGetter<string>) {
+    return computed(() => searchIcons(toValue(query)));
+  }
+
   return {
     icons,
+    filteredIcons,
     getIconsByName,
     searchIcons,
   };

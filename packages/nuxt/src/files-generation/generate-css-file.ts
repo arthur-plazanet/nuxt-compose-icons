@@ -1,5 +1,6 @@
 import type { ComposeIconSize } from '../runtime/types/icon-sizes';
-import { DefaultSizes, iconSizeDefault } from '../runtime/utils/icon-theming';
+import type { DefaultSizes } from '../runtime/utils/icon-theming';
+import { iconSizeDefault } from '../runtime/utils/icon-theming';
 import { formatCssRootVars, generateComment } from './template';
 
 /**

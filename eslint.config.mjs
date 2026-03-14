@@ -40,6 +40,11 @@ export default defineConfig([
     },
   },
   { languageOptions: { globals: globals.browser } },
+  {
+    files: ['**/scripts/*.mjs'],
+    languageOptions: { globals: globals.node },
+    rules: { 'no-console': 'off' },
+  },
 
   // {
   //   files: ['**/*.vue'],
