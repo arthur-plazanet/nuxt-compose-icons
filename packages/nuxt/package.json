@@ -13,6 +13,7 @@
     "release": "pnpm build && pnpm changeset:publish",
     "test": "vitest run --coverage",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "test:unit": "vitest run --project unit",
     "test:watch": "vitest watch"
   },
   "dependencies": {

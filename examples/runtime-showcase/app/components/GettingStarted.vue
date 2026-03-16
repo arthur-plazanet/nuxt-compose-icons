@@ -1,11 +1,9 @@
 <template>
   <div class="getting-started">
     <h2 class="title">Getting Started (source: https://nuxt-icons.use-compose.com/)</h2>
-    <ClientOnly>
-      <div class="code-highlighter">
-        <CodeHighlighter multi :code="arrayCode" />
-      </div>
-    </ClientOnly>
+    <div class="code-highlighter">
+      <CodeHighlighter multi :code="arrayCode" />
+    </div>
     <!-- 
     <div class="code-vue">
       <CodeHighlighter lang="html" :code="codeVue" title="Vue Component Usage" />
@@ -24,8 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import CodeHighlighter from './CodeHighlighter.vue';
-
 // https://github.com/vuejs/vitepress/issues/603
 const codeSvg = `
 \`\`\`graphql

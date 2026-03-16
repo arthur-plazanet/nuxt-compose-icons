@@ -12,7 +12,7 @@ import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { generateIconsIndex, generateIconsRegistry } from './files-generation/generate-icon-index';
 import { createSvgComponentCode } from './render/svg-codegen';
-import { ComposeIconSize } from './runtime/types/icon-sizes';
+import type { ComposeIconSize } from './runtime/types/icon-sizes';
 import {
   createComponentFromName,
   generateComponentName,
@@ -397,9 +397,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         addImportsDir(resolve('runtime/types'));
         addImportsDir(resolve('runtime/utils'));
 
-        // 8. Add composables
-        addImportsDir(resolve('runtime/composables'));
-
         // Add built-in components
         // TODO: Make optional?
         addComponent({
@@ -411,21 +408,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         const iconsIndexContent = generateIconsIndex(generatedComponents);
         const indexPath = resolve(componentsDir, 'index.ts');
         await writeFile(indexPath, iconsIndexContent);
-
-        // 10. Generate the icon registry file
-        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
-        const registryPath = resolve(componentsDir, 'icon-registry.ts');
-        await writeFile(registryPath, iconsRegistryContent);
-
-        // Expose the registry as a Nuxt build template so the runtime composable
-        // always imports the consumer's generated registry via '#compose-icons/registry',
-        // instead of a static local file that would need to be mutated.
-        const registryTemplate = addTemplate({
-          filename: 'compose-icons/icon-registry.ts',
-          getContents: () => iconsRegistryContent,
-          write: true,
-        });
-        nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
 
         /**
          * TODO: description
@@ -474,6 +456,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             filePath: c.filePath,
           });
         }
+
+        logger.info(
+          `${generatedComponents.length} components generated and registered from ${absolutePathToIcons}`,
+        );
+
+        // 10. Generate the icon registry file
+        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
+        const registryPath = resolve(componentsDir, 'icon-registry.ts');
+        await writeFile(registryPath, iconsRegistryContent);
+
+        // Expose the registry as a Nuxt build template so the runtime composable
+        // always imports the consumer's generated registry via '#compose-icons/registry',
+        // instead of a static local file that would need to be mutated.
+        const registryTemplate = addTemplate({
+          filename: 'compose-icons/icon-registry.ts',
+          getContents: () => iconsRegistryContent,
+          write: true,
+        });
+        nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
+
+        // 8. Add composables
+        addImportsDir(resolve('runtime/composables'));
         //     nuxt.hook('components:extend', async (components) => {
         //   for (const c of generatedComponents) {
         //     components.push({

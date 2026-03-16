@@ -1,3 +1,3 @@
 <template>
-  <ComposeIconOverview size="lg" />
+  <ComposeIconOverview size="lg" has-icon-name />
 </template>

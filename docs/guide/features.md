@@ -45,14 +45,29 @@ The aim is to combine the control and quality of hand-authored components with t
 
 ## Comparison with Other Icon Strategies
 
-| Feature / Approach   | Third-party Libraries | Manual Vue Components | SVG Loaders (`vite-svg-loader`) | **This Module**    |
-| -------------------- | --------------------- | --------------------- | ------------------------------- | ------------------ |
-| **Setup**            | ✅ Easy               | ⚠️ Manual             | ⚠️ Requires config              | ✅ Minimal         |
-| **Output**           | `<svg>` (clean)       | `<svg>` (custom)      | `<svg>` (inline)                | `<svg>` (clean)    |
-| **Theming**          | ⚠️ Limited props      | ✅ Full control       | ✅ Flexible via CSS             | ✅ CSS variables   |
-| **DX & Typing**      | ✅ Standard           | ✅ Full control       | ✅ With imports                 | ✅ Auto-typed      |
-| **Scalability**      | ✅ Tree-shakable      | ⚠️ Tedious manually   | ✅ File-based, fast             | ✅ Build-optimized |
-| **Nuxt Integration** | ✅ Works by default   | ✅ Auto-importable    | ✅ With module/plugin           | ✅ Native support  |
+| Feature                | Third-party Libraries        | Manual Vue Components | SVG Loaders (`vite-svg-loader`) | **Nuxt Compose Icons**      |
+| ---------------------- | ---------------------------- | --------------------- | ------------------------------- | --------------------------- |
+| **Setup**              | ✅ Easy                      | ⚠️ Manual             | ⚠️ Requires config              | ✅ Minimal                  |
+| **Source of truth**    | External package             | Vue files             | SVG files                       | SVG files                   |
+| **SVG output**         | Clean (often wrapped)        | Custom                | Inline                          | Clean, no wrappers          |
+| **SVG control**        | Often abstracted             | ✅ Full               | ✅ Full                         | ✅ Full                     |
+| **Theming**            | ⚠️ Prop-based, limited       | ✅ Manual CSS         | ✅ CSS-based                    | ✅ CSS variables + props    |
+| **Naming consistency** | Library-defined              | Developer-defined     | File-based                      | Deterministic, file-based   |
+| **Typing**             | ✅ Provided                  | ✅ Manual             | Depends on setup                | ✅ Generated & inferred     |
+| **Scaling**            | Dependent on library updates | Maintenance-heavy     | Flexible but unstructured       | Structured, build-generated |
+| **Nuxt integration**   | ✅ Works                     | ✅ Auto-importable    | ⚠️ Requires configuration       | ✅ Native auto-import       |
+
+### Real-world Scenarios
+
+| Scenario                                   | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
+| ------------------------------------------ | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
+| **Change one color in one icon**           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
+| **Apply global theme color**               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
+| **Preserve original SVG markup**           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
+| **Add a new icon**                         | Install / import               | Create component        | Add file                   | Add file                             |
+| **Rename an icon**                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
+| **Maintain consistency across 100+ icons** | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
+| **Type inference in templates**            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
 
 ## Example
 

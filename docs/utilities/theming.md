@@ -6,7 +6,14 @@ order: 1
 
 # 🎨 Theming
 
+Theming can be done during:
+
+- Build time, with configuration given to the module or custom CSS tokens
+- Runtime, with props passed to each icon instance or via CSS variables
+
 `nuxt-compose-icons` is built around **CSS variables**, making it easy to integrate with any design system or theme — whether you use Tailwind, tokens, or a custom style layer.
+
+The **recommended** approach is to define a global icon theme in your CSS or design tokens, and then override it at runtime with props when needed.
 
 ---
 
@@ -46,6 +53,6 @@ You can define your global icon theme in your CSS or design tokens:
 
 You can safely combine runtime props with global variables (props take priority).
 
-::: info
+:::info
 `stroke` and `color` props both map to --icon-stroke.
 :::

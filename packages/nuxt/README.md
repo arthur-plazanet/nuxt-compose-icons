@@ -47,16 +47,16 @@ It dynamically generates Vue components from initial SVG files, naming them acco
   - `<IconUserBadge />`
   - `<UserBadgeIcon />`
   - `<user-badge />`
-- Optional support for folder-based namespacing - icon Components can directly be generated in your codebase, making versioning possible
+- **Versioning support** - optional configuration for folder-based namespacing - icon Components can directly be generated in your codebase, making the rendered icon components available as part of your codebase
 
 ### Auto-Registration in Nuxt and Typing
 
-- Automatically registered in Nuxt’s component auto-import system (no manual registration needed) - each icon will be automatically imported and registered in the Nuxt project as individual Vue component in the tree
-- Type-safe usage in `<template>`
+- **Automatically registered in Nuxt’s component auto-import** system (no manual registration needed) - each icon will be automatically imported and registered in the Nuxt project as individual Vue component in the tree
+- **Type-safe usage** in `<template>`
 
 ## SVG Output - Accessibility
 
-- Components render a single `<svg>` element
+- **No wrappers** - the component root element is a single `<svg>` element
 - No additional wrappers or nested templates
 - Attributes from the original SVG are preserved
 
@@ -137,15 +137,15 @@ See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
 
 ### Real-world Scenarios
 
-| Scenario                               | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
-| -------------------------------------- | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
-| Change one color in one icon           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
-| Apply global theme color               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
-| Preserve original SVG markup           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
-| Add a new icon                         | Install / import               | Create component        | Add file                   | Add file                             |
-| Rename an icon                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
-| Maintain consistency across 100+ icons | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
-| Type inference in templates            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
+| Scenario                                   | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
+| ------------------------------------------ | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
+| **Change one color in one icon**           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
+| **Apply global theme color**               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
+| **Preserve original SVG markup**           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
+| **Add a new icon**                         | Install / import               | Create component        | Add file                   | Add file                             |
+| **Rename an icon**                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
+| **Maintain consistency across 100+ icons** | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
+| **Type inference in templates**            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
 
 Using pnpm:
 

@@ -5,7 +5,12 @@
     "build": "nuxt build",
     "dev": "PORT=3008 nuxt dev",
     "generate": "nuxt generate",
-    "preview": "nuxt preview"
+    "prepare": "nuxt prepare",
+    "preview": "nuxt preview",
+    "test": "vitest run --coverage",
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "test:unit": "vitest run --project unit",
+    "test:watch": "vitest watch"
   },
   "dependencies": {
     "@nuxt/kit": "4.2.2",
