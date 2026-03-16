@@ -1,6 +1,6 @@
 {
   "name": "nuxt-compose-icons",
-  "version": "0.2.12",
+  "version": "0.2.15",
   "private": false,
   "scripts": {
     "dev": "PORT=3008 nuxi dev playground",
@@ -30,14 +30,14 @@
     "@nuxt/test-utils": "4.0.0",
     "@types/node": "latest",
     "@types/svg-parser": "2.0.6",
-    "@vitest/coverage-v8": "4.0.18",
-    "@vitest/ui": "4.0.18",
+    "@vitest/coverage-v8": "4.1.0",
+    "@vitest/ui": "4.1.0",
     "changelogen": "0.6.2",
     "eslint": "9.39.4",
     "nuxt": "4.2.2",
     "playwright-core": "1.58.2",
     "typescript": "5.9.3",
-    "vitest": "4.0.18",
+    "vitest": "4.1.0",
     "vue-tsc": "3.2.5"
   },
   "exports": {
