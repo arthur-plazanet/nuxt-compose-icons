@@ -1,5 +1,23 @@
 # nuxt-compose-icons
 
+## 0.2.15
+
+### Patch Changes
+
+- 1135006: sqd
+
+## 0.2.14
+
+### Patch Changes
+
+- 5e58cf6: Test tag #345
+
+## 0.2.13
+
+### Patch Changes
+
+- a07e702: Test for a tag
+
 ## 0.2.12
 
 ### Patch Changes
