@@ -41,7 +41,7 @@ jobs:
 
       - name: Upload HTML report
         if: ${{ !cancelled() && inputs.node_version == 24 }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: test-coverage-${{ inputs.node_version }}
           path: packages/nuxt/test/coverage
@@ -49,7 +49,7 @@ jobs:
 
       - name: Upload Screenshot
         if: ${{ !cancelled() && inputs.node_version == 24 }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: screenshot-${{ inputs.node_version }}
           path: packages/nuxt/test/e2e/screenshots/screenshot.jpeg
