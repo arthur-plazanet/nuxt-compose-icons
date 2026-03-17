@@ -1,9 +1,10 @@
 <template>
   <GettingStarted />
   <Wrapper>
+    <ClocheIcon size="sm" color="#c1272d" />
     <IconTheming />
-    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d"
-  /></Wrapper>
+    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
+  </Wrapper>
 </template>
 
 <script setup lang="ts">

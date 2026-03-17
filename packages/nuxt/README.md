@@ -1,10 +1,14 @@
 <img width="1408" height="423" alt="Frame 207" src="https://github.com/user-attachments/assets/4f2a1f2a-57f0-49ca-bf56-075d3df9d043" />
 
-<a href="https://www.npmjs.com/package/nuxt-compose-icons" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/npm/v/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D" alt="npm-downloads" />
-</a>
-
-<img width="120" alt="logo"  align="left" style="margin-right: 1rem;" src="https://github.com/user-attachments/assets/71be7ce7-54ef-401e-84df-8dde0891cc9d" />
+[![npm version](https://img.shields.io/npm/v/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D)](https://npmjs.com/package/nuxt-compose-icons)
+[![npm downloads](https://img.shields.io/npm/dm/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D)](https://npmjs.com/package/nuxt-compose-icons)
+[![CI](https://github.com/arthur-plazanet/nuxt-compose-icons/actions/workflows/ci.yml/badge.svg)](https://github.com/arthur-plazanet/nuxt-compose-icons/actions)
+[![bundle size](https://img.shields.io/arthur-plazanet/minzip/nuxt-compose-icons)](https://bundlephobia.com/package/nuxt-compose-icons)
+[![license](https://img.shields.io/github/license/arthur-plazanet/nuxt-compose-icons)](LICENSE)
+![Nuxt](https://img.shields.io/badge/Nuxt-3-and-4-00DC82?logo=nuxt.js)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/nuxt-compose-icons)](https://bundlephobia.com/package/nuxt-compose-icons)
+![types](https://img.shields.io/npm/types/nuxt-compose-icons)
+![last commit](https://img.shields.io/github/last-commit/arthur-plazanet/nuxt-compose-icons)
 
 ---
 
@@ -47,16 +51,16 @@ It dynamically generates Vue components from initial SVG files, naming them acco
   - `<IconUserBadge />`
   - `<UserBadgeIcon />`
   - `<user-badge />`
-- Optional support for folder-based namespacing - icon Components can directly be generated in your codebase, making versioning possible
+- **Versioning support** - optional configuration for folder-based namespacing - icon Components can directly be generated in your codebase, making the rendered icon components available as part of your codebase
 
 ### Auto-Registration in Nuxt and Typing
 
-- Automatically registered in Nuxt’s component auto-import system (no manual registration needed) - each icon will be automatically imported and registered in the Nuxt project as individual Vue component in the tree
-- Type-safe usage in `<template>`
+- **Automatically registered in Nuxt’s component auto-import** system (no manual registration needed) - each icon will be automatically imported and registered in the Nuxt project as individual Vue component in the tree
+- **Type-safe usage** in `<template>`
 
 ## SVG Output - Accessibility
 
-- Components render a single `<svg>` element
+- **No wrappers** - the component root element is a single `<svg>` element
 - No additional wrappers or nested templates
 - Attributes from the original SVG are preserved
 
@@ -137,32 +141,32 @@ See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
 
 ### Real-world Scenarios
 
-| Scenario                               | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
-| -------------------------------------- | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
-| Change one color in one icon           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
-| Apply global theme color               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
-| Preserve original SVG markup           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
-| Add a new icon                         | Install / import               | Create component        | Add file                   | Add file                             |
-| Rename an icon                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
-| Maintain consistency across 100+ icons | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
-| Type inference in templates            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
+| Scenario                                   | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
+| ------------------------------------------ | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
+| **Change one color in one icon**           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
+| **Apply global theme color**               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
+| **Preserve original SVG markup**           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
+| **Add a new icon**                         | Install / import               | Create component        | Add file                   | Add file                             |
+| **Rename an icon**                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
+| **Maintain consistency across 100+ icons** | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
+| **Type inference in templates**            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
 
 Using pnpm:
 
 ```bash
-pnpm add -D nuxt-compose-icons
+pnpm add nuxt-compose-icons
 ```
 
 Using npm
 
 ```bash
-npm install -D nuxt-compose-icons
+npm install nuxt-compose-icons
 ```
 
 Using yarn
 
 ```bash
-yarn add -D nuxt-compose-icons
+yarn add nuxt-compose-icons
 ```
 
 ## 🛠 Usage

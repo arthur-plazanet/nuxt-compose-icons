@@ -2,7 +2,7 @@
 import type { Theme } from 'vitepress';
 import 'vue-code-highlighter/dist/style.css'; // dont forget to import
 import './assets/compose.css';
-import './assets/scss/main.scss';
+// import './assets/scss/main.scss';
 // import './assets/main.css';
 import DefaultTheme from 'vitepress/theme';
 import './assets/vitepress/custom-vp.css';

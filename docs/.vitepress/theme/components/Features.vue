@@ -1,14 +1,20 @@
 <template>
   <div class="features">
-    <div v-for="feature in features" :key="feature.title" class="feature">
-      <p class="feature-title">{{ feature.title }}</p>
+    <YStack
+      v-for="feature in features"
+      :key="feature.title"
+      class="feature padding-md"
+      background-color="bg"
+    >
+      <h3 class="feature-title">{{ feature.title }}</h3>
       <Separator />
       <p>{{ feature.details }}</p>
-    </div>
+    </YStack>
   </div>
 </template>
 
 <script setup>
+import { YStack } from '@use-compose/ui';
 import Separator from './Separator.vue';
 const features = [
   {
@@ -50,7 +56,7 @@ const features = [
   display: flex;
   min-height: 120px;
   width: 100%;
-  padding: 16px 24px;
+  // padding: 16px 24px;
   flex-direction: column;
   // gap: 16px;
   // border: 1px solid #5b1215;

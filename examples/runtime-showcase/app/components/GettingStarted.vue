@@ -22,8 +22,6 @@
 </template>
 
 <script setup lang="ts">
-import CodeHighlighter from './CodeHighlighter.vue';
-
 // https://github.com/vuejs/vitepress/issues/603
 const codeSvg = `
 \`\`\`graphql

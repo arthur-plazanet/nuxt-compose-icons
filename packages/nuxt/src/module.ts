@@ -2,7 +2,6 @@ import {
   addComponent,
   addImportsDir,
   addTemplate,
-  checkNuxtCompatibility,
   createResolver,
   defineNuxtModule,
   useLogger,
@@ -13,7 +12,7 @@ import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { generateIconsIndex, generateIconsRegistry } from './files-generation/generate-icon-index';
 import { createSvgComponentCode } from './render/svg-codegen';
-import { ComposeIconSize } from './runtime/types/icon-sizes';
+import type { ComposeIconSize } from './runtime/types/icon-sizes';
 import {
   createComponentFromName,
   generateComponentName,
@@ -120,6 +119,13 @@ export interface NuxtComposeIconsOptions {
    * @default false
    */
   dryRun?: boolean;
+
+  /**
+   * Show additional logs than warnings and errors
+   *
+   * @type {?boolean}
+   */
+  debug?: boolean;
 }
 
 export default defineNuxtModule<NuxtComposeIconsOptions>({
@@ -147,9 +153,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       prefix: undefined,
       suffix: 'Icon',
       case: 'pascal',
-
-      // TODO: The directory to save the generated components
-      // default "runtime/components/icons-generated"
       componentsDestDir: undefined,
     },
     iconComponentList: {},
@@ -161,8 +164,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
   async setup(options, nuxt) {
     const logger = useLogger('nuxt-compose-icons');
     const { resolve } = createResolver(import.meta.url);
-    // const resolver = createResolver(import.meta.url); // module package base
-    // const resolveModule = resolver.resolve;
 
     /**
      * Resolver for everything related to the user's app directory
@@ -182,34 +183,30 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
      */
     function resolveBuild(...p: string[]) {
       return path.resolve(nuxt.options.buildDir, ...p);
-    } // build base
+    }
 
-    const issues = await checkNuxtCompatibility({ nuxt: '^2.16.0' }, nuxt);
-    if (issues.length) {
-      logger.warn('Nuxt compatibility issues found:\n' + issues.toString());
+    /**
+     * Nuxt version detection and compatibility handling
+     * TODO: isNuxtMajorVersion and assertNuxtCompatibility were producing errors if used on certain Nuxt 3 versions
+     */
+    const nuxtMajor = Number.parseInt(nuxt._version.split('.')[0]);
+    // Nuxt 3 can opt into Nuxt 4 behaviour via future.compatibilityVersion
+    const compatVersion = (
+      nuxt.options as unknown as Record<string, unknown> & {
+        future?: { compatibilityVersion?: number };
+      }
+    ).future?.compatibilityVersion;
+    const effectiveMajor = compatVersion ?? nuxtMajor;
+
+    if (effectiveMajor >= 4) {
+      logger.info('✅ - Nuxt 4 detected');
+    } else if (nuxtMajor === 3) {
+      logger.info('✅ - Nuxt 3 detected');
     } else {
-      // do something
+      logger.warn(`⚠️ - Nuxt ${nuxtMajor} detected, compatibility not guaranteed`);
     }
-    const nuxt3 = await checkNuxtCompatibility({ nuxt: '^3.0.0' }, nuxt);
-    if (nuxt3.length) {
-      logger.warn('Nuxt 3 compatibility issues found:\n' + nuxt3.toString());
-    }
-    const nuxt4 = await checkNuxtCompatibility({ nuxt: '^4.0.0' }, nuxt);
-    if (nuxt4.length) {
-      logger.warn('Nuxt 4 compatibility issues found:\n' + nuxt4.toString());
-    }
-
-    logger.debug('🖼️ - nuxt-compose-icons nuxt versions compatibilities');
-    logger.info('Nuxt 2 compatibility issues');
-    logger.debug(issues);
-    logger.info('Nuxt 3 compatibility issues');
-    logger.debug(nuxt3);
-    logger.info('Nuxt 4 compatibility issues');
-    logger.debug(nuxt4);
 
     const { reRunOnBuild, pathToIcons, iconComponentList, iconSizes } = options;
-    // const userComponentsDestDirOption = options.generatedComponentOptions
-    //   .componentsDestDir as string;
 
     if (!reRunOnBuild) {
       logger.info('⚠️ - reRunOnBuild is disabled, the module will run only once at setup');
@@ -217,7 +214,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     }
     // .nuxt/compose-icons
     const defaultDir = resolveBuild('compose-icons');
-    logger.info('📟 - defaultDir → ', defaultDir);
 
     if (!pathToIcons && !iconComponentList) {
       logger.error(
@@ -230,45 +226,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       logger.info('⚠️ - componentsDestDir is not set, using default directory → ', defaultDir);
     }
 
-    // let componentsDir: string = userComponentsDestDirOption;
-
-    // /**
-    //  * TODO: description
-    //  */
-    // if (userComponentsDestDirOption) {
-    //   if (path.isAbsolute(userComponentsDestDirOption)) {
-    //     logger.info(
-    //       '📟 - Using absolute path for componentsDestDir → ',
-    //       userComponentsDestDirOption,
-    //     );
-    //     await createDir(userComponentsDestDirOption);
-    //     const componentsDir = options.generatedComponentOptions.componentsDestDir; // ✅ (already absolute)
-    //     await createDir(componentsDir);
-
-    //   } else {
-    //          const componentsDir = resolveApp(options.generatedComponentOptions.componentsDestDir); // ✅
-    //   await createDir(componentsDir);
-    //     await createDir(
-    //       path.resolve(
-    //         fileURLToPath(
-    //           new URL(nuxt.options.rootDir + userComponentsDestDirOption, import.meta.url),
-    //         ),
-    //       ),
-    //     );
-    //     logger.info(
-    //       '📟 - Using relative path for componentsDestDir → ',
-    //       userComponentsDestDirOption,
-    //     );
-    //     componentsDir = userComponentsDestDirOption;
-    //   }
-    // } else {
-
-    //    const componentsDir = resolveBuild('compose-icons'); // ✅
-    //     await createDir(componentsDir);
-    //   // TODO: Not now see [ROADMAP.md](https://github.com/arthur-plazanet/nuxt-compose-icons/main/ROADMAP.md)
-    //   componentsDir = await createDir(defaultDir);
-    // }
-
     const userDir = options.generatedComponentOptions.componentsDestDir;
 
     const componentsDir = userDir
@@ -280,10 +237,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     await createDir(componentsDir);
 
     logger.info('📟 componentsDir →', componentsDir);
-
-    // const componentsDir = componentsDestDir
-    //   ? await createDir(path.resolve(nuxt.options.rootDir, componentsDestDir))
-    //   : await createDir(defaultDir);
 
     if (pathToIcons) {
       // Resolve the path to the icons directory provided
@@ -298,9 +251,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // List of generated Icon components
         const generatedComponents: Component[] = [];
 
-        /*
-         * Dry run mode: log the component names and paths without writing files
-         */
         /*
          * Dry run mode: log the component names and paths without writing files
          */
@@ -373,8 +323,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           // 5.5 Store the component in array for later use
           generatedComponents.push(component);
 
-          logger.success(`✅ Generated component: ${componentName} from ${fileInfo.base}`);
-
           // 6. Add the component to the Nuxt app's components array at build time
           // nuxt.hook('components:extend', (components) => {
           // components.push(component);
@@ -393,11 +341,14 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           //     },
           //   ],
           // });
+          if (options.debug) {
+            logger.info('📟 - defaultDir → ', defaultDir);
+            logger.success(`✅ Generated component: ${componentName} from ${fileInfo.base}`);
+          }
         }
 
         // });
 
-        logger.info(`📦 - Registering components from ${componentsDir}`);
         // addComponentsDir({
         //   path: componentsDir,
         //   extensions: ['vue'], // 👈 critical
@@ -407,7 +358,11 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
         const { cssFileContent } = generateCssFile(iconSizes);
-        logger.info(`📟 - Generated CSS content for icon sizes: ${cssFileContent}`);
+
+        if (options.debug) {
+          logger.info(`📦 - Registering components from ${componentsDir}`);
+          logger.info(`📟 - Generated CSS content for icon sizes: ${cssFileContent}`);
+        }
         // Define the path to save the CSS file within the module
         // const iconRootVars = resolve('./runtime/assets/compose-sizes.css');
         // await writeFile(iconRootVars, cssContent);
@@ -431,45 +386,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           filename: 'compose-icon-sizes.css',
           getContents: () => `${completeIconStyles}`,
         });
-        nuxt.options.css.push(tpl.dst); // ✅ this is in buildDir
-
-        // nuxt.options.css.push(tpl.dst); // ✅ this is in buildDir
+        nuxt.options.css.push(tpl.dst);
 
         //  write file locally
         await writeFile(
           resolve('./runtime/assets/compose-icon-sizes.css'),
           `${completeIconStyles}`,
         );
-        // // Inject into the Nuxt build
-        // // nuxt.options.css.push(tpl.dst);
-        // // Push the CSS file into the Nuxt app's CSS array
-        // nuxt.options.css.push(cssClasses);
 
         addImportsDir(resolve('runtime/types'));
         addImportsDir(resolve('runtime/utils'));
 
-        // 8. Add composables
-        addImportsDir(resolve('runtime/composables'));
+        // Add built-in components
+        // TODO: Make optional?
+        addComponent({
+          name: 'ComposeIconOverview',
+          filePath: resolve('runtime/components/ComposeIconOverview.vue'),
+        });
 
         // 9. Generate the icons index file
         const iconsIndexContent = generateIconsIndex(generatedComponents);
         const indexPath = resolve(componentsDir, 'index.ts');
         await writeFile(indexPath, iconsIndexContent);
-
-        // 10. Generate the icon registry file
-        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
-        const registryPath = resolve(componentsDir, 'icon-registry.ts');
-        await writeFile(registryPath, iconsRegistryContent);
-
-        // Expose the registry as a Nuxt build template so the runtime composable
-        // always imports the consumer's generated registry via '#compose-icons/registry',
-        // instead of a static local file that would need to be mutated.
-        const registryTemplate = addTemplate({
-          filename: 'compose-icons/icon-registry.ts',
-          getContents: () => iconsRegistryContent,
-          write: true,
-        });
-        nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
 
         /**
          * TODO: description
@@ -518,6 +456,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             filePath: c.filePath,
           });
         }
+
+        logger.info(
+          `${generatedComponents.length} components generated and registered from ${absolutePathToIcons}`,
+        );
+
+        // 10. Generate the icon registry file
+        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
+        const registryPath = resolve(componentsDir, 'icon-registry.ts');
+        await writeFile(registryPath, iconsRegistryContent);
+
+        // Expose the registry as a Nuxt build template so the runtime composable
+        // always imports the consumer's generated registry via '#compose-icons/registry',
+        // instead of a static local file that would need to be mutated.
+        const registryTemplate = addTemplate({
+          filename: 'compose-icons/icon-registry.ts',
+          getContents: () => iconsRegistryContent,
+          write: true,
+        });
+        nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
+
+        // 8. Add composables
+        addImportsDir(resolve('runtime/composables'));
         //     nuxt.hook('components:extend', async (components) => {
         //   for (const c of generatedComponents) {
         //     components.push({
@@ -530,6 +490,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         throw new Error(`Folder does not exist: ${absolutePathToIcons}`);
       }
     } else if (iconComponentList) {
+      // TODO: Think about re-implementing it or not
       Object.keys(iconComponentList).forEach((iconComponentName) => {
         logger.info('📟 - iconComponentName → ', iconComponentName);
         // const test = resolveComponent(iconComponentList[iconComponentName]);

@@ -4,6 +4,8 @@ export {
   generateComment,
   generateCommentBlock,
   generateCommentLine,
+  generateESMExport,
+  generateESMImport,
   generateHeader,
   generateSeparator,
   generateSubheader,
@@ -135,4 +137,28 @@ function formatCssClass(className: string, cssVars: Record<string, string> | str
   }
   result += `}\n`;
   return result;
+}
+
+function generateESMImport({
+  moduleName,
+  path,
+  isDefault = false,
+  isType = false,
+}: {
+  moduleName: string;
+  path: string;
+  isDefault?: boolean;
+  isType?: boolean;
+}): string {
+  const importType = isType ? 'import type' : 'import';
+  if (isDefault) {
+    return `${importType} ${moduleName} from '${path}';\n`;
+  } else {
+    return `${importType} { ${moduleName} } from '${path}';\n`;
+  }
+}
+
+function generateESMExport(moduleName: string, path: string, isType?: boolean): string {
+  const exportType = isType ? 'export type' : 'export';
+  return `${exportType} { default as ${moduleName} } from '${path}';\n`;
 }
