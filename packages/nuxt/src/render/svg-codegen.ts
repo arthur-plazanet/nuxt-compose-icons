@@ -10,20 +10,9 @@ import { parseAndTransformSvg } from './parse-and-transform-svg';
 export function createSvgComponentCode(name: string, svgContent: string) {
   const { attributes, children } = parseAndTransformSvg(svgContent);
 
-  // const imports = [
-  //   generateESMImport({ moduleName: 'useComposeIcon', path: 'nuxt-compose-icons/composables' }),
-  //   generateESMImport({
-  //     moduleName: 'ComposeIconProps',
-  //     path: 'nuxt-compose-icons/types',
-  //     isType: true,
-  //   }),
-  // ];
-
   return `
     import { defineComponent, h } from 'vue';
 
-    // TODO: see [ROADMAP](../../ROADMAP.md#build-icons-in-dot-nuxt)
-    // ${/* imports.join('') */ ''}
     import { useComposeIcon } from 'nuxt-compose-icons/composables';
     import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 

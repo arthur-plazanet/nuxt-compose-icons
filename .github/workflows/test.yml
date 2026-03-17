@@ -27,6 +27,9 @@ jobs:
       - name: Prepare playground
         run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
 
+      - name: Prepare runtime-showcase
+        run: pnpm --filter ./examples/runtime-showcase exec nuxi prepare
+
       - name: Install Playwright browsers
         run: pnpm exec playwright-core install --with-deps
 
