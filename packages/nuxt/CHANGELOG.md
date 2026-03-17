@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.0
+
+### Minor Changes
+
+- 8da9bb6: Fix dist being a fully built app instead of stub
+
 ## 0.3.0
 
 ### Minor Changes
