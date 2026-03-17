@@ -3,7 +3,7 @@
   <Wrapper>
     <ClocheIcon size="sm" color="#c1272d" />
     <IconTheming />
-    <AsyncIconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
+    <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
   </Wrapper>
 </template>
 
