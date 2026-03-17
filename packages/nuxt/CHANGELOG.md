@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.1
+
+### Patch Changes
+
+- 74e8797: Test to get all runtime directory
+
 ## 0.4.0
 
 ### Minor Changes
