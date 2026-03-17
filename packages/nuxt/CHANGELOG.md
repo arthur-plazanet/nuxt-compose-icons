@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.3.0
+
+### Minor Changes
+
+- 465c28d: Sync tests to cover showcase and fix docs responsive Home
+
 ## 0.2.15
 
 ### Patch Changes
