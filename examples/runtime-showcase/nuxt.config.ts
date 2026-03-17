@@ -24,10 +24,10 @@ const options: NuxtComposeIconsOptions = {
 };
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devServer: {
-    host: 'localhost',
-    port: 3008,
-  },
+  // devServer: {
+  //   host: 'localhost',
+  //   port: 3008,
+  // },
   // debug: true,
   modules: ['nuxt-compose-icons', '@nuxt/test-utils/module'],
   // Module options
