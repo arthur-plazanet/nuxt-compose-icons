@@ -3,11 +3,12 @@ import { defineConfig } from 'vitepress';
 
 const sidebar = {
   '/': [
+    { text: 'Concept', link: '/guide/concept' },
+
     {
       text: 'Guide',
       items: [
-        { text: 'Concept', link: '/guide/concept' },
-        // { text: 'Motivation', link: '/guide/concept#motivation' }, // 📎 anchor within concept.md
+        { text: 'Motivation', link: '/guide/motivation' },
         { text: 'Features', link: '/guide/features' },
         { text: 'Installation', link: '/guide/installation' },
         { text: 'Configuration', link: '/guide/configuration' },
@@ -17,6 +18,9 @@ const sidebar = {
       text: 'Utilities',
       items: [
         { text: 'useComposeIcon', link: '/utilities/use-compose-icon' },
+        { text: 'useComposeIconsRegistry', link: '/utilities/use-compose-icons-registry' },
+
+        { text: 'ComposeIconOverview', link: '/utilities/compose-icon-overview' },
         { text: 'Interactivity', link: '/utilities/interactivity' },
         { text: 'Icon Size', link: '/utilities/theming' },
       ],
@@ -67,12 +71,12 @@ export default defineConfig({
       },
     ],
   ],
-  // srcDir: './',
+  srcDir: './',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Introduction', link: '/guide/concept' },
+      { text: 'Introduction', link: '/guide/motivation' },
       // { text: 'Playground', link: 'https://compose-icons-playground.vercel.app/' },
       { text: 'Playground', link: 'https://nuxt-icons-playground.use-compose.com' },
       {

@@ -1,6 +1,7 @@
 <template>
   <GettingStarted />
   <Wrapper>
+    <ClocheIcon size="sm" color="#c1272d" />
     <IconTheming />
     <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
   </Wrapper>

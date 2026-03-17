@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <IconOverview :stroke-width="3" :size="'sm'" color="#c1272d" />
+    <!-- <IconOverview :stroke-width="3" :size="'sm'" color="#c1272d" /> -->
+    <ComposeIconOverview size="lg" />
   </div>
 </template>
 
