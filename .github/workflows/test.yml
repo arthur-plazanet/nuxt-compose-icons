@@ -24,11 +24,11 @@ jobs:
           pnpm_version: 9
           cache: pnpm
 
-      - name: Build stubs
-        run: pnpm --filter nuxt-compose-icons run prepare
-
       - name: Prepare playground
-        run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
+        run: pnpm dev:prepare
+
+      - name: Build module (prepack)
+        run: pnpm prepack
 
       - name: Prepare runtime-showcase
         run: pnpm --filter ./examples/runtime-showcase exec nuxi prepare

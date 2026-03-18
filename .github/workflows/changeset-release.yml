@@ -33,10 +33,11 @@ jobs:
 
       - run: pnpm install --no-frozen-lockfile
 
-      - name: Build module
-        run: pnpm --filter nuxt-compose-icons prepack
+      - name: Nuxt prepare
+        run: pnpm dev:prepare
 
       - name: Create Release Pull Request or Publish
+        id: changesets
         uses: changesets/action@v1
         with:
           version: pnpm changeset version
