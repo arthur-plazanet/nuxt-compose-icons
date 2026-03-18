@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.5
+
+### Patch Changes
+
+- 4d7c3d1: Test
+
 ## 0.4.4
 
 ### Patch Changes
