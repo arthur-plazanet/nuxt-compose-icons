@@ -1,5 +1,41 @@
 # nuxt-compose-icons
 
+## 0.4.4
+
+### Patch Changes
+
+- 87a4c7d: Test without prepare heavy script and prepare command
+
+## 0.4.3
+
+### Patch Changes
+
+- 0537c57: Fix prepare script
+
+## 0.4.2
+
+### Patch Changes
+
+- 7df89c1: Fix releases
+
+## 0.4.1
+
+### Patch Changes
+
+- 74e8797: Test to get all runtime directory
+
+## 0.4.0
+
+### Minor Changes
+
+- 8da9bb6: Fix dist being a fully built app instead of stub
+
+## 0.3.0
+
+### Minor Changes
+
+- 465c28d: Sync tests to cover showcase and fix docs responsive Home
+
 ## 0.2.15
 
 ### Patch Changes
