@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.6
+
+### Patch Changes
+
+- d0ceb35: TT
+
 ## 0.4.5
 
 ### Patch Changes
