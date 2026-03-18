@@ -24,11 +24,11 @@ jobs:
           pnpm_version: 9
           cache: pnpm
 
-      - name: Prepare playground
-        run: pnpm dev:prepare
-
-      - name: Build module (prepack)
+      - name: Build module
         run: pnpm prepack
+
+      - name: Prepare playground
+        run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
 
       - name: Prepare runtime-showcase
         run: pnpm --filter ./examples/runtime-showcase exec nuxi prepare
