@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.2
+
+### Patch Changes
+
+- 7df89c1: Fix releases
+
 ## 0.4.1
 
 ### Patch Changes
