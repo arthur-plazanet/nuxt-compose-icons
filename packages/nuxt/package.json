@@ -73,8 +73,5 @@
     "url": "https://github.com/arthur-plazanet/nuxt-compose-icons"
   },
   "type": "module",
-  "types": "./dist/module.d.mts",
-  "unbuild": {
-    "failOnWarn": false
-  }
+  "types": "./dist/module.d.mts"
 }
