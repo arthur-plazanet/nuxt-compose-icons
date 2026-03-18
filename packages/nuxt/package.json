@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepack": "nuxt-module-build build",
+    "prepare": "nuxt-module-build build --stub",
     "test": "vitest run --coverage",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
     "test:unit": "vitest run --project unit",
