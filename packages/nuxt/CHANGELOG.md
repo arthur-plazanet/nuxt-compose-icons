@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.4
+
+### Patch Changes
+
+- 87a4c7d: Test without prepare heavy script and prepare command
+
 ## 0.4.3
 
 ### Patch Changes
