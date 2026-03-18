@@ -22,7 +22,7 @@
     "lint:style:fix": "stylelint --fix \"**/*.{vue,scss,css}\"",
     "prepack": "pnpm --filter nuxt-compose-icons prepack",
     "prepare": "husky",
-    "release": "pnpm --filter nuxt-compose-icons prepack && changeset publish",
+    "release": "changeset publish",
     "rimraf": "./node_modules/rimraf/bin.js",
     "showcase": "pnpm --filter runtime-showcase dev",
     "showcase:build": "pnpm --filter runtime-showcase build",
@@ -60,7 +60,7 @@
     "typedoc-plugin-markdown": "4.10.0",
     "typedoc-vitepress-theme": "1.1.2",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.57.0",
+    "typescript-eslint": "8.57.1",
     "unreadable-typescript": "1.5.0",
     "vite": "7.3.1",
     "vitest": "4.1.0"
