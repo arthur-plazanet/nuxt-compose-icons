@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.4.3
+
+### Patch Changes
+
+- 0537c57: Fix prepare script
+
 ## 0.4.2
 
 ### Patch Changes
