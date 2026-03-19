@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.5.0
+
+### Minor Changes
+
+- 02906fc: Custom CSS class - meant to be stable release
+
 ## 0.4.6
 
 ### Patch Changes
