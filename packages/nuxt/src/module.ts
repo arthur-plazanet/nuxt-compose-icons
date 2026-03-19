@@ -510,7 +510,14 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           getContents: () => iconsRegistryContent,
           write: true,
         });
+
+        // Fix test and resolve alias in composable
+        // TODO: double check
         nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
+        nuxt.hook('nitro:config', (nitroConfig) => {
+          nitroConfig.alias = nitroConfig.alias ?? {};
+          nitroConfig.alias['#compose-icons/registry'] = registryTemplate.dst;
+        });
 
         // 8. Add composables
         addImportsDir(resolve('runtime/composables'));
