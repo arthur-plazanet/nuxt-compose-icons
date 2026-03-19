@@ -21,7 +21,7 @@
     "lint:style": "stylelint \"**/*.{scss,css}\"",
     "lint:style:fix": "stylelint --fix \"**/*.{vue,scss,css}\"",
     "prepack": "pnpm --filter nuxt-compose-icons prepack",
-    "prepare": "husky",
+    "prepare": "husky && pnpm --filter nuxt-compose-icons exec nuxt-module-build build --stub",
     "release": "changeset publish",
     "rimraf": "./node_modules/rimraf/bin.js",
     "showcase": "pnpm --filter runtime-showcase dev",
