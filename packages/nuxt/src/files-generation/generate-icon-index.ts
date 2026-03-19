@@ -38,7 +38,7 @@ ${exports}
   );
 }
 
-async function generateIconsRegistry(components: Component[]) {
+async function generateIconsRegistry(components: Component[], registryDir: string) {
   const sortedComponents = sortComponents(components);
   const registryPath = path.resolve('../runtime/utils/icon-registry.ts');
 
@@ -47,8 +47,9 @@ async function generateIconsRegistry(components: Component[]) {
       const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
       const pascal = c.pascalName || base;
       const kebab = c.kebabName || base;
-      const absolutePath = c.filePath.replace(/\.(ts|js|vue)$/, '');
-      return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: '${absolutePath}', component: defineAsyncComponent(() => import('${absolutePath}')) },`;
+      let importPath = path.relative(registryDir, c.filePath).replace(/\.(ts|js|vue)$/, '');
+      if (!importPath.startsWith('.')) importPath = `./${importPath}`;
+      return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: '${importPath}', component: defineAsyncComponent(() => import('${importPath}')) },`;
     })
     .join('\n');
 
