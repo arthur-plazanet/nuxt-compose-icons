@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.5.2
+
+### Patch Changes
+
+- 31db502: Icon registry with relative paths
+
 ## 0.5.1
 
 ### Patch Changes
