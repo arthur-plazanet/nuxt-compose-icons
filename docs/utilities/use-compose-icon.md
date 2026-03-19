@@ -36,17 +36,17 @@ const { iconStyles, iconClasses } = useComposeIcon(props);
 </template>
 ```
 
-2. Directly use the `buildAttrs` method used to generate the attributes for the icon components:
+2. Directly use the `buildSvgAttributes` method used to generate the attributes for the icon components:
 
 ```vue
 <script setup lang="ts">
 import { useComposeIcon } from 'nuxt-compose-icons';
 
-const { buildAttrs } = useComposeIcon(props);
+const { buildSvgAttributes } = useComposeIcon(props);
 </script>
 
 <template>
-  <span v-bind="buildAttrs({ class: 'badge' })"><slot /></span>
+  <span v-bind="buildSvgAttributes({ class: 'badge' })"><slot /></span>
 </template>
 
 <style scoped>
@@ -85,26 +85,17 @@ Returns
 
 ```ts
 interface UseComposeIcon {
-  iconStyles: Record<string, string | undefined>;
-  iconClasses: string[];
-  iconAttributes: {
-    style: Record<string, string | undefined>;
-    class: string[];
-    viewBox?: string;
-  };
-  buildSvgAttributes: <T extends Record<string, string | number | undefined>>(
-    svgAttributes?: T,
-    extraClass?: string | string[],
-  ) => T & {
-    style: Record<string, string | undefined>;
-    class: string[];
+  iconStyles: StyleValue;
+  iconClasses: ClassValue[];
+  buildSvgAttributes: (svgAttributes?: SVGAttributes) => SVGAttributes & {
+    style: StyleValue;
+    class: ClassValue;
   };
 }
 ```
 
-| Name                 | Type                              | Description                                                                     |
-| -------------------- | --------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------- | ------------------------------ |
-| `iconStyles`         | `Record<string, string            | undefined>`                                                                     | Reactive styles object for the icon, including color, stroke, and size.                |
-| `iconClasses`        | `string[]`                        | Reactive classes array for the icon, including size and any additional classes. |
-| `iconAttributes`     | `{ style: Record<string, string   | undefined>, class: string[], viewBox?: string }`                                | Reactive attributes object for the icon, including style, class, and optional viewBox. |
-| `buildSvgAttributes` | `<T extends Record<string, string | number                                                                          | undefined>>(svgAttributes?: T, extraClass?: string                                     | string[]) => T & { style: Record<string, string | undefined>, class: string[] }` |
+| Name                 | Type                        | Description                                                               |
+| -------------------- | --------------------------- | ------------------------------------------------------------------------- |
+| `iconStyles`         | `StyleValue`                | Reactive styles object with CSS custom properties for color, stroke, size |
+| `iconClasses`        | `ClassValue[]`              | Reactive classes array including `compose-icon` and the size class        |
+| `buildSvgAttributes` | `(svgAttributes?) => attrs` | Merges static SVG attributes with reactive style and class bindings       |
