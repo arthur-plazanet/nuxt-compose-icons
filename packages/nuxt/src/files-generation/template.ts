@@ -145,16 +145,20 @@ function generateESMImport({
   isDefault = false,
   isType = false,
 }: {
-  moduleName: string;
+  moduleName: string | string[];
   path: string;
   isDefault?: boolean;
   isType?: boolean;
 }): string {
   const importType = isType ? 'import type' : 'import';
   if (isDefault) {
-    return `${importType} ${moduleName} from '${path}';\n`;
+    return `${importType} ${moduleName} from '${path}';`;
   } else {
-    return `${importType} { ${moduleName} } from '${path}';\n`;
+    if (Array.isArray(moduleName)) {
+      return `${importType} { ${moduleName.join(', ')} } from '${path}';`;
+    } else {
+      return `${importType} { ${moduleName} } from '${path}';`;
+    }
   }
 }
 
