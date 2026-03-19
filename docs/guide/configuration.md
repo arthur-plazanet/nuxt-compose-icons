@@ -80,16 +80,18 @@ composeIcons: {
     suffix: 'Icon',
     case: 'kebab',
     componentsDestDir: 'components/generated',
+    iconClasses: 'ds-icon', // every icon gets class="compose-icon ds-icon size-md"
   }
 }
 ```
 
-| Option              | Type                  | Default               | Description                                         |
-| ------------------- | --------------------- | --------------------- | --------------------------------------------------- |
-| `prefix`            | `string \| undefined` | `undefined`           | Prepended to the component name (e.g. `MyUserIcon`) |
-| `suffix`            | `string`              | `"Icon"`              | Appended to the name (e.g. `UserIcon`)              |
-| `case`              | `'pascal' \| 'kebab'` | `'pascal'`            | Naming convention for the component file name       |
-| `componentsDestDir` | `string`              | `.nuxt/compose-icons` | Directory for generated Vue components              |
+| Option              | Type                  | Default               | Description                                                                          |
+| ------------------- | --------------------- | --------------------- | ------------------------------------------------------------------------------------ |
+| `prefix`            | `string \| undefined` | `undefined`           | Prepended to the component name (e.g. `MyUserIcon`)                                  |
+| `suffix`            | `string`              | `"Icon"`              | Appended to the name (e.g. `UserIcon`)                                               |
+| `case`              | `'pascal' \| 'kebab'` | `'pascal'`            | Naming convention for the component file name                                        |
+| `componentsDestDir` | `string`              | `.nuxt/compose-icons` | Directory for generated Vue components                                               |
+| `iconClasses`       | `string \| string[]`  | `undefined`           | Extra CSS class(es) added to every generated icon component alongside `compose-icon` |
 
 ---
 

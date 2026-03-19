@@ -1,7 +1,13 @@
 // SVGO optimization
 import { optimize } from 'svgo';
 
-export function optimizeSvg(svgContent: string): string {
+interface SVGOOptions {
+  iconClasses?: string | string[];
+}
+
+export function optimizeSvg(svgContent: string, options?: SVGOOptions): string {
+  const iconClasses = options?.iconClasses || 'compose-icon';
+
   const result = optimize(svgContent, {
     multipass: true,
     plugins: [
@@ -12,6 +18,12 @@ export function optimizeSvg(svgContent: string): string {
       'inlineStyles',
       'mergePaths',
       'minifyStyles',
+      {
+        name: 'addClassesToSVGElement',
+        params: {
+          classNames: Array.isArray(iconClasses) ? iconClasses : [iconClasses],
+        },
+      },
     ],
   });
 

@@ -39,7 +39,13 @@ import { formatCssRootVars, generateComment } from './template';
 //   return cssContent;
 // }
 
-export function generateCssFile(iconSizes?: ComposeIconSize): Record<string, string> {
+export function generateCssFile({
+  iconSizes,
+  iconClasses = 'compose-icon',
+}: {
+  iconSizes?: ComposeIconSize;
+  iconClasses?: string | string[];
+}): Record<string, string> {
   let rootIconSizes: Record<string, string>;
 
   if (!iconSizes) {
@@ -66,7 +72,7 @@ export function generateCssFile(iconSizes?: ComposeIconSize): Record<string, str
     'This could catch the case of a missing prop and instead of a default value',
     'we would rely on the default from the SVG.',
   ]);
-  composeIconSizes += `.compose-icon {\n`;
+  composeIconSizes += `${Array.isArray(iconClasses) ? iconClasses.map((cls) => `.${cls}`).join(', ') : `.${iconClasses}`} {\n`;
   // Base width and height class for icons
   const cssClasses = Object.entries(rootIconSizes)
     .map(([key]) => {

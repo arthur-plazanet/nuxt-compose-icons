@@ -63,6 +63,14 @@ export interface GeneratedComponentOptions {
    * @default "runtime/components/icons-generated"
    */
   componentsDestDir?: string;
+
+  /**
+   * CSS Classes to apply to the generated components
+   *
+   * @type {?string[]}
+   * @default []
+   */
+  iconClasses?: string | string[];
 }
 
 export interface NuxtComposeIconsOptions {
@@ -154,6 +162,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       suffix: 'Icon',
       case: 'pascal',
       componentsDestDir: undefined,
+      iconClasses: 'compose-icon',
     },
     iconComponentList: {},
   },
@@ -162,6 +171,19 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     'build:before'() {},
   },
   async setup(options, nuxt) {
+    // const logger = useLogger('nuxt-compose-icons', {
+    //   reporters: [
+    //     {
+    //       log(log) {
+    //         if (log.type === 'error' || log.type === 'warn') {
+    //           console[log.type](`[${log.type.toUpperCase()}]`, ...log.args);
+    //         } else if (log.type === 'info' && options.debug) {
+    //           console.log(`[DEBUG]`, ...log.args);
+    //         }
+    //       },
+    //     },
+    //   ],
+    // });
     const logger = useLogger('nuxt-compose-icons');
     const { resolve } = createResolver(import.meta.url);
 
@@ -266,6 +288,15 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           });
         }
 
+        // Set Icon classes (can be set to ensure consistency in a Design System for example)
+        const iconClasses = Array.isArray(options.generatedComponentOptions.iconClasses)
+          ? options.generatedComponentOptions.iconClasses
+          : [options.generatedComponentOptions.iconClasses];
+
+        // We ensure the base class is always included to allow styling the icons with a common class, used by default CSS
+        // TODO: Let the user fully set the base class https://github.com/arthur-plazanet/nuxt-compose-icons/issues/312
+        iconClasses.push('compose-icon'); // Ensure the base class is always included
+
         /*
          * For each file we:
          * 1. Parse the content (as HTML string)
@@ -296,7 +327,9 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           let svgContent = await fsp.readFile(filePath, 'utf-8');
 
           // 2. Optimize with SVGO
-          svgContent = optimizeSvg(svgContent);
+          svgContent = optimizeSvg(svgContent, {
+            iconClasses: options.generatedComponentOptions.iconClasses,
+          });
 
           // TODO: Check if necessary to handle snake case as well
 
@@ -357,7 +390,10 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // });
 
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
-        const { cssFileContent } = generateCssFile(iconSizes);
+        const { cssFileContent } = generateCssFile({
+          iconSizes,
+          iconClasses: options.generatedComponentOptions.iconClasses,
+        });
 
         if (options.debug) {
           logger.info(`📦 - Registering components from ${componentsDir}`);
@@ -458,7 +494,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         }
 
         logger.info(
-          `${generatedComponents.length} components generated and registered from ${absolutePathToIcons}`,
+          `📦 ${generatedComponents.length} components generated and registered from ${absolutePathToIcons}`,
         );
 
         // 10. Generate the icon registry file
