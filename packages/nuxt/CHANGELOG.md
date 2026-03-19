@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.5.1
+
+### Patch Changes
+
+- 5361e5e: Fix tests
+
 ## 0.5.0
 
 ### Minor Changes
