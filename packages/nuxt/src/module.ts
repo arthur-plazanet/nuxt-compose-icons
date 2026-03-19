@@ -511,6 +511,18 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           write: true,
         });
         nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
+        nuxt.hook('nitro:config', (nitroConfig) => {
+          nitroConfig.alias = nitroConfig.alias ?? {};
+          nitroConfig.alias['#compose-icons/registry'] = registryTemplate.dst;
+          // Force Nitro to bundle nuxt-compose-icons so the #compose-icons/registry
+          // alias is resolved at bundle time rather than at Node.js runtime
+          const inline = nitroConfig.externals?.inline;
+          nitroConfig.externals = nitroConfig.externals ?? {};
+          nitroConfig.externals.inline = [
+            ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
+            'nuxt-compose-icons',
+          ];
+        });
 
         // 8. Add composables
         addImportsDir(resolve('runtime/composables'));
