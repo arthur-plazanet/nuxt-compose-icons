@@ -498,16 +498,22 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         );
 
         // 10. Generate the icon registry file
-        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
+        const iconsRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          componentsDir,
+        );
         const registryPath = resolve(componentsDir, 'icon-registry.ts');
         await writeFile(registryPath, iconsRegistryContent);
 
-        // Expose the registry as a Nuxt build template so the runtime composable
-        // always imports the consumer's generated registry via '#compose-icons/registry',
-        // instead of a static local file that would need to be mutated.
+        const templateDir = path.join(nuxt.options.buildDir, 'compose-icons');
+        const templateRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          templateDir,
+        );
+
         const registryTemplate = addTemplate({
           filename: 'compose-icons/icon-registry.ts',
-          getContents: () => iconsRegistryContent,
+          getContents: () => templateRegistryContent, // ← correct paths relative to .nuxt/compose-icons/
           write: true,
         });
         nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
