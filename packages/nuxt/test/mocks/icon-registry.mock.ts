@@ -1,5 +1,7 @@
-import { defineAsyncComponent } from 'vue';
+import { defineComponent, h } from 'vue';
 import type { IconRegistryEntry } from '../../src/runtime/utils/icon-registry';
+
+const MockIcon = defineComponent({ setup: () => () => h('svg') });
 
 export const iconRegistry: IconRegistryEntry[] = [
   {
@@ -7,6 +9,6 @@ export const iconRegistry: IconRegistryEntry[] = [
     pascalName: 'LogoIcon',
     kebabName: 'logo-icon',
     importPath: './LogoIcon',
-    component: defineAsyncComponent(() => Promise.resolve({ template: '<svg />' })),
+    component: MockIcon,
   },
 ];

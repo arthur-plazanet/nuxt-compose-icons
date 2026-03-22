@@ -42,15 +42,28 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
   const sortedComponents = sortComponents(components);
   const registryPath = path.resolve('../runtime/utils/icon-registry.ts');
 
-  const entries = sortedComponents
-    .map((c) => {
-      const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-      const pascal = c.pascalName || base;
-      const kebab = c.kebabName || base;
-      let importPath = path.relative(registryDir, c.filePath).replace(/\.(ts|js|vue)$/, '');
-      if (!importPath.startsWith('.')) importPath = `./${importPath}`;
-      return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: '${importPath}', component: defineAsyncComponent(() => import('${importPath}')) },`;
-    })
+  const sortedEntries = sortedComponents.map((c) => {
+    const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
+    const pascal = c.pascalName || base;
+    const kebab = c.kebabName || base;
+
+    let importPath = path
+      .relative(path.resolve(registryDir), path.resolve(c.filePath))
+      .replace(/\.(ts|js|vue)$/, '');
+
+    if (!importPath.startsWith('.')) importPath = `./${importPath}`;
+    return { pascal, kebab, importPath };
+  });
+
+  const imports = sortedEntries
+    .map(({ pascal, importPath }) => `import ${pascal} from '${importPath}';`)
+    .join('\n');
+
+  const entries = sortedEntries
+    .map(
+      ({ pascal, kebab, importPath }) =>
+        `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: '${importPath}', component: ${pascal} },`,
+    )
     .join('\n');
 
   return (
@@ -60,8 +73,8 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
       'Feel free to version this file, but do not edit directly as it will be overwritten at build time.',
     ]) +
     `
-import { defineAsyncComponent } from 'vue';
 import type { Component } from 'vue';
+${imports}
 
 export interface IconRegistryEntry {
   name: string;

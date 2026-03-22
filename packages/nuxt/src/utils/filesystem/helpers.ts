@@ -1,5 +1,6 @@
 import fs, { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
+import type { AbsolutePath } from '../../runtime/types/path';
 
 export { createDir, isFileExist, writeFile };
 
@@ -12,7 +13,7 @@ async function isFileExist(path: string): Promise<boolean> {
   }
 }
 
-async function createDir(dirPath: string): Promise<string> {
+async function createDir(dirPath: AbsolutePath): Promise<string> {
   try {
     const projectFolder = new URL(dirPath, import.meta.url);
     await fsp.mkdir(projectFolder, { recursive: true });
@@ -25,10 +26,10 @@ async function createDir(dirPath: string): Promise<string> {
   }
 }
 
-async function writeFile(filePath: string, content: string): Promise<void> {
+async function writeFile(filePath: AbsolutePath, content: string): Promise<void> {
   // Ensure directory exists
   const dir = path.dirname(filePath);
-  await createDir(dir);
+  (await createDir(dir)) as AbsolutePath;
 
   await fsp.writeFile(filePath, content, 'utf-8');
 }

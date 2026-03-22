@@ -5,32 +5,48 @@
       v-for="icon in filtered"
       :key="icon.pascalName"
       class="runtime-showcase__item"
-      :data-icon-name="icon.name"
+      :data-icon-name="icon.kebabName"
     >
-      <Component :is="icon.component" v-bind="iconProps" />
+      <Component :is="icon.name" v-bind="iconProps" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { Component } from 'vue';
 import { computed, ref } from 'vue';
-import { useComposeIconRegistry } from '../composables/use-compose-icons-registry';
 import type { ComposeIconProps } from '../types/compose-icons-props';
 
-const props = withDefaults(defineProps<ComposeIconProps & { hasIconName?: boolean }>(), {
-  hasIconName: false,
-});
+interface IconEntry {
+  name: string;
+  pascalName: string;
+  kebabName: string;
+  component: Component;
+}
 
-const { filteredIcons } = useComposeIconRegistry();
+const props = withDefaults(
+  defineProps<ComposeIconProps & { hasIconName?: boolean; icons: IconEntry[] }>(),
+  { hasIconName: false },
+);
+
 const q = ref('');
-const filtered = filteredIcons(q);
+const filtered = computed(() => {
+  const term = q.value.trim().toLowerCase();
+  if (!term) return props.icons;
+  return props.icons.filter(
+    (icon) =>
+      icon.name.toLowerCase().includes(term) ||
+      icon.kebabName.includes(term) ||
+      icon.pascalName.toLowerCase().includes(term),
+  );
+});
 
 const runtimeShowcaseStyle = computed(() => {
   return props.hasIconName ? '--has-icon-name: ;' : '';
 });
 
 const iconProps = computed(() => {
-  const entries = Object.entries(props).filter(([k]) => k !== 'hasIconName');
+  const entries = Object.entries(props).filter(([k]) => k !== 'hasIconName' && k !== 'icons');
   return Object.fromEntries(entries) as ComposeIconProps;
 });
 </script>
