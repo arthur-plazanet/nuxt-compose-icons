@@ -1,6 +1,6 @@
 import {
   addComponent,
-  addImportsDir,
+  addImports,
   addTemplate,
   createResolver,
   defineNuxtModule,
@@ -498,16 +498,22 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         );
 
         // 10. Generate the icon registry file
-        const iconsRegistryContent = await generateIconsRegistry(generatedComponents);
+        const iconsRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          componentsDir,
+        );
         const registryPath = resolve(componentsDir, 'icon-registry.ts');
         await writeFile(registryPath, iconsRegistryContent);
 
-        // Expose the registry as a Nuxt build template so the runtime composable
-        // always imports the consumer's generated registry via '#compose-icons/registry',
-        // instead of a static local file that would need to be mutated.
+        const templateDir = path.join(nuxt.options.buildDir, 'compose-icons');
+        const templateRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          templateDir,
+        );
+
         const registryTemplate = addTemplate({
           filename: 'compose-icons/icon-registry.ts',
-          getContents: () => iconsRegistryContent,
+          getContents: () => templateRegistryContent, // ← correct paths relative to .nuxt/compose-icons/
           write: true,
         });
 
@@ -517,10 +523,27 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         nuxt.hook('nitro:config', (nitroConfig) => {
           nitroConfig.alias = nitroConfig.alias ?? {};
           nitroConfig.alias['#compose-icons/registry'] = registryTemplate.dst;
+
+          // Force Nitro to bundle nuxt-compose-icons so the #compose-icons/registry
+          // alias is resolved at bundle time rather than at Node.js runtime.
+          // Without this, externalized packages bypass Rollup alias resolution and
+          // Node.js throws ERR_PACKAGE_IMPORT_NOT_DEFINED at runtime.
+          const inline = nitroConfig.externals?.inline;
+          nitroConfig.externals = nitroConfig.externals ?? {};
+          nitroConfig.externals.inline = [
+            ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
+            'nuxt-compose-icons',
+          ];
         });
 
         // 8. Add composables
-        addImportsDir(resolve('runtime/composables'));
+        addImports([
+          { name: 'useComposeIcon', from: resolve('runtime/composables/use-compose-icon') },
+          {
+            name: 'useComposeIconRegistry',
+            from: resolve('runtime/composables/use-compose-icons-registry'),
+          },
+        ]);
         //     nuxt.hook('components:extend', async (components) => {
         //   for (const c of generatedComponents) {
         //     components.push({
