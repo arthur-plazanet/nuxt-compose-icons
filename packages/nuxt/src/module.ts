@@ -12,7 +12,9 @@ import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { generateIconsIndex, generateIconsRegistry } from './files-generation/generate-icon-index';
 import { createSvgComponentCode } from './render/svg-codegen';
+import { vueSFCWrapper } from './render/vue-sfc-wrapper';
 import type { ComposeIconSize } from './runtime/types/icon-sizes';
+import { assertAbsolute } from './runtime/types/path';
 import {
   createComponentFromName,
   generateComponentName,
@@ -71,6 +73,14 @@ export interface GeneratedComponentOptions {
    * @default []
    */
   iconClasses?: string | string[];
+
+  /**
+   * Format of the generated component file, either as a Vue SFC (.vue) or as a TypeScript file (.ts)
+   *
+   * @type {?('vue' | 'ts')}
+   * @default 'vue'
+   */
+  fileFormat?: 'vue' | 'ts';
 }
 
 export interface NuxtComposeIconsOptions {
@@ -157,12 +167,14 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     // },
     // If not provided, the default will be to use the "Icon" suffix for the component without a prefix
     // e.g. "arrow-up.svg" will be "ArrowUpIcon"
+
     generatedComponentOptions: {
       prefix: undefined,
       suffix: 'Icon',
       case: 'pascal',
       componentsDestDir: undefined,
       iconClasses: 'compose-icon',
+      fileFormat: 'vue',
     },
     iconComponentList: {},
   },
@@ -245,26 +257,26 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     }
 
     if (!options.generatedComponentOptions.componentsDestDir) {
-      logger.info('⚠️ - componentsDestDir is not set, using default directory → ', defaultDir);
+      logger.info(
+        '⚠️ - No directory is set, using default directory → ',
+        defaultDir,
+        '\n To set a custom directory, use the generatedComponentOptions.componentsDestDir option.',
+      );
     }
 
     const userDir = options.generatedComponentOptions.componentsDestDir;
 
-    const componentsDir = userDir
-      ? path.isAbsolute(userDir)
-        ? userDir
-        : resolveApp(userDir)
-      : defaultDir;
+    const componentsDir = assertAbsolute(
+      userDir ? (path.isAbsolute(userDir) ? userDir : resolveApp(userDir)) : defaultDir,
+    );
 
     await createDir(componentsDir);
 
-    logger.info('📟 componentsDir →', componentsDir);
-
     if (pathToIcons) {
       // Resolve the path to the icons directory provided
-      const absolutePathToIcons = path.isAbsolute(pathToIcons)
-        ? pathToIcons
-        : resolveApp(pathToIcons);
+      const absolutePathToIcons = assertAbsolute(
+        path.isAbsolute(pathToIcons) ? pathToIcons : resolveApp(pathToIcons),
+      );
 
       if (fs.existsSync(absolutePathToIcons) && fs.statSync(absolutePathToIcons).isDirectory()) {
         // We first read all the files recursively to flatten the structure
@@ -336,15 +348,22 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           // TODO: handle double dashes "--", and if ".svg" already present
           const componentName = generateComponentName(fileInfo.name, options);
 
-          // 3. Create the component code as literal string template
-          const componentCode = createSvgComponentCode(componentName, svgContent);
+          // 3. Create the component code as literal string template (.ts fine)
+          let componentCode = createSvgComponentCode(componentName, svgContent);
+
+          //4 - if fileFormat is set to "vue", wrap the component code in a Vue SFC <script lang="ts"> block
+          //  TODO: See pros and cons https://github.com/arthur-plazanet/nuxt-compose-icons/issues/325
+          if (options.generatedComponentOptions.fileFormat === 'vue') {
+            componentCode = vueSFCWrapper(componentCode);
+          }
 
           // 4. Write the component to the file system
-          const generatedFilePath = await writeComponentFile(
+          const generatedFilePath = await writeComponentFile({
             componentName,
             componentsDir,
             componentCode,
-          );
+            format: options.generatedComponentOptions.fileFormat,
+          });
 
           // 5. Create the "official" component object with the name and path
           const component = createComponentFromName({
@@ -426,7 +445,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         //  write file locally
         await writeFile(
-          resolve('./runtime/assets/compose-icon-sizes.css'),
+          assertAbsolute(resolve('./runtime/assets/compose-icon-sizes.css')),
           `${completeIconStyles}`,
         );
 
@@ -442,8 +461,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         // 9. Generate the icons index file
         const iconsIndexContent = generateIconsIndex(generatedComponents);
-        const indexPath = resolve(componentsDir, 'index.ts');
-        await writeFile(indexPath, iconsIndexContent);
+        await writeFile(assertAbsolute(resolve(componentsDir, 'index.ts')), iconsIndexContent);
 
         /**
          * TODO: description
@@ -494,7 +512,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         }
 
         logger.info(
-          `📦 ${generatedComponents.length} components generated and registered from ${absolutePathToIcons}`,
+          `📦 ${generatedComponents.length} components generated and registered from ${componentsDir}`,
         );
 
         // 10. Generate the icon registry file
@@ -502,10 +520,12 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           generatedComponents,
           componentsDir,
         );
-        const registryPath = resolve(componentsDir, 'icon-registry.ts');
-        await writeFile(registryPath, iconsRegistryContent);
+        await writeFile(
+          assertAbsolute(resolve(componentsDir, 'icon-registry.ts')),
+          iconsRegistryContent,
+        );
 
-        const templateDir = path.join(nuxt.options.buildDir, 'compose-icons');
+        const templateDir = resolveBuild('compose-icons');
         const templateRegistryContent = await generateIconsRegistry(
           generatedComponents,
           templateDir,

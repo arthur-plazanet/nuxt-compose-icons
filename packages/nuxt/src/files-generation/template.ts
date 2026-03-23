@@ -9,6 +9,8 @@ export {
   generateHeader,
   generateSeparator,
   generateSubheader,
+  indentString,
+  multiLineString,
 };
 
 function capitalizeFirstLetter(string: string): string {
@@ -165,4 +167,20 @@ function generateESMImport({
 function generateESMExport(moduleName: string, path: string, isType?: boolean): string {
   const exportType = isType ? 'export type' : 'export';
   return `${exportType} { default as ${moduleName} } from '${path}';\n`;
+}
+
+function multiLineString(strings: TemplateStringsArray, ...values: unknown[]): string {
+  let result = '';
+  strings.forEach((string, i) => {
+    result += string + (values[i] || '');
+  });
+  return result;
+}
+
+function indentString(str: string, indent: number): string {
+  const indentation = ' '.repeat(indent);
+  return str
+    .split('\n')
+    .map((line) => indentation + line)
+    .join('\n');
 }
