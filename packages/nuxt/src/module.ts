@@ -449,6 +449,9 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           `${completeIconStyles}`,
         );
 
+        // addImportsDir(resolve('runtime/types'));
+        // addImportsDir(resolve('runtime/utils'));
+
         // Add built-in components
         // TODO: Make optional?
         addComponent({
@@ -533,12 +536,18 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           getContents: () => templateRegistryContent, // ← correct paths relative to .nuxt/compose-icons/
           write: true,
         });
+
+        // Fix test and resolve alias in composable
+        // TODO: double check
         nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
         nuxt.hook('nitro:config', (nitroConfig) => {
           nitroConfig.alias = nitroConfig.alias ?? {};
           nitroConfig.alias['#compose-icons/registry'] = registryTemplate.dst;
+
           // Force Nitro to bundle nuxt-compose-icons so the #compose-icons/registry
-          // alias is resolved at bundle time rather than at Node.js runtime
+          // alias is resolved at bundle time rather than at Node.js runtime.
+          // Without this, externalized packages bypass Rollup alias resolution and
+          // Node.js throws ERR_PACKAGE_IMPORT_NOT_DEFINED at runtime.
           const inline = nitroConfig.externals?.inline;
           nitroConfig.externals = nitroConfig.externals ?? {};
           nitroConfig.externals.inline = [

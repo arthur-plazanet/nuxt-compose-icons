@@ -1,10 +1,14 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "types": ["@nuxt/schema", "vue"]
+    "types": ["@nuxt/schema", "vue"],
+    "composite": false
   },
+  "include": ["packages/**/*"],
   "exclude": [
     "packages/nuxt/playground",
+    "packages/nuxt/dist",
+    "packages/nuxt/src/runtime/utils/icon-registry.ts",
     "packages/nuxt/test",
     "**/*.spec.ts",
     "**/*.test.ts",

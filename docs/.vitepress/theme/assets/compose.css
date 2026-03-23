@@ -1,10 +1,11 @@
-:root {
-  /**
+@layer theme {
+  :root {
+    /**
    * Typography 
    * Use clamp responsive font size
    * Initial /https://utopia.fyi/type/calculator/?c=320,16,1.25,1620,16,1.5,5,5,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 
    */
-  /* --text-xs: clamp(0.4444rem, 0.6881rem - 0.2407vw, 0.64rem);
+    /* --text-xs: clamp(0.4444rem, 0.6881rem - 0.2407vw, 0.64rem);
   --text-sm: clamp(0.6667rem, 0.8328rem - 0.1641vw, 0.8rem);
   --text-md: clamp(1rem, 0.1rem + 0vw, 1rem);
   --text-lg: clamp(1.25rem, 1.1885rem + 0.3077vw, 1.5rem);
@@ -12,24 +13,24 @@
   --text-xxl: clamp(1.9531rem, 1.6031rem + 1.75vw, 3.375rem);
   --text-h1: clamp(2.4414rem, 1.7962rem + 3.226vi, 5.0625rem);
   --text-h1: clamp(1.125rem, 4.1vw + 0.1rem, 4.5rem); */
-  /* line-height: 1.5; */
+    /* line-height: 1.5; */
 
-  /* Title height */
-  --_heading-height: var(--heading-height, calc(1rem * 2.5) ;);
+    /* Title height */
+    --_heading-height: var(--heading-height, calc(1rem * 2.5) ;);
 
-  /**
+    /**
     * Breakpoints
     */
-  --breakpoint-mobile: 640px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1024px;
-  --breakpoint-desktop-xl: 1280px;
-  --breakpoint-desktop-xxl: 1820px;
+    --breakpoint-mobile: 640px;
+    --breakpoint-tablet: 768px;
+    --breakpoint-desktop: 1024px;
+    --breakpoint-desktop-xl: 1280px;
+    --breakpoint-desktop-xxl: 1820px;
 
-  /** 
+    /** 
    * Spacing
    */
-  /* --space-unit: 1rem;
+    /* --space-unit: 1rem;
   --space-xxs: calc(0.25 * var(--space-unit));
   --space-xs: calc(0.5 * var(--space-unit));
   --space-sm: calc(0.75 * var(--space-unit));
@@ -38,9 +39,30 @@
   --space-xl: calc(2 * var(--space-unit));
   --space-xxl: calc(4 * var(--space-unit)); */
 
-  --gutter: var(--space-md);
-}
+    --gutter: var(--space-md);
 
+    /* @link https://utopia.fyi/type/calculator?c=360,16,1.125,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+
+    /* Step -2: 12.642px → 11.52px */
+    --font-scale-0: clamp(0.72rem, 0.8188rem + -0.1275vw, 0.7901rem);
+    /* Step -1: 14.2222px → 14.4px */
+    --font-scale-1: clamp(0.8889rem, 0.8843rem + 0.0202vw, 0.9rem);
+    /* Step 0: 16px → 18px */
+    --font-scale-2: clamp(1rem, 0.9489rem + 0.2273vw, 1.125rem);
+    /* Step 1: 18px → 22.5px */
+    --font-scale-3: clamp(1.125rem, 1.0099rem + 0.5114vw, 1.4063rem);
+    /* Step 2: 20.25px → 28.125px */
+    --font-scale-4: clamp(1.2656rem, 1.0643rem + 0.8949vw, 1.7578rem);
+    /* Step 3: 22.7813px → 35.1563px */
+    --font-scale-5: clamp(1.4238rem, 1.1074rem + 1.4063vw, 2.1973rem);
+    /* Step 4: 25.6289px → 43.9453px */
+    --font-scale-6: clamp(1.6018rem, 1.1335rem + 2.0814vw, 2.7466rem);
+    /* Step 5: 28.8325px → 54.9316px */
+    --font-scale-7: clamp(1.802rem, 1.1347rem + 2.9658vw, 3.4332rem);
+    /* Step 6: 32.4366px → 68.6646px */
+    --font-scale-8: clamp(2.0273rem, 1.101rem + 4.1168vw, 4.2915rem);
+  }
+}
 .highlighted {
   display: inline-block;
 }
