@@ -10,7 +10,7 @@ function writeFile(filePath, content): Promise<void>;
 
 ### filePath
 
-`string`
+[`AbsolutePath`](../../../../runtime/types/path/type-aliases/AbsolutePath.md)
 
 ### content
 

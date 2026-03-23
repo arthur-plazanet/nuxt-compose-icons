@@ -4,7 +4,11 @@
     "types": ["@nuxt/schema", "vue"],
     "composite": false
   },
-  "include": ["packages/**/*"],
+  "include": [
+    "packages/**/*",
+    "packages/nuxt/src/**/*.ts",
+    "./packages/nuxt/src**/*{spec,test}.ts"
+  ],
   "exclude": [
     "packages/nuxt/playground",
     "packages/nuxt/dist",

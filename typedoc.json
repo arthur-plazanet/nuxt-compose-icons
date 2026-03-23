@@ -1,12 +1,14 @@
 {
   "entryPoints": ["./packages/nuxt/src/**/*.ts"],
   "name": "nuxt-compose-icons",
+
   "plugin": ["typedoc-plugin-markdown", "typedoc-vitepress-theme"],
   "out": "./docs/api", // This is where the documentation will be written
   "tsconfig": "./tsconfig.typedoc.json", // Reference the root tsconfig to include docs/
   "docsRoot": "./docs",
   "theme": "markdown",
   "commentStyle": "jsdoc",
+
   "exclude": [
     "**/*/node_modules/**/*",
     "node_modules",

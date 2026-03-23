@@ -13,12 +13,12 @@ async function isFileExist(path: string): Promise<boolean> {
   }
 }
 
-async function createDir(dirPath: AbsolutePath): Promise<string> {
+async function createDir(dirPath: AbsolutePath): Promise<AbsolutePath> {
   try {
     const projectFolder = new URL(dirPath, import.meta.url);
     await fsp.mkdir(projectFolder, { recursive: true });
 
-    return dirPath;
+    return dirPath as AbsolutePath;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.error('Error creating directory:', err);
@@ -28,7 +28,7 @@ async function createDir(dirPath: AbsolutePath): Promise<string> {
 
 async function writeFile(filePath: AbsolutePath, content: string): Promise<void> {
   // Ensure directory exists
-  const dir = path.dirname(filePath);
+  const dir = path.dirname(filePath) as AbsolutePath;
   (await createDir(dir)) as AbsolutePath;
 
   await fsp.writeFile(filePath, content, 'utf-8');

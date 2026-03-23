@@ -14,3 +14,5 @@
 - [generateHeader](functions/generateHeader.md)
 - [generateSeparator](functions/generateSeparator.md)
 - [generateSubheader](functions/generateSubheader.md)
+- [indentString](functions/indentString.md)
+- [multiLineString](functions/multiLineString.md)
