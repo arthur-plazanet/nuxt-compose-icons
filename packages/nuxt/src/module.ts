@@ -240,14 +240,20 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       logger.warn(`⚠️ - Nuxt ${nuxtMajor} detected, compatibility not guaranteed`);
     }
 
+    // Prevent Vite's dep pre-bundling from running esbuild on the composables
+    // before this module has a chance to register the #compose-icons/registry alias.
+    nuxt.options.vite.optimizeDeps ??= {};
+    nuxt.options.vite.optimizeDeps.exclude = [
+      ...(nuxt.options.vite.optimizeDeps.exclude ?? []),
+      'nuxt-compose-icons',
+    ];
+
     const { reRunOnBuild, pathToIcons, iconComponentList, iconSizes } = options;
 
     if (!reRunOnBuild) {
       logger.info('⚠️ - reRunOnBuild is disabled, the module will run only once at setup');
       return;
     }
-    // .nuxt/compose-icons
-    const defaultDir = resolveBuild('compose-icons');
 
     if (!pathToIcons && !iconComponentList) {
       logger.error(
@@ -255,6 +261,10 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       );
       throw new Error('pathToIcons or iconComponentList is required');
     }
+
+    // Set a directory where the icons will be generated if no componentsDestDir is provided
+    // .nuxt/compose-icons
+    const defaultDir = resolveBuild('compose-icons');
 
     if (!options.generatedComponentOptions.componentsDestDir) {
       logger.info(
@@ -311,18 +321,19 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
         /*
          * For each file we:
-         * 1. Parse the content (as HTML string)
+         * 1. Parse the content (as HTML/XML string)
          * 2. Optimize with SVGO
-         * 3. Create the component code as literal string template by:
+         * 3. Generate the component name based on the initial svg file name and the options provided (prefix, suffix, case)
+         * 4. Create the component code as literal string template by:
          *   . Recreating the Vue VNode structure dynamically based on the SVG content
          *   . Set the props and attributes based on the SVG content and the options passed
-         * 4. Write the component to the file system
-         * 5. Create the "official" component object with the name and path
-         * 6. Add the component to the Nuxt app's components array at build time
-         * 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
-         * 8. Add composables
-         * 9. Generate the icons index file
-         * 10. Generate the icon registry file
+         * 5. Write the component to the file system
+         * 6. Create the "official" component object with the name and path
+         * 7. Add the component to the Nuxt app's components array at build time
+         * 8. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
+         * 9. Add composables
+         * 10. Generate the icons index file
+         * 11. Generate the icon registry file
          *
          * We use a literal string template to create the Vue component
          * see https://nuxt-compose-icons.arthurplazanet.com/why-literal-strings-to-create-vue-components
@@ -516,33 +527,38 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         );
 
         // 10. Generate the icon registry file
-        const iconsRegistryContent = await generateIconsRegistry(
-          generatedComponents,
-          componentsDir,
-        );
-        await writeFile(
-          assertAbsolute(resolve(componentsDir, 'icon-registry.ts')),
-          iconsRegistryContent,
-        );
-
         const templateDir = resolveBuild('compose-icons');
-        const templateRegistryContent = await generateIconsRegistry(
-          generatedComponents,
-          templateDir,
-        );
+        const useCustomDir = componentsDir !== templateDir;
 
-        const registryTemplate = addTemplate({
-          filename: 'compose-icons/icon-registry.ts',
-          getContents: () => templateRegistryContent, // ← correct paths relative to .nuxt/compose-icons/
-          write: true,
-        });
+        let registryPath: string;
 
-        // Fix test and resolve alias in composable
-        // TODO: double check
-        nuxt.options.alias['#compose-icons/registry'] = registryTemplate.dst;
+        if (useCustomDir) {
+          // Custom componentsDestDir: write registry there (alias points directly to it).
+          // No need for a .nuxt copy — paths are already correct relative to componentsDir.
+          const iconsRegistryContent = await generateIconsRegistry(
+            generatedComponents,
+            componentsDir,
+          );
+          registryPath = path.join(componentsDir, 'icon-registry.ts');
+          await writeFile(assertAbsolute(registryPath), iconsRegistryContent);
+        } else {
+          // Default (.nuxt/compose-icons): use addTemplate so Nuxt manages the file lifecycle.
+          const templateRegistryContent = await generateIconsRegistry(
+            generatedComponents,
+            templateDir,
+          );
+          const registryTemplate = addTemplate({
+            filename: 'compose-icons/icon-registry.ts',
+            getContents: () => templateRegistryContent,
+            write: true,
+          });
+          registryPath = registryTemplate.dst;
+        }
+
+        nuxt.options.alias['#compose-icons/registry'] = registryPath;
         nuxt.hook('nitro:config', (nitroConfig) => {
           nitroConfig.alias = nitroConfig.alias ?? {};
-          nitroConfig.alias['#compose-icons/registry'] = registryTemplate.dst;
+          nitroConfig.alias['#compose-icons/registry'] = registryPath;
 
           // Force Nitro to bundle nuxt-compose-icons so the #compose-icons/registry
           // alias is resolved at bundle time rather than at Node.js runtime.
@@ -553,6 +569,28 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           nitroConfig.externals.inline = [
             ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
             'nuxt-compose-icons',
+          ];
+
+          // Nitro's Rollup has no Vue plugin, so script-only .vue SFCs (generated
+          // icon components) would fail to transform. This plugin extracts the
+          // <script> block content so Nitro's TypeScript transformer can handle it.
+          nitroConfig.rollupConfig ??= {};
+          const existingPlugins = Array.isArray(nitroConfig.rollupConfig.plugins)
+            ? nitroConfig.rollupConfig.plugins
+            : nitroConfig.rollupConfig.plugins
+              ? [nitroConfig.rollupConfig.plugins]
+              : [];
+          nitroConfig.rollupConfig.plugins = [
+            {
+              name: 'compose-icons-vue-script',
+              transform(code: string, id: string) {
+                if (!id.endsWith('.vue') || !id.startsWith(componentsDir)) return null;
+                const match = code.match(/<script(?:\s[^>]*)?>([^]*?)<\/script>/);
+                if (match?.[1]) return { code: match[1].trim(), map: null };
+                return null;
+              },
+            },
+            ...existingPlugins,
           ];
         });
 
