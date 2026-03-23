@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.1
+
+### Patch Changes
+
+- 9cd2383: Fix registry import
+
 ## 0.6.0
 
 ### Minor Changes
