@@ -1,7 +1,7 @@
 <template>
   <GettingStarted />
   <Wrapper>
-    <ClocheIcon size="sm" color="#c1272d" />
+    <!-- <ClocheIcon size="sm" color="#c1272d" /> -->
     <!-- <ClientOnly>
       
       <IconTheming />
