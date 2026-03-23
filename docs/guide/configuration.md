@@ -7,7 +7,7 @@ order: 3
 
 This module supports multiple configuration options to control icon generation, theming, and component registration. All options are passed under the `composeIcons` key in your `nuxt.config.ts`.
 
-## Basic example
+## Full example
 
 ```ts
 // nuxt.config.ts
