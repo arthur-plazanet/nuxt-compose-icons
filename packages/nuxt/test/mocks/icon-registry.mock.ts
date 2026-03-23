@@ -1,3 +1,5 @@
+// TODO: not used?
+
 import { defineComponent, h } from 'vue';
 import type { IconRegistryEntry } from '../../src/runtime/utils/icon-registry';
 
@@ -8,7 +10,7 @@ export const iconRegistry: IconRegistryEntry[] = [
     name: 'LogoIcon',
     pascalName: 'LogoIcon',
     kebabName: 'logo-icon',
-    importPath: './LogoIcon',
+    importPath: './LogoIcon.vue',
     component: MockIcon,
   },
 ];

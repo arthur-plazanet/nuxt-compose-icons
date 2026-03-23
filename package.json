@@ -23,6 +23,7 @@
     "prepack": "pnpm --filter nuxt-compose-icons prepack",
     "prepare": "husky && pnpm --filter nuxt-compose-icons exec nuxt-module-build build --stub",
     "release": "changeset publish",
+    "reset": "pnpm clean && pnpm install && pnpm prepare",
     "rimraf": "./node_modules/rimraf/bin.js",
     "showcase": "pnpm --filter runtime-showcase dev",
     "showcase:build": "pnpm --filter runtime-showcase build",
