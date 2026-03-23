@@ -4,7 +4,10 @@
 [![npm downloads](https://img.shields.io/npm/dm/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D)](https://npmjs.com/package/nuxt-compose-icons)
 [![CI](https://github.com/arthur-plazanet/nuxt-compose-icons/actions/workflows/ci.yml/badge.svg)](https://github.com/arthur-plazanet/nuxt-compose-icons/actions)
 [![bundle size](https://img.shields.io/arthur-plazanet/minzip/nuxt-compose-icons)](https://bundlephobia.com/package/nuxt-compose-icons)
-[![license](https://img.shields.io/github/license/arthur-plazanet/nuxt-compose-icons)](LICENSE)
+
+<!-- TODO: License https://github.com/arthur-plazanet/nuxt-compose-icons/issues/331 -->
+<!-- [![license](https://img.shields.io/github/license/arthur-plazanet/nuxt-compose-icons)](LICENSE) -->
+
 ![Nuxt](https://img.shields.io/badge/Nuxt-3-and-4-00DC82?logo=nuxt.js)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/nuxt-compose-icons)](https://bundlephobia.com/package/nuxt-compose-icons)
 ![types](https://img.shields.io/npm/types/nuxt-compose-icons)
