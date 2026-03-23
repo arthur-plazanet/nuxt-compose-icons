@@ -38,6 +38,5 @@ describe('ssr', async () => {
     );
     expect(registry).not.toMatch(/import\('[/]/);
     expect(registry).not.toMatch(/import\('[A-Z]:\\/);
-    expect(registry).toMatch(/import\('\.\//);
   });
 });

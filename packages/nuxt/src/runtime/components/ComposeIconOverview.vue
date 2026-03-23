@@ -7,7 +7,7 @@
       class="runtime-showcase__item"
       :data-icon-name="icon.kebabName"
     >
-      <Component :is="icon.name" v-bind="iconProps" />
+      <Component :is="icon.component" v-bind="iconProps" />
     </div>
   </div>
 </template>

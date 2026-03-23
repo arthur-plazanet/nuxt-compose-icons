@@ -22,7 +22,8 @@ function generateIconsIndex(components: Component[]) {
   const exports = sortedComponents
     .map((c) => {
       const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-      return `export { default as ${c.pascalName || base} } from './${base}';`;
+      const importBase = path.basename(c.filePath).replace(/\.(ts|js)$/, '');
+      return `export { default as ${c.pascalName || base} } from './${importBase}';`;
     })
     .join('\n');
 
@@ -49,7 +50,7 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
 
     let importPath = path
       .relative(path.resolve(registryDir), path.resolve(c.filePath))
-      .replace(/\.(ts|js|vue)$/, '');
+      .replace(/\.(ts|js)$/, '');
 
     if (!importPath.startsWith('.')) importPath = `./${importPath}`;
     return { pascal, kebab, importPath };
