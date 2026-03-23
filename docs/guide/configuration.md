@@ -21,6 +21,7 @@ export default defineNuxtConfig({
       suffix: 'Icon',
       case: 'kebab',
       componentsDestDir: 'components/generated',
+      iconClasses: 'compose-icon',
     },
     iconSizes: {
       xs: '0.5rem',
@@ -29,7 +30,10 @@ export default defineNuxtConfig({
       lg: '1.5rem',
       xl: '2.5rem',
     },
+    // Will log generated component names without writing files
     dryRun: false,
+    // Show additional logs than usual warnings and errors
+    debug: true,
   },
 });
 ```
@@ -80,18 +84,16 @@ composeIcons: {
     suffix: 'Icon',
     case: 'kebab',
     componentsDestDir: 'components/generated',
-    iconClasses: 'ds-icon', // every icon gets class="compose-icon ds-icon size-md"
   }
 }
 ```
 
-| Option              | Type                  | Default               | Description                                                                          |
-| ------------------- | --------------------- | --------------------- | ------------------------------------------------------------------------------------ |
-| `prefix`            | `string \| undefined` | `undefined`           | Prepended to the component name (e.g. `MyUserIcon`)                                  |
-| `suffix`            | `string`              | `"Icon"`              | Appended to the name (e.g. `UserIcon`)                                               |
-| `case`              | `'pascal' \| 'kebab'` | `'pascal'`            | Naming convention for the component file name                                        |
-| `componentsDestDir` | `string`              | `.nuxt/compose-icons` | Directory for generated Vue components                                               |
-| `iconClasses`       | `string \| string[]`  | `undefined`           | Extra CSS class(es) added to every generated icon component alongside `compose-icon` |
+| Option              | Type                  | Default               | Description                                         |
+| ------------------- | --------------------- | --------------------- | --------------------------------------------------- |
+| `prefix`            | `string \| undefined` | `undefined`           | Prepended to the component name (e.g. `MyUserIcon`) |
+| `suffix`            | `string`              | `"Icon"`              | Appended to the name (e.g. `UserIcon`)              |
+| `case`              | `'pascal' \| 'kebab'` | `'pascal'`            | Naming convention for the component file name       |
+| `componentsDestDir` | `string`              | `.nuxt/compose-icons` | Directory for generated Vue components              |
 
 ---
 
@@ -121,6 +123,12 @@ composeIcons: {
 - **Type:** `boolean`
 - **Default:** `false`
 - Enables preview mode without writing files. Logs intended component names and exits before build continues.
+
+### `debug`
+
+- **Type:** `boolean`
+- **Default:** `false`
+- Shows additional logs for debugging purposes, such as generated component names and paths. Useful during development
 
 ---
 

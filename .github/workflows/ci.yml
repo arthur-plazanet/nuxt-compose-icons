@@ -33,6 +33,7 @@ jobs:
 
   build:
     if: ${{ ! startsWith(github.event.pull_request.head.ref, 'renovate/') }}
+    needs: lint_format
     uses: ./.github/workflows/build.yml
     with:
       node_version: 22

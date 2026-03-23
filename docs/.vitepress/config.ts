@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-// import typedocSidebar from '../api/typedoc-sidebar.json';
+import typedocSidebar from '../api/typedoc-sidebar.json';
 
 const sidebar = {
   '/': [
@@ -25,11 +25,11 @@ const sidebar = {
         { text: 'Icon Size', link: '/utilities/theming' },
       ],
     },
-    // {
-    //   text: 'API',
-    //   link: '/api',
-    //   items: typedocSidebar,
-    // },
+    {
+      text: 'API',
+      link: '/api',
+      items: typedocSidebar,
+    },
   ],
 };
 

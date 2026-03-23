@@ -1,12 +1,13 @@
 <template>
   <div class="container">
     <!-- <IconOverview :stroke-width="3" :size="'sm'" color="#c1272d" /> -->
-    <ComposeIconOverview size="lg" />
+    <ComposeIconOverview :icons="icons" size="lg" />
   </div>
 </template>
 
 <script setup lang="ts">
-// import { useComposeIcon } from 'nuxt-compose-icons';
+import { useComposeIconRegistry } from 'nuxt-compose-icons/composables';
+const { icons } = useComposeIconRegistry();
 </script>
 
 <style>
