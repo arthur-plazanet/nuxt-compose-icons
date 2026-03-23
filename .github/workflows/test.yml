@@ -9,7 +9,39 @@ on:
         default: 22
 
 jobs:
-  test:
+  test-unit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+        with:
+          node_version: ${{ inputs.node_version }}
+          pnpm_version: 9
+          cache: pnpm
+
+      - name: Build module
+        run: pnpm prepack
+
+      - name: Prepare playground
+        run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
+
+      - name: Run unit tests
+        run: pnpm exec vitest run --project unit --project nuxt --coverage
+
+      - name: Upload HTML report
+        if: ${{ !cancelled() && inputs.node_version == 24 }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-coverage-${{ inputs.node_version }}
+          path: packages/nuxt/test/coverage
+          retention-days: 30
+
+  test-e2e:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -36,16 +68,8 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright-core install --with-deps
 
-      - name: Run tests
-        run: pnpm test
-
-      - name: Upload HTML report
-        if: ${{ !cancelled() && inputs.node_version == 24 }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: test-coverage-${{ inputs.node_version }}
-          path: packages/nuxt/test/coverage
-          retention-days: 30
+      - name: Run e2e tests
+        run: pnpm exec vitest run --project e2e
 
       - name: Upload Screenshot
         if: ${{ !cancelled() && inputs.node_version == 24 }}

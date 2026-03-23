@@ -1,19 +1,14 @@
 <template>
   <GettingStarted />
-  <Wrapper>
-    <ClientOnly>
-      <ClocheIcon size="sm" color="#c1272d" />
-      <IconTheming />
-      <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
-    </ClientOnly>
-  </Wrapper>
+  <ClocheIcon size="sm" color="#c1272d" />
+  <ClientOnly>
+    <IconTheming />
+  </ClientOnly>
+  <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
 </template>
 
 <script setup lang="ts">
-import { Wrapper } from '@use-compose/ui';
 import GettingStarted from '~/components/GettingStarted.vue';
-
-// import { useComposeIcon } from 'nuxt-compose-icons';
 </script>
 
 <style>

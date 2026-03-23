@@ -48,9 +48,4 @@ export default defineNuxtConfig({
     },
   ],
   css: ['~/assets/css/main.css', '@use-compose/ui/style.css'],
-  vite: {
-    ssr: {
-      noExternal: ['@use-compose/ui'],
-    },
-  },
 });
