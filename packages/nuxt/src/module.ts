@@ -430,8 +430,8 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           `${completeIconStyles}`,
         );
 
-        addImportsDir(resolve('runtime/types'));
-        addImportsDir(resolve('runtime/utils'));
+        // addImportsDir(resolve('runtime/types'));
+        // addImportsDir(resolve('runtime/utils'));
 
         // Add built-in components
         // TODO: Make optional?

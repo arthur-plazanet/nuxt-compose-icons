@@ -1,9 +1,9 @@
 <template>
-  <!-- <VPHomeHero> -->
+  <!-- <Container> -->
   <IconOverview>
     <div class="home-content">
-      <Wrapper>
-        <Banner />
+      <Wrapper class="padding-0">
+        <Banner class="y-flow" />
       </Wrapper>
     </div>
     <details>
@@ -14,7 +14,7 @@
       </div>
     </details>
   </IconOverview>
-  <!-- </VPHomeHero> -->
+  <!-- </Container> -->
 </template>
 
 <script setup>
@@ -63,6 +63,7 @@ const nuxtComponentBuilt = `/* At build time,
 <style>
 .wrapper {
   z-index: 0;
+  padding: 0;
   /* position: relative; */
 }
 </style>

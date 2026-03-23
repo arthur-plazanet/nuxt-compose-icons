@@ -8,7 +8,11 @@
     >
       <h3 class="feature-title">{{ feature.title }}</h3>
       <Separator />
-      <p>{{ feature.details }}</p>
+      <ul aria-label="Feature details" class="feature-details">
+        <li v-for="(detail, index) in feature.details" :key="index">
+          {{ detail }}
+        </li>
+      </ul>
     </YStack>
   </div>
 </template>
@@ -19,31 +23,33 @@ import Separator from './Separator.vue';
 const features = [
   {
     title: 'SVG to Vue Component at Build time',
-    details: 'One Vue component per SVG file, no extra wrapper needed',
+    details: [
+      `One Vue component is created per \`.svg\` file\n`,
+      `No extra wrapper or specific pattern needed. Generated at build time, customizable at runtime using CSS custom properties`,
+    ],
   },
   {
     title: 'Auto-Registration in Nuxt',
-    details:
-      'Icons are generated and injected during the build process, and are available as any other components',
+    details: [
+      `Icons are generated and injected during the build process, and are available as any other components`,
+    ],
   },
   {
     title: 'Theming and Runtime customization',
-    details: 'Generated at build time, customizable at runtime using CSS custom properties',
+    details: [`Generated at build time, customizable at runtime using CSS custom properties`],
   },
   {
     title: 'Developer Experience',
-    details: `Auto-completion as part of the Nuxt build process, no extra configuration needed.
-              Vue DevTools support`,
+    details: [
+      `Auto-completion as part of the Nuxt build process, no extra configuration needed.`,
+      `Vue DevTools support`,
+    ],
   },
 ];
 </script>
 
-<style lang="scss">
-@import '../assets/scss/abstracts/mixins';
-
+<style scoped>
 .features {
-  // display: grid;
-  // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   height: 100%;
   display: flex;
   justify-content: center;
@@ -54,31 +60,37 @@ const features = [
 
 .feature {
   display: flex;
-  min-height: 120px;
+  height: minmax(120px, 270px);
   width: 100%;
-  // padding: 16px 24px;
   flex-direction: column;
-  // gap: 16px;
-  // border: 1px solid #5b1215;
   background: rgba(91, 18, 21, 0.25);
   background-color: #1c1b1b;
 
-  .feature-title {
-    // font-size: var(--text-lg);
+  & > .feature-title {
     font-family: gotham, sans-serif;
     font-weight: 900;
     text-transform: uppercase;
     margin: 0;
   }
-}
 
-@include media('md') {
-  .features {
-    // flex-direction: column;
-
-    .feature {
-      max-width: 280px;
-      // width: calc(100% / 2);
+  & > .feature-details {
+    list-style: circle;
+    margin: 0;
+    padding: 0;
+    & > li {
+      display: inline-flex;
+      line-height: normal;
+      gap: var(--spacing-xs);
+    }
+    & > li::before {
+      content: '';
+      border: 4px solid var(--color-primary);
+      border-radius: 50%;
+      display: inline-block;
+      background: transparent;
+      line-height: inherit;
+      height: 1rem;
+      aspect-ratio: 1;
     }
   }
 }
