@@ -1,5 +1,5 @@
 <template>
-  <section class="banner">
+  <section class="banner y-flow">
     <header class="heading y-flow">
       <h1 class="heading-h1">
         <YHighlightedText active stick-to-left>
@@ -20,15 +20,14 @@
       </p>
     </header>
 
+    <Features />
+
     <ClientOnly>
       <ModuleTemplateExample />
     </ClientOnly>
-    <!-- <div class="parallax__layer parallax__layer--back"> -->
-    <!-- <div class="parallax__layer parallax__layer--base"> -->
-    <!-- </div> -->
-    <!-- </div> -->
-
-    <Features />
+    <!-- <div class="parallax__layer parallax__layer--back">
+      <div class="parallax__layer parallax__layer--base"></div>
+    </div> -->
   </section>
 </template>
 
@@ -46,7 +45,7 @@ import Separator from './Separator.vue';
   padding-top: calc(var(--vp-nav-height) + 2svh);
   container-name: banner;
   container-type: inline-size;
-  display: grid;
+  // display: grid;
   align-items: center;
   color: white;
   margin-bottom: 1rem;

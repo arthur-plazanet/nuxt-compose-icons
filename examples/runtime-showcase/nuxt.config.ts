@@ -14,7 +14,7 @@ const options: NuxtComposeIconsOptions = {
     case: 'pascal',
 
     // relative path
-    componentsDestDir: './app/components/icons',
+    // componentsDestDir: './app/components/icons',
 
     // absolute path
     // componentsDestDir: path.resolve('./app/components/ui/icons'),
