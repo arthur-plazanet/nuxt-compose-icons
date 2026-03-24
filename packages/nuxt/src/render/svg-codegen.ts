@@ -28,17 +28,6 @@ function generateImports() {
   return imports.join('\n');
 }
 
-const iconComponentProps = {
-  color: String,
-  stroke: String,
-  strokeWidth: [String, Number],
-  fill: String,
-  size: {
-    type: String,
-    default: 'md',
-  },
-};
-
 /**
  * Creates a Vue component code string from the provided SVG content.
  *
@@ -53,7 +42,16 @@ export function createSvgComponentCode(name: string, svgContent: string) {
 
 export default defineComponent({
   name: '${name}',
-  props: ${JSON.stringify(iconComponentProps, null, 2)},
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
   setup(props: ComposeIconProps) {
     const { buildSvgAttributes } = useComposeIcon(props);
     const svgAttributes = ${JSON.stringify(attributes, null, 2)};
