@@ -41,7 +41,6 @@ ${exports}
 
 async function generateIconsRegistry(components: Component[], registryDir: string) {
   const sortedComponents = sortComponents(components);
-  const registryPath = path.resolve('../runtime/utils/icon-registry.ts');
 
   const sortedEntries = sortedComponents.map((c) => {
     const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
@@ -84,8 +83,6 @@ export interface IconRegistryEntry {
   importPath: string;
   component: Component;
 }
-
-export const iconRegistryPath = ${JSON.stringify(registryPath.replace(/\\/g, '\\\\'))};
 
 export const iconRegistry: IconRegistryEntry[] = [
 ${entries}

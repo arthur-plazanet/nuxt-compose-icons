@@ -179,29 +179,38 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
   // Default configuration options of the Nuxt module
   defaults: {
     reRunOnBuild: true,
-    // iconSizes: {
-    //   [IconSize.XS]: '0.5rem',
-    //   [IconSize.SM]: '0.875rem',
-    //   [IconSize.MD]: '1rem',
-    //   [IconSize.LG]: '1.5rem',
-    //   [IconSize.XL]: '2.5rem',
-    // },
+
     // If not provided, the default will be to use the "Icon" suffix for the component without a prefix
     // e.g. "arrow-up.svg" will be "ArrowUpIcon"
-
     generatedComponentOptions: {
       prefix: undefined,
       suffix: 'Icon',
       case: 'pascal',
       componentsDestDir: undefined,
       iconClasses: 'compose-icon',
-      fileFormat: 'vue',
+      fileFormat: 'ts',
     },
     iconComponentList: {},
   },
 
   hooks: {
-    'build:before'() {},
+    'kit:compatibility'(compatibility, issues) {
+      const logger = useLogger('nuxt-compatibility');
+      if (issues.length > 0) {
+        logger.warn('⚠️ - Nuxt compatibility issues detected:');
+        issues.forEach((issue) => {
+          logger.warn(`⚠️ - ${issue.name}: ${issue.message}`);
+        });
+        const majorVersion = Number.parseInt(compatibility?.nuxt?.split('.')[0] || '0', 10);
+        if (majorVersion >= 4) {
+          logger.info('✅ - Nuxt 4 detected');
+        } else if (majorVersion === 3) {
+          logger.info('✅ - Nuxt 3 detected');
+        } else {
+          logger.warn(`⚠️ - Nuxt ${majorVersion} detected, compatibility not guaranteed`);
+        }
+      }
+    },
   },
   async setup(options, nuxt) {
     // const logger = useLogger('nuxt-compose-icons', {
@@ -244,22 +253,22 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
      * Nuxt version detection and compatibility handling
      * TODO: isNuxtMajorVersion and assertNuxtCompatibility were producing errors if used on certain Nuxt 3 versions
      */
-    const nuxtMajor = Number.parseInt(nuxt._version.split('.')[0]);
-    // Nuxt 3 can opt into Nuxt 4 behaviour via future.compatibilityVersion
-    const compatVersion = (
-      nuxt.options as unknown as Record<string, unknown> & {
-        future?: { compatibilityVersion?: number };
-      }
-    ).future?.compatibilityVersion;
-    const effectiveMajor = compatVersion ?? nuxtMajor;
+    // const nuxtMajor = Number.parseInt(nuxt._version.split('.')[0]);
+    // // Nuxt 3 can opt into Nuxt 4 behaviour via future.compatibilityVersion
+    // const compatVersion = (
+    //   nuxt.options as unknown as Record<string, unknown> & {
+    //     future?: { compatibilityVersion?: number };
+    //   }
+    // ).future?.compatibilityVersion;
+    // const effectiveMajor = compatVersion ?? nuxtMajor;
 
-    if (effectiveMajor >= 4) {
-      logger.info('✅ - Nuxt 4 detected');
-    } else if (nuxtMajor === 3) {
-      logger.info('✅ - Nuxt 3 detected');
-    } else {
-      logger.warn(`⚠️ - Nuxt ${nuxtMajor} detected, compatibility not guaranteed`);
-    }
+    // if (effectiveMajor >= 4) {
+    //   logger.info('✅ - Nuxt 4 detected');
+    // } else if (nuxtMajor === 3) {
+    //   logger.info('✅ - Nuxt 3 detected');
+    // } else {
+    //   logger.warn(`⚠️ - Nuxt ${nuxtMajor} detected, compatibility not guaranteed`);
+    // }
 
     // Prevent Vite's dep pre-bundling from running esbuild on the composables
     // before this module has a chance to register the #compose-icons/registry alias.
@@ -375,8 +384,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             iconClasses: options.generatedComponentOptions.iconClasses,
           });
 
-          // TODO: Check if necessary to handle snake case as well
-
           // TODO: handle double dashes "--", and if ".svg" already present
           const componentName = generateComponentName(fileInfo.name, options);
 
@@ -430,15 +437,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             logger.success(`✅ Generated component: ${componentName} from ${fileInfo.base}`);
           }
         }
-
-        // });
-
-        // addComponentsDir({
-        //   path: componentsDir,
-        //   extensions: ['vue'], // 👈 critical
-        //   ignore: ['index.ts', 'icon-registry.ts'],
-        //   // prefix: options.generatedComponentOptions.prefix,
-        // });
 
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
         const { cssFileContent } = generateCssFile({
@@ -600,17 +598,19 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             ];
           });
 
-          // Nitro's Rollup has no Vue plugin; this plugin handles our script-only SFCs.
-          const vueScriptPlugin = createVueScriptPlugin(componentsDir);
-          nuxt.hook('nitro:config', (nitroConfig) => {
-            nitroConfig.rollupConfig ??= {};
-            const existing = Array.isArray(nitroConfig.rollupConfig.plugins)
-              ? nitroConfig.rollupConfig.plugins
-              : nitroConfig.rollupConfig.plugins
-                ? [nitroConfig.rollupConfig.plugins]
-                : [];
-            nitroConfig.rollupConfig.plugins = [vueScriptPlugin, ...existing];
-          });
+          // Nitro's Rollup has no Vue plugin — only needed when icons are .vue SFCs.
+          if (options.generatedComponentOptions.fileFormat === 'vue') {
+            const vueScriptPlugin = createVueScriptPlugin(componentsDir);
+            nuxt.hook('nitro:config', (nitroConfig) => {
+              nitroConfig.rollupConfig ??= {};
+              const existing = Array.isArray(nitroConfig.rollupConfig.plugins)
+                ? nitroConfig.rollupConfig.plugins
+                : nitroConfig.rollupConfig.plugins
+                  ? [nitroConfig.rollupConfig.plugins]
+                  : [];
+              nitroConfig.rollupConfig.plugins = [vueScriptPlugin, ...existing];
+            });
+          }
         }
 
         // 8. Add composables

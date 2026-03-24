@@ -57,6 +57,10 @@
       "types": "./dist/runtime/composables/index.d.ts",
       "import": "./dist/runtime/composables/index.js"
     },
+    "./components": {
+      "types": "./dist/runtime/components/*.d.ts",
+      "import": "./dist/runtime/components/*.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
