@@ -26,32 +26,6 @@ import {
 import { createDir, writeFile } from './utils/filesystem/helpers';
 import { optimizeCss } from './utils/styles/optimize-css';
 
-/**
- * Rollup plugin for Nitro that resolves icon component imports from the components dir.
- * Nitro's Rollup cannot resolve extensionless .ts imports or transform .vue SFCs,
- * so we handle both cases here.
- */
-function createComposeIconsNitroPlugin(componentsDir: string) {
-  return {
-    name: 'compose-icons-nitro',
-    resolveId(id: string, importer: string | undefined) {
-      if (!importer) return null;
-      const resolved = path.resolve(path.dirname(importer), id);
-      if (!resolved.startsWith(componentsDir)) return null;
-      // Explicit .vue import
-      if (id.endsWith('.vue')) return resolved;
-      // Extensionless import → try .ts
-      if (!path.extname(id) && fs.existsSync(`${resolved}.ts`)) return `${resolved}.ts`;
-      return null;
-    },
-    transform(code: string, id: string) {
-      // .vue SFCs: extract <script> content for Nitro's TypeScript transformer
-      if (!id.endsWith('.vue') || !id.startsWith(componentsDir)) return null;
-      const match = code.match(/<script(?:\s[^>]*)?>([^]*?)<\/script>/);
-      return match?.[1] ? { code: match[1].trim(), map: null } : null;
-    },
-  };
-}
 export interface GeneratedComponentOptions {
   /**
    * The prefix to use for the component
@@ -402,13 +376,27 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
             componentCode = vueSFCWrapper(componentCode);
           }
 
-          // 4. Write the component to the file system
-          const generatedFilePath = await writeComponentFile({
-            componentName,
-            componentsDir,
-            componentCode,
-            format: options.generatedComponentOptions.fileFormat,
-          });
+          // 4. Write the component to the file system.
+          // Default dir (.nuxt): use addTemplate so files survive the prepare-phase cleanup.
+          // Custom dir: writeFile is fine — Nuxt never cleans user directories.
+          let generatedFilePath: string;
+          if (userDir) {
+            generatedFilePath = await writeComponentFile({
+              componentName,
+              componentsDir,
+              componentCode,
+              format: options.generatedComponentOptions.fileFormat,
+            });
+          } else {
+            const ext = options.generatedComponentOptions.fileFormat ?? 'ts';
+            const capturedCode = componentCode;
+            const iconTemplate = addTemplate({
+              filename: `compose-icons/${componentName}.${ext}`,
+              getContents: () => capturedCode,
+              write: true,
+            });
+            generatedFilePath = iconTemplate.dst;
+          }
 
           // 5. Create the "official" component object with the name and path
           const component = createComponentFromName({
@@ -552,12 +540,9 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         );
 
         // 10. Generate the icon registry file
-        const templateDir = resolveBuild('compose-icons');
-        const useCustomDir = componentsDir !== templateDir;
-
         let registryPath: string;
 
-        if (useCustomDir) {
+        if (userDir) {
           // Custom componentsDestDir: write registry there (alias points directly to it).
           // No need for a .nuxt copy — paths are already correct relative to componentsDir.
           const iconsRegistryContent = await generateIconsRegistry(
@@ -570,7 +555,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           // Default (.nuxt/compose-icons): use addTemplate so Nuxt manages the file lifecycle.
           const templateRegistryContent = await generateIconsRegistry(
             generatedComponents,
-            templateDir,
+            defaultDir,
           );
           const registryTemplate = addTemplate({
             filename: 'compose-icons/icon-registry.ts',
@@ -583,36 +568,33 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // Make #compose-icons/registry resolvable in Vite's transform phase (client + SSR)
         nuxt.options.alias['#compose-icons/registry'] = registryPath;
 
-        // Make #compose-icons/registry resolvable in Nitro's alias resolver.
-        // nuxt.options.alias propagates to Nitro automatically, but we set it
-        // explicitly here too for clarity and to ensure Nitro's own alias map is in sync.
-        nuxt.hook('nitro:config', (nitroConfig) => {
-          nitroConfig.alias ??= {};
-          nitroConfig.alias['#compose-icons/registry'] = registryPath;
-        });
+        // For Nitro: provide a virtual module with metadata only (no component file imports).
+        // Icon component files written via writeFile during setup() may not be present when
+        // Nitro runs (cleaned by Nuxt's prepare phase). Nitro doesn't render Vue components
+        // in SPA mode, so a metadata-only registry is sufficient.
+        const virtualRegistryContent = [
+          `export const iconRegistry = [`,
+          ...generatedComponents.map((c) => {
+            const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
+            const pascal = c.pascalName || base;
+            const kebab = c.kebabName || base;
+            return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: './${base}', component: null },`;
+          }),
+          `];`,
+        ].join('\n');
 
-        // Force Nitro to bundle nuxt-compose-icons so the alias is resolved at
-        // bundle time — without this, Node.js throws ERR_PACKAGE_IMPORT_NOT_DEFINED
-        // at runtime because #compose-icons/registry isn't in the package's imports field.
         nuxt.hook('nitro:config', (nitroConfig) => {
+          // Virtual module takes precedence over any propagated alias
+          nitroConfig.virtual ??= {};
+          nitroConfig.virtual['#compose-icons/registry'] = virtualRegistryContent;
+
+          // Bundle nuxt-compose-icons so internal imports resolve at build time
           const inline = nitroConfig.externals?.inline;
           nitroConfig.externals ??= {};
           nitroConfig.externals.inline = [
             ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
             'nuxt-compose-icons',
           ];
-        });
-
-        // Nitro's Rollup can't resolve extensionless .ts imports or transform .vue SFCs.
-        const nitroPlugin = createComposeIconsNitroPlugin(componentsDir);
-        nuxt.hook('nitro:config', (nitroConfig) => {
-          nitroConfig.rollupConfig ??= {};
-          const existing = Array.isArray(nitroConfig.rollupConfig.plugins)
-            ? nitroConfig.rollupConfig.plugins
-            : nitroConfig.rollupConfig.plugins
-              ? [nitroConfig.rollupConfig.plugins]
-              : [];
-          nitroConfig.rollupConfig.plugins = [nitroPlugin, ...existing];
         });
 
         // 8. Add composables
