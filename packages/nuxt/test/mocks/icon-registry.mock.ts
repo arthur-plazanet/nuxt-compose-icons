@@ -10,7 +10,7 @@ export const iconRegistry: IconRegistryEntry[] = [
     name: 'LogoIcon',
     pascalName: 'LogoIcon',
     kebabName: 'logo-icon',
-    importPath: './LogoIcon.vue',
+    importPath: './LogoIcon',
     component: MockIcon,
   },
 ];
