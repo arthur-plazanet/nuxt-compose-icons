@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.5
+
+### Patch Changes
+
+- f2e7a93: addTemplate for components
+
 ## 0.6.4
 
 ### Patch Changes
