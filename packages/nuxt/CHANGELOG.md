@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.2
+
+### Patch Changes
+
+- 2cee867: .ts as default
+
 ## 0.6.1
 
 ### Patch Changes
