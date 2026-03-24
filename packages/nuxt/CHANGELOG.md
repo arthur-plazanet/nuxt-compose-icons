@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.3
+
+### Patch Changes
+
+- 79ef08a: Fix props
+
 ## 0.6.2
 
 ### Patch Changes
