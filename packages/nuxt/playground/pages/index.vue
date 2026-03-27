@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { useComposeIconRegistry } from 'nuxt-compose-icons/composables';
+import { useComposeIconRegistry } from 'nuxt-compose-icons/registry';
 const { icons } = useComposeIconRegistry();
 </script>
 

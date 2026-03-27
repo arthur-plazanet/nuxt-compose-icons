@@ -13,12 +13,7 @@ declare module '@nuxt-compose-icons/types' {
   // } from 'nuxt-compose-icons';
 
   export { IconSize } from 'nuxt-compose-icons';
-  export type {
-    ComposeIconProps,
-    ComposeIconSize,
-    IconSizeKey,
-    IconSizeKeyValue,
-  } from 'nuxt-compose-icons';
+  export type { ComposeIconProps, ComposeIconSize } from 'nuxt-compose-icons';
 }
 
 declare module '@nuxt-compose-icons/components' {
