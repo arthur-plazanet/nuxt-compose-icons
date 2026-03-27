@@ -137,8 +137,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0(@vitest/ui@4.1.0)(magicast@0.5.2)(playwright-core@1.58.2)(typescript@5.9.3)(vite@8.0.1(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(sass@1.98.0)(terser@5.46.1)(yaml@2.8.3))(vitest@4.1.0)
       nuxt-compose-icons:
-        specifier: 0.5.2
-        version: 0.5.2(magicast@0.5.2)
+        specifier: 0.6.5
+        version: 0.6.5(magicast@0.5.2)
       playwright-core:
         specifier: 1.58.2
         version: 1.58.2
@@ -223,7 +223,7 @@ importers:
         version: 0.6.0(typescript@5.9.3)
       nuxt:
         specifier: 4.2.2
-        version: 4.2.2(@parcel/watcher@2.5.6)(@types/node@25.5.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.4(jiti@2.6.1))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(meow@13.2.0)(optionator@0.9.4)(rolldown@1.0.0-rc.10)(rollup@4.60.0)(sass@1.98.0)(stylelint@17.4.0(typescript@5.9.3))(terser@5.46.1)(typescript@5.9.3)(vite@8.0.1(@types/node@25.5.0)(esbuild@0.27.4)(jiti@2.6.1)(sass@1.98.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@3.2.6(typescript@5.9.3))(yaml@2.8.3)
+        version: 4.2.2(@parcel/watcher@2.5.6)(@types/node@25.5.0)(@vue/compiler-sfc@3.5.30)(cac@6.7.14)(db0@0.3.4)(eslint@9.39.4(jiti@2.6.1))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(meow@13.2.0)(optionator@0.9.4)(rolldown@1.0.0-rc.10)(rollup@4.60.0)(sass@1.98.0)(stylelint@17.4.0(typescript@5.9.3))(terser@5.46.1)(typescript@5.9.3)(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(lightningcss@1.32.0)(sass@1.98.0)(terser@5.46.1)(yaml@2.8.3))(vue-tsc@3.2.6(typescript@5.9.3))(yaml@2.8.3)
     devDependencies:
       nuxt-compose-icons:
         specifier: workspace:*
@@ -4786,8 +4786,8 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  nuxt-compose-icons@0.5.2:
-    resolution: {integrity: sha512-cmY4IeyUC6+B/A17/zmP/PcfBGKVUfkKObFeQYlyFLGF903xeAV5CckWWoRnNp6FBG0GnK7ADv2WthkRA3IYQg==}
+  nuxt-compose-icons@0.6.5:
+    resolution: {integrity: sha512-ORje0iC9Ex5sQ91H0FWZM/8/3xM88JFtEs9DpwVwEK/O0/aquQdBmzTftwM0hLiWUtDzYMZ+9LmbOj+yv0GCGw==}
 
   nuxt@4.2.2:
     resolution: {integrity: sha512-n6oYFikgLEb70J4+K19jAzfx4exZcRSRX7yZn09P5qlf2Z59VNOBqNmaZO5ObzvyGUZ308SZfL629/Q2v2FVjw==}
@@ -11439,7 +11439,7 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxt-compose-icons@0.5.2(magicast@0.5.2):
+  nuxt-compose-icons@0.6.5(magicast@0.5.2):
     dependencies:
       '@nuxt/kit': 4.2.2(magicast@0.5.2)
       '@use-compose/logger': 0.0.6

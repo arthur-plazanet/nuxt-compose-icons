@@ -167,7 +167,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       suffix: 'Icon',
       case: 'pascal',
       componentsDestDir: undefined,
-      iconClasses: 'compose-icon',
       fileFormat: 'ts',
     },
     iconComponentList: {},
@@ -258,7 +257,9 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       'nuxt-compose-icons',
     ];
 
-    const { reRunOnBuild, pathToIcons, iconComponentList, iconSizes } = options;
+    const { reRunOnBuild, pathToIcons, iconComponentList, iconSizes, generatedComponentOptions } =
+      options;
+    // const fileFormat = generatedComponentOptions.fileFormat || 'ts';
 
     if (!reRunOnBuild) {
       logger.info('⚠️ - reRunOnBuild is disabled, the module will run only once at setup');
@@ -320,14 +321,18 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           });
         }
 
-        // Set Icon classes (can be set to ensure consistency in a Design System for example)
-        const iconClasses = Array.isArray(options.generatedComponentOptions.iconClasses)
-          ? options.generatedComponentOptions.iconClasses
-          : [options.generatedComponentOptions.iconClasses];
+        let iconComponentClasses: string[] = [];
+
+        if (generatedComponentOptions.iconClasses) {
+          // Set Icon classes (can be set to ensure consistency in a Design System for example)
+          iconComponentClasses = Array.isArray(generatedComponentOptions.iconClasses)
+            ? generatedComponentOptions.iconClasses
+            : [generatedComponentOptions.iconClasses];
+        }
 
         // We ensure the base class is always included to allow styling the icons with a common class, used by default CSS
         // TODO: Let the user fully set the base class https://github.com/arthur-plazanet/nuxt-compose-icons/issues/312
-        iconClasses.push('compose-icon'); // Ensure the base class is always included
+        iconComponentClasses.push('compose-icon'); // Ensure the base class is always included
 
         /*
          * For each file we:
@@ -361,7 +366,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
           // 2. Optimize with SVGO
           svgContent = optimizeSvg(svgContent, {
-            iconClasses: options.generatedComponentOptions.iconClasses,
+            iconClasses: iconComponentClasses,
           });
 
           // TODO: handle double dashes "--", and if ".svg" already present
@@ -380,7 +385,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
           // Default dir (.nuxt): use addTemplate so files survive the prepare-phase cleanup.
           // Custom dir: writeFile is fine — Nuxt never cleans user directories.
           let generatedFilePath: string;
-          if (userDir) {
+          if (componentsDir !== defaultDir) {
             generatedFilePath = await writeComponentFile({
               componentName,
               componentsDir,
@@ -435,7 +440,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array at build time
         const { cssFileContent } = generateCssFile({
           iconSizes,
-          iconClasses: options.generatedComponentOptions.iconClasses,
+          iconClasses: iconComponentClasses,
         });
 
         if (options.debug) {
@@ -542,7 +547,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // 10. Generate the icon registry file
         let registryPath: string;
 
-        if (userDir) {
+        if (componentsDir !== defaultDir) {
           // Custom componentsDestDir: write registry there (alias points directly to it).
           // No need for a .nuxt copy — paths are already correct relative to componentsDir.
           const iconsRegistryContent = await generateIconsRegistry(
@@ -572,30 +577,30 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // Icon component files written via writeFile during setup() may not be present when
         // Nitro runs (cleaned by Nuxt's prepare phase). Nitro doesn't render Vue components
         // in SPA mode, so a metadata-only registry is sufficient.
-        const virtualRegistryContent = [
-          `export const iconRegistry = [`,
-          ...generatedComponents.map((c) => {
-            const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-            const pascal = c.pascalName || base;
-            const kebab = c.kebabName || base;
-            return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: './${base}', component: null },`;
-          }),
-          `];`,
-        ].join('\n');
+        // const virtualRegistryContent = [
+        //   `export const iconRegistry = [`,
+        //   ...generatedComponents.map((c) => {
+        //     const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
+        //     const pascal = c.pascalName || base;
+        //     const kebab = c.kebabName || base;
+        //     return `  { name: '${pascal}', pascalName: '${pascal}', kebabName: '${kebab}', importPath: './${base}', component: null },`;
+        //   }),
+        //   `];`,
+        // ].join('\n');
 
-        nuxt.hook('nitro:config', (nitroConfig) => {
-          // Virtual module takes precedence over any propagated alias
-          nitroConfig.virtual ??= {};
-          nitroConfig.virtual['#compose-icons/registry'] = virtualRegistryContent;
+        // nuxt.hook('nitro:config', (nitroConfig) => {
+        //   // Virtual module takes precedence over any propagated alias
+        //   nitroConfig.virtual ??= {};
+        //   nitroConfig.virtual['#compose-icons/registry'] = virtualRegistryContent;
 
-          // Bundle nuxt-compose-icons so internal imports resolve at build time
-          const inline = nitroConfig.externals?.inline;
-          nitroConfig.externals ??= {};
-          nitroConfig.externals.inline = [
-            ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
-            'nuxt-compose-icons',
-          ];
-        });
+        //   // Bundle nuxt-compose-icons so internal imports resolve at build time
+        //   const inline = nitroConfig.externals?.inline;
+        //   nitroConfig.externals ??= {};
+        //   nitroConfig.externals.inline = [
+        //     ...(Array.isArray(inline) ? inline : inline ? [inline] : []),
+        //     'nuxt-compose-icons',
+        //   ];
+        // });
 
         // 8. Add composables
         addImports([
