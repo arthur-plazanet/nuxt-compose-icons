@@ -164,9 +164,23 @@ function generateESMImport({
   }
 }
 
-function generateESMExport(moduleName: string, path: string, isType?: boolean): string {
+function generateESMExport({
+  moduleName,
+  path,
+  isDefault = false,
+  isType = false,
+}: {
+  moduleName: string;
+  path: string;
+  isDefault?: boolean;
+  isType?: boolean;
+}): string {
   const exportType = isType ? 'export type' : 'export';
-  return `${exportType} { default as ${moduleName} } from '${path}';\n`;
+  if (isDefault) {
+    return `${exportType} ${moduleName} from '${path}';\n`;
+  } else {
+    return `${exportType} { ${moduleName} } from '${path}';\n`;
+  }
 }
 
 function multiLineString(strings: TemplateStringsArray, ...values: unknown[]): string {

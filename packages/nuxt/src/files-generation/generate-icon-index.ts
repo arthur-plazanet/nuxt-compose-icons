@@ -19,11 +19,17 @@ function sortComponents(components: Component[]): Component[] {
 function generateIconsIndex(components: Component[]) {
   const sortedComponents = sortComponents(components);
 
-  const exports = sortedComponents.map((c) => {
-    const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-    const importBase = path.basename(c.filePath).replace(/\.(ts|js)$/, '');
-    return generateESMExport(c.pascalName || base, `./${importBase}`);
-  });
+  const exports = sortedComponents
+    .map((c) => {
+      const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
+      const importBase = path.basename(c.filePath).replace(/\.(ts|js)$/, '');
+
+      return generateESMExport({
+        moduleName: `default as ${c.pascalName || c.kebabName || base}`,
+        path: `./${importBase}`,
+      });
+    })
+    .join('');
 
   return (
     generateComment([
@@ -55,7 +61,9 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
   });
 
   const imports = sortedEntries
-    .map(({ pascal, importPath }) => generateESMImport({ moduleName: pascal, path: importPath }))
+    .map(({ pascal, importPath }) =>
+      generateESMImport({ moduleName: pascal, path: importPath, isDefault: true }),
+    )
     .join('\n');
 
   const entries = sortedEntries
