@@ -71,7 +71,7 @@ export function generateCssFile({
     'This could catch the case of a missing prop and instead of a default value',
     'we would rely on the default from the SVG.',
   ]);
-  composeIconSizes += `${Array.isArray(iconClasses) ? iconClasses.map((cls) => `.${cls}`).join(', ') : `.${iconClasses}`} {\n`;
+  composeIconSizes += `${Array.isArray(iconClasses) ? iconClasses.map((cls) => `.${cls}`).join(', ') : `${iconClasses}`} {\n`;
   // Base width and height class for icons
   const cssClasses = Object.entries(rootIconSizes).map(([key]) => {
     return formatCssClass(`size-${key}`, `--icon-size: var(--size-${key})`);
