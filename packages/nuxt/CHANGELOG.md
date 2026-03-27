@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.7
+
+### Patch Changes
+
+- cdec883: Fix index
+
 ## 0.6.6
 
 ### Patch Changes
