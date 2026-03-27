@@ -1,6 +1,6 @@
 import type { Component } from '@nuxt/schema';
 import * as path from 'node:path';
-import { generateComment, generateESMExport, generateESMImport, generateHeader } from './template';
+import { generateComment, generateHeader } from './template';
 
 export { generateIconsIndex, generateIconsRegistry };
 
@@ -19,11 +19,13 @@ function sortComponents(components: Component[]): Component[] {
 function generateIconsIndex(components: Component[]) {
   const sortedComponents = sortComponents(components);
 
-  const exports = sortedComponents.map((c) => {
-    const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-    const importBase = path.basename(c.filePath).replace(/\.(ts|js)$/, '');
-    return generateESMExport(c.pascalName || base, `./${importBase}`);
-  });
+  const exports = sortedComponents
+    .map((c) => {
+      const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
+      const importBase = path.basename(c.filePath).replace(/\.(ts|js)$/, '');
+      return `export { default as ${c.pascalName || base} } from './${importBase}';`;
+    })
+    .join('\n');
 
   return (
     generateComment([
@@ -42,7 +44,6 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
 
   const sortedEntries = sortedComponents.map((c) => {
     const base = path.basename(c.filePath).replace(/\.(ts|js|vue)$/, '');
-    // const name = c.chunkName;
     const pascal = c.pascalName || base;
     const kebab = c.kebabName || base;
 
@@ -55,7 +56,7 @@ async function generateIconsRegistry(components: Component[], registryDir: strin
   });
 
   const imports = sortedEntries
-    .map(({ pascal, importPath }) => generateESMImport({ moduleName: pascal, path: importPath }))
+    .map(({ pascal, importPath }) => `import ${pascal} from '${importPath}';`)
     .join('\n');
 
   const entries = sortedEntries

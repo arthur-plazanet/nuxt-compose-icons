@@ -1,11 +1,12 @@
 <template>
   <GettingStarted />
   <Wrapper>
-    <ClocheIcon size="sm" color="#c1272d" />
-    <ClientOnly>
+    <!-- <ClocheIcon size="sm" color="#c1272d" /> -->
+    <!-- <ClientOnly>
+      
       <IconTheming />
       <IconOverview stroke-width="3" :size="'sm'" color="#c1272d" />
-    </ClientOnly>
+    </ClientOnly> -->
   </Wrapper>
 </template>
 
