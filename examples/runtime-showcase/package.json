@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@nuxt/test-utils": "4.0.0",
-    "nuxt-compose-icons": "0.6.6",
+    "nuxt-compose-icons": "0.6.5",
     "playwright-core": "1.58.2",
     "unreadable-typescript": "1.5.0",
     "vitest": "4.1.0"
