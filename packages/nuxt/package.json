@@ -16,7 +16,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
-    "@nuxt/kit": "4.2.2",
+    "@nuxt/kit": "4.4.2",
     "@use-compose/logger": "0.0.6",
     "node-html-parser": "7.1.0",
     "svg-parser": "2.0.4",
@@ -26,7 +26,7 @@
     "@nuxt/devtools": "3.2.4",
     "@nuxt/eslint-config": "1.15.2",
     "@nuxt/module-builder": "1.0.2",
-    "@nuxt/schema": "4.2.2",
+    "@nuxt/schema": "4.4.2",
     "@nuxt/test-utils": "4.0.0",
     "@types/node": "latest",
     "@types/svg-parser": "2.0.6",
@@ -34,7 +34,7 @@
     "@vitest/ui": "4.1.0",
     "changelogen": "0.6.2",
     "eslint": "9.39.4",
-    "nuxt": "4.2.2",
+    "nuxt": "4.4.2",
     "playwright-core": "1.58.2",
     "typescript": "5.9.3",
     "vitest": "4.1.0",
