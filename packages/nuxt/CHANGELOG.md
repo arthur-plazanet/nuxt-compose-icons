@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.6
+
+### Patch Changes
+
+- c397372: Fix registry export
+
 ## 0.6.5
 
 ### Patch Changes
