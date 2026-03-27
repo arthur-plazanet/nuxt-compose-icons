@@ -1,6 +1,7 @@
 import type { ComposeIconSize } from '../runtime/types/icon-sizes';
+import type { DefaultSizes } from '../runtime/utils/icon-theming';
 import { iconSizeDefault } from '../runtime/utils/icon-theming';
-import { formatCssClass, formatCssRootVars, generateComment } from './template';
+import { formatCssRootVars, generateComment } from './template';
 
 /**
  * Generate a CSS file with the custom icon sizes provided
@@ -48,7 +49,7 @@ export function generateCssFile({
   let rootIconSizes: Record<string, string>;
 
   if (!iconSizes) {
-    const defaultSizes = { ...iconSizeDefault } as Record<string, string>;
+    const defaultSizes: DefaultSizes = { ...iconSizeDefault } as DefaultSizes;
     rootIconSizes = { ...defaultSizes };
   } else {
     rootIconSizes = { ...(iconSizes as Record<string, string>) };
@@ -73,14 +74,14 @@ export function generateCssFile({
   ]);
   composeIconSizes += `${Array.isArray(iconClasses) ? iconClasses.map((cls) => `.${cls}`).join(', ') : `.${iconClasses}`} {\n`;
   // Base width and height class for icons
-  const cssClasses = Object.entries(rootIconSizes).map(([key]) => {
-    return formatCssClass(`size-${key}`, `--icon-size: var(--size-${key})`);
-    //     const cssClass = `  &.size-${key} {
-    //   --icon-size: var(--size-${key});
-    // }`;
-    // return cssClass;
-  });
-  // .join('\n');
+  const cssClasses = Object.entries(rootIconSizes)
+    .map(([key]) => {
+      const cssClass = `  &.size-${key} {
+    --icon-size: var(--size-${key});
+  }`;
+      return cssClass;
+    })
+    .join('\n');
 
   composeIconSizes += cssClasses + '\n}';
 
