@@ -184,9 +184,9 @@ const tt = icons.value.map((icon, index) => {
 
 function generateRandomStyles(index) {
   return {
-    '--top': `calc(100svh * ${Math.random()})`, // 10% to 90%
-    '--left': `calc(100svw * ${Math.random()})`, // 10% to 90%
-    '--scale': `${Math.random() * 90 + 50}%`, // 50% to 100%
+    '--_top': `calc(100svh * ${Math.random()})`, // 10% to 90%
+    '--_left': `calc(100svw * ${Math.random()})`, // 10% to 90%
+    '--_scale': `${Math.random() * 90 + 50}%`, // 50% to 100%
   };
 }
 </script>
@@ -198,7 +198,8 @@ function generateRandomStyles(index) {
 
   .icon {
     position: absolute;
-    transform: translate(var(--left), var(--top)) scale(var(--scale));
+    transform: translate(var(--left, var(--_left)), var(--top, var(--_top)))
+      scale(var(--scale, var(--_scale)));
   }
 
   .parallax__layer--back {
@@ -206,9 +207,3 @@ function generateRandomStyles(index) {
   }
 }
 </style>
-gh api repos/{owner}/{repo}/pulls/{pull_number}/comments --paginate --jq '.[] | "$$.path):$$.line)
-\n$$.body) \n[by $$.user.login)] \n"' gh api \ -H "Accept: application/vnd.github+json" \ -H
-"X-GitHub-Api-Version: 2022-11-28" \ /repos/reteach/reteach-app/pulls/5547/comments --paginate --jq
-'.[] | "$.path):$.line)"' gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version:
-2022-11-28" /repos/reteach/reteach-app/pulls/5547/comments | jq '[ .[] | select(.user.type == "User"
-and .user.login == "$GH_USER") | { diff_hunk, line, start_line, body } ]'

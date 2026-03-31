@@ -1,20 +1,20 @@
 <template>
-  <!-- <Container> -->
-  <IconOverview>
-    <div class="home-content">
-      <Wrapper class="padding-0">
-        <Banner class="y-flow" />
-      </Wrapper>
-    </div>
-    <details>
-      <summary style="margin-bottom: 1rem">Configuration</summary>
-      <div class="holy">
-        <CodeHighlighter :code="codeLoadModule" lang="js" />
-        <CodeHighlighter file-name=".nuxt.component.d.ts" :code="nuxtComponentBuilt" lang="js" />
+  <div class="home-bg">
+    <IconOverview>
+      <div class="home-content">
+        <Wrapper class="padding-0">
+          <Banner class="y-flow" />
+        </Wrapper>
       </div>
-    </details>
-  </IconOverview>
-  <!-- </Container> -->
+      <details>
+        <summary style="margin-bottom: 1rem">Configuration</summary>
+        <div class="holy">
+          <CodeHighlighter :code="codeLoadModule" lang="js" />
+          <CodeHighlighter file-name=".nuxt.component.d.ts" :code="nuxtComponentBuilt" lang="js" />
+        </div>
+      </details>
+    </IconOverview>
+  </div>
 </template>
 
 <script setup>
