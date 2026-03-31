@@ -1,6 +1,7 @@
-/* @layer base, theme, custom-vp,compose , cube; */
-@import './base/reset.css';
+@layer reset, base, theme, custom-vp,compose , cube;
+@import './base/reset.css' layer(reset);
+@import './global.css';
 @import './vitepress/theme.css';
 @import './vitepress/custom-vp.css';
-@import '@use-compose/ui/style.css';
+@import '@use-compose/ui/style.css' layer(compose);
 @import './compose.css';

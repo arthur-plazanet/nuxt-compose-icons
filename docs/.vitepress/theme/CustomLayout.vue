@@ -19,12 +19,16 @@ const { Layout } = DefaultTheme;
 <template>
   <ClientOnly>
     <AppCompose :theme="theme">
-      <Layout class="home-layout">
-        <template #nav-bar-title-before>
-          <LogoIcon size="m" />
-        </template>
-        <!-- <Content /> -->
-      </Layout>
+      <div class="home-layout">
+        <!-- <div class="home-bg"></div> -->
+
+        <Layout>
+          <template #nav-bar-title-before>
+            <LogoIcon class="navbar-logo" size="m" />
+          </template>
+          <!-- <Content /> -->
+        </Layout>
+      </div>
     </AppCompose>
   </ClientOnly>
 </template>
