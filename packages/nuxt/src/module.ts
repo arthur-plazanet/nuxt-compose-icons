@@ -465,18 +465,16 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         // logger.log('📟 - tpl → ', tpl);
 
         const completeIconStyles = optimizeCss(`${cssFileContent}`);
+        const cssFileName = 'compose-icon-sizes.css';
 
         const tpl = addTemplate({
-          filename: 'compose-icon-sizes.css',
+          filename: cssFileName,
           getContents: () => `${completeIconStyles}`,
         });
         nuxt.options.css.push(tpl.dst);
 
-        //  write file locally
-        await writeFile(
-          assertAbsolute(resolve('./runtime/assets/compose-icon-sizes.css')),
-          `${completeIconStyles}`,
-        );
+        //  write file in the component dir
+        await writeFile(assertAbsolute(resolve(componentsDir, cssFileName)), completeIconStyles);
 
         // addImportsDir(resolve('runtime/types'));
         // addImportsDir(resolve('runtime/utils'));
