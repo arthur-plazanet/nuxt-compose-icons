@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.8
+
+### Patch Changes
+
+- 52a406e: LightningCSS support and remove hard coded CSS sizes from dist + update docs
+
 ## 0.6.7
 
 ### Patch Changes
