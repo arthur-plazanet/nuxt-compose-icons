@@ -129,7 +129,7 @@ function formatCssRootVars(cssVars: Record<string, string>): string {
 }
 
 function formatCssClass(className: string, cssVars: Record<string, string> | string): string {
-  let result = `.${className} {`;
+  let result = `&.${className} {`;
   if (typeof cssVars === 'string') {
     result += cssVars;
   } else {
