@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.6.9
+
+### Patch Changes
+
+- 42c8ba8: Fix link between classes icon sizes
+
 ## 0.6.8
 
 ### Patch Changes
