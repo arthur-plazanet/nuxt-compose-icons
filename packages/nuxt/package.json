@@ -77,7 +77,7 @@
   "packageManager": "pnpm@10.33.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arthur-plazanet/nuxt-compose-icons"
+    "url": "https://github.com/arthu-pr/nuxt-compose-icons"
   },
   "type": "module",
   "types": "./dist/module.d.mts"
