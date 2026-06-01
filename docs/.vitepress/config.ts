@@ -77,14 +77,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Introduction', link: '/guide/motivation' },
-      // { text: 'Playground', link: 'https://compose-icons-playground.vercel.app/' },
       { text: 'Playground', link: 'https://nuxt-icons-playground.use-compose.com' },
-      {
-        text: 'Interactive',
-        link: import.meta.url.includes('localhost')
-          ? 'http://localhost:'
-          : 'https://nuxt-icons-playground.use-compose.com',
-      },
     ],
 
     search: {

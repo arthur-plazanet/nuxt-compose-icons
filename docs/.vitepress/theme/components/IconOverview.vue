@@ -191,7 +191,7 @@ function generateRandomStyles(index) {
 }
 </script>
 
-<style lang="scss">
+<style>
 .icons-overview {
   z-index: 0;
   inset: 0;

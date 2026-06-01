@@ -1,9 +1,7 @@
 <template>
-  <!-- <AppCompose :theme="theme"> -->
-  <!-- <Wrapper> -->
-  <NuxtPage />
-  <!-- </Wrapper> -->
-  <!-- </AppCompose> -->
+  <ClientOnly>
+    <NuxtPage />
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">

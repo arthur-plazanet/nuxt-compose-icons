@@ -28,17 +28,6 @@
   padding: 0.5rem 0;
 }
 
-h1.heading-h1 {
-  display: inline-block;
-  line-height: var(--heading-h1-line-height);
-  font-size: var(--heading-h2-size);
-  font-weight: var(--heading-h2-weight);
-
-  & span {
-    box-decoration-break: clone;
-  }
-}
-
 h2.heading-h2 {
   font-size: var(--text-body-size);
   font-weight: var(--heading-h4-weight);
@@ -94,6 +83,23 @@ h4.heading-h4 {
 
 .VPPage {
   /* min-height: 100svh; */
+}
+
+/* Reset @use-compose/ui heading overrides that leak via [data-compose-ui=app] */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  text-transform: none;
+  font-family: var(--vp-font-family-base);
+}
+
+/* Reset nav social link icon fill overridden by @use-compose/ui color rules */
+.VPSocialLink svg {
+  color: inherit;
+  fill: currentColor;
 }
 
 .vp-doc {

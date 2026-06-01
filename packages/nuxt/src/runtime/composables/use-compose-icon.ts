@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
 import { isRawCssSize } from '../utils/icon-theming';
+import { useComposeIconTheme } from './use-compose-icon-theme';
 
 export { useComposeIcon };
 export type { UseComposeIcon };
@@ -23,8 +24,10 @@ interface UseComposeIcon {
  * @returns {UseComposeIcon} The composed icon styles, classes, and attributes.
  */
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
-  // 1) Size
-  const size = computed<string>(() => props.size ?? 'md');
+  // 1) Size — fall back to the first configured size, not a hardcoded 'md'
+  const { sizes } = useComposeIconTheme();
+  const defaultSize = Object.keys(sizes)[0] ?? 'md';
+  const size = computed<string>(() => props.size ?? defaultSize);
 
   const iconSizeClass = computed(() => getIconSizeClass(size.value));
   // 2) Styles: only include what's defined
