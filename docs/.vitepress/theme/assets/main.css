@@ -1,7 +1,14 @@
-@layer reset, base, theme, custom-vp,compose , cube;
+@layer reset, base, compose, components;
+
+/* Low-priority base — can be overridden by anything unlayered */
 @import './base/reset.css' layer(reset);
+@import './base/typography.css' layer(base);
+@import '@use-compose/ui/style.css' layer(compose);
+
+/* VitePress overrides — unlayered so they win over VitePress default CSS */
 @import './global.css';
 @import './vitepress/theme.css';
 @import './vitepress/custom-vp.css';
-@import '@use-compose/ui/style.css' layer(compose);
 @import './compose.css';
+@import './base/utilities.css';
+@import './components/buttons.css' layer(components);

@@ -527,8 +527,12 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     }
     // 11. Add composables
     if (options.includeComposables) {
-      const mergedSizes = { ...iconSizeDefault, ...iconSizes } as Record<string, string>;
-      nuxt.options.runtimeConfig.public.composeIcons = { sizes: mergedSizes };
+      // If the user provides iconSizes, use them as-is (they are the full set).
+      // Only fall back to iconSizeDefault when no sizes are configured at all.
+      const finalSizes = (
+        iconSizes && Object.keys(iconSizes).length > 0 ? iconSizes : iconSizeDefault
+      ) as Record<string, string>;
+      nuxt.options.runtimeConfig.public.composeIcons = { sizes: finalSizes };
 
       addImports([
         { name: 'useComposeIcon', from: resolve('runtime/composables/use-compose-icon') },

@@ -56,28 +56,19 @@ const arrayCode = [
 ];
 </script>
 
-<style lang="scss">
+<style>
 .module-template-example {
-  min-width: 20cqi;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
   gap: 1rem;
-  height: 100%;
 }
 
 .wrapper-codemulti-highlight {
-  max-width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 
   pre {
     flex-grow: 1;
-  }
-
-  code {
-    height: 100%;
   }
 }
 </style>

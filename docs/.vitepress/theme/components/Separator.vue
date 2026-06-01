@@ -12,7 +12,7 @@ interface SeparatorProps {
 }
 const props = withDefaults(defineProps<SeparatorProps>(), {
   width: '20%',
-  noMargin: true,
+  noMargin: false,
 });
 
 const classes = computed(() => ({
@@ -30,9 +30,7 @@ const getStyles = computed(() => {
 });
 </script>
 
-<style lang="scss">
-@import '../assets/scss/abstracts/mixins';
-
+<style>
 .separator {
   background-color: var(--color-primary);
   height: 5px;
@@ -40,8 +38,10 @@ const getStyles = computed(() => {
   &:not(.no-margin) {
     margin: 6px 0 12px;
   }
+}
 
-  @include media('lg') {
+@media only screen and (min-width: 1280px) {
+  .separator {
     height: 0.5rem;
   }
 }

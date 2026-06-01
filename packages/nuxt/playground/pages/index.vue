@@ -1,34 +1,57 @@
 <template>
-  <div class="page">
+  <YRow type="switcher" class="page" style="--switcher-modifier: 640px; --switcher-gap: 0">
     <aside class="controls">
+      <div class="controls__field">
+        <div class="controls__label-row">
+          <span class="controls__label">Size</span>
+          <span class="controls__badge">{{ size }} — {{ iconSizes[size] }}</span>
+        </div>
+        <input
+          v-model="sizeIndex"
+          type="range"
+          min="0"
+          :max="sizes.length - 1"
+          step="1"
+          class="controls__range"
+        />
+        <div class="controls__ticks">
+          <span
+            v-for="s in sizes"
+            :key="s"
+            class="controls__tick"
+            :class="{ 'controls__tick--active': s === size }"
+            >{{ s }}</span
+          >
+        </div>
+      </div>
+
       <label class="controls__field">
-        <span>Size</span>
-        <select v-model="size">
-          <option v-for="s in sizes" :key="s" :value="s">{{ s }} — {{ iconSizes[s] }}</option>
-        </select>
+        <div class="controls__label-row">
+          <span class="controls__label">Fill</span>
+          <input v-model="fillEnabled" type="checkbox" class="controls__checkbox" />
+        </div>
+        <input v-model="fillColor" type="color" :disabled="!fillEnabled" class="controls__color" />
       </label>
 
       <label class="controls__field">
-        <span class="controls__label">
-          Fill
-          <input v-model="fillEnabled" type="checkbox" />
-        </span>
-        <input v-model="fillColor" type="color" :disabled="!fillEnabled" />
+        <div class="controls__label-row">
+          <span class="controls__label">Stroke</span>
+          <input v-model="strokeEnabled" type="checkbox" class="controls__checkbox" />
+        </div>
+        <input
+          v-model="strokeColor"
+          type="color"
+          :disabled="!strokeEnabled"
+          class="controls__color"
+        />
       </label>
 
       <label class="controls__field">
-        <span class="controls__label">
-          Stroke
-          <input v-model="strokeEnabled" type="checkbox" />
-        </span>
-        <input v-model="strokeColor" type="color" :disabled="!strokeEnabled" />
-      </label>
-
-      <label class="controls__field">
-        <span class="controls__label">
-          Stroke width
-          <input v-model="strokeWidthEnabled" type="checkbox" />
-        </span>
+        <div class="controls__label-row">
+          <span class="controls__label">Stroke width</span>
+          <span class="controls__badge">{{ strokeWidthEnabled ? strokeWidthValue : '—' }}</span>
+          <input v-model="strokeWidthEnabled" type="checkbox" class="controls__checkbox" />
+        </div>
         <input
           v-model="strokeWidthValue"
           type="range"
@@ -36,20 +59,15 @@
           max="4"
           step="0.5"
           :disabled="!strokeWidthEnabled"
+          class="controls__range"
         />
-        <span class="controls__value">{{ strokeWidthEnabled ? strokeWidthValue : '—' }}</span>
       </label>
 
-      <ThemePreview :current-size="size" />
-
-      <div class="controls__meta">
-        <span>{{ icons.length }} icons</span>
-      </div>
+      <div class="controls__meta">{{ icons.length }} icons</div>
     </aside>
 
     <main class="overview">
       <ComposeIconOverview
-        :icons="icons"
         :size="size"
         :fill="fill"
         :stroke="stroke"
@@ -57,20 +75,21 @@
         has-icon-name
       />
     </main>
-  </div>
+  </YRow>
 </template>
 
 <script setup lang="ts">
+import { YRow } from '@use-compose/ui';
 import { useComposeIconTheme } from 'nuxt-compose-icons/composables';
 import { useComposeIconRegistry } from 'nuxt-compose-icons/registry';
 import { computed, ref } from 'vue';
 
 const { icons } = useComposeIconRegistry();
-
 const { sizes: iconSizes } = useComposeIconTheme();
 const sizes = Object.keys(iconSizes);
 
-const size = ref(sizes.includes('lg') ? 'lg' : sizes[0]);
+const sizeIndex = ref(sizes.includes('lg') ? sizes.indexOf('lg') : 0);
+const size = computed(() => sizes[sizeIndex.value]);
 
 const fillEnabled = ref(false);
 const fillColor = ref('#ffffff');
@@ -85,86 +104,134 @@ const strokeWidthValue = ref(1.5);
 const strokeWidth = computed(() => (strokeWidthEnabled.value ? strokeWidthValue.value : undefined));
 </script>
 
-<style>
-body {
-  background-color: #1c1b1b;
-  color: #f1f1f1;
-  font-family: system-ui, sans-serif;
-  margin: 0;
-}
-</style>
-
 <style scoped>
 .page {
-  display: grid;
-  grid-template-columns: 260px 1fr;
   min-height: 100svh;
 }
 
 .controls {
-  padding: 1.5rem;
-  border-right: 1px solid #2a2a2a;
+  flex: 0 0 240px;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md);
+  border-right: 1px solid var(--border);
   position: sticky;
   top: 0;
   height: 100svh;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .controls__field {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.controls__label-row {
+  display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: #999;
+  gap: var(--spacing-xs);
 }
 
-.controls__field select,
-.controls__field input[type='range'] {
-  accent-color: #c1272d;
+.controls__label {
+  flex: 1;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
 }
 
-.controls__field input[type='color'] {
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  background: none;
+.controls__badge {
+  font-size: 0.65rem;
+  color: var(--brand);
+  background: var(--brand-subtle);
+  padding: 0.15em 0.5em;
+  border-radius: var(--border-radius-4);
+}
+
+.controls__range {
+  width: 100%;
+  accent-color: var(--brand);
   cursor: pointer;
-  padding: 0;
+  margin: 0;
 }
 
-.controls__field input[type='color']:disabled,
-.controls__field input[type='range']:disabled {
+.controls__range:disabled,
+.controls__color:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
 
-.controls__label {
+.controls__ticks {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
-.controls__value {
-  font-size: 0.7rem;
-  color: #666;
+.controls__tick {
+  font-size: 0.6rem;
+  color: var(--faint);
+  transition: color 0.15s;
+}
+
+.controls__tick--active {
+  color: var(--brand);
+}
+
+.controls__checkbox {
+  accent-color: var(--brand);
+}
+
+.controls__color {
+  width: 100%;
+  height: 2rem;
+  border: 1px solid var(--border);
+  background: none;
+  border-radius: var(--border-radius-6);
+  cursor: pointer;
+  padding: 0.1rem;
+  box-sizing: border-box;
 }
 
 .controls__meta {
   margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  font-size: 0.7rem;
-  color: #555;
+  font-size: 0.65rem;
+  color: var(--faint);
 }
 
 .overview {
-  padding: 2rem;
-  overflow-y: auto;
-  background-color: #232323;
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  background-color: var(--bg-overview);
+}
+
+@media (max-width: 640px) {
+  .controls {
+    flex: 1 1 100%;
+    position: static;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs) var(--spacing-md);
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .controls__field {
+    flex: 1 1 140px;
+    min-width: 120px;
+  }
+
+  .controls__meta {
+    margin-top: 0;
+    align-self: flex-end;
+  }
+
+  .overview {
+    padding: var(--spacing-md);
+  }
 }
 </style>

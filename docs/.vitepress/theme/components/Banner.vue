@@ -1,193 +1,146 @@
 <template>
-  <section class="banner y-flow">
-    <header class="heading y-flow">
-      <h1 class="heading-h1">
-        <YHighlightedText active stick-to-left>
-          <!-- <span style="color: white">Compose</span> -->
-          Compose
-        </YHighlightedText>
-        your own Icon components library
-      </h1>
-      <Separator width="15%" />
+  <AppCompose :theme="theme">
+    <section class="banner">
+      <header class="banner__hero y-flow">
+        <LogoIcon class="banner__logo" />
 
-      <h2 class="tagline heading-h2">
-        Automatically generates customizable Vue components based on SVG files
-      </h2>
-      <p>
-        No extra wrapper needed. <br />
-        <span class="brand">Generated</span> at build time,
-        <span class="brand">customizable</span> at runtime using CSS custom properties
-      </p>
-    </header>
+        <h1 class="banner__title">
+          Nuxt <YHighlightedText active>Compose</YHighlightedText> Icons
+        </h1>
 
-    <Features />
+        <Separator width="60px" />
 
-    <ClientOnly>
-      <ModuleTemplateExample />
-    </ClientOnly>
-    <!-- <div class="parallax__layer parallax__layer--back">
-      <div class="parallax__layer parallax__layer--base"></div>
-    </div> -->
-  </section>
+        <p class="banner__subtitle">Compose your own Icon components library</p>
+
+        <p class="banner__tagline">
+          No extra wrapper needed.<br />
+          <span class="banner__brand">Generated</span> at build time,
+          <span class="banner__brand">customizable</span> at runtime using CSS custom properties
+        </p>
+
+        <div class="banner__actions">
+          <a href="/guide/motivation">
+            <YButton color="primary" tabindex="-1">Get Started</YButton>
+          </a>
+          <a href="https://github.com/arthu-pr/nuxt-compose-icons" target="_blank" rel="noopener">
+            <YButton color="secondary" tabindex="-1">GitHub</YButton>
+          </a>
+        </div>
+      </header>
+
+      <div class="banner__body">
+        <ClientOnly>
+          <ModuleTemplateExample class="banner__example" />
+        </ClientOnly>
+        <Features class="banner__features" />
+      </div>
+    </section>
+  </AppCompose>
 </template>
 
-<script setup>
-import { YHighlightedText } from '@use-compose/ui';
+<script setup lang="ts">
+import { AppCompose, YButton, YHighlightedText, type YTheme } from '@use-compose/ui';
 import Features from './Features.vue';
+import LogoIcon from './icons/LogoIcon.vue';
 import ModuleTemplateExample from './ModuleTemplateExample.vue';
 import Separator from './Separator.vue';
+
+const theme: YTheme = {
+  primary: '#c1272d',
+  secondary: '#1e1e1e',
+  background: '#000000',
+};
 </script>
 
-<style lang="scss">
-@import '../assets/scss/abstracts/mixins';
-
+<style scoped>
 .banner {
-  padding-top: calc(var(--vp-nav-height) + 2svh);
-  container-name: banner;
-  container-type: inline-size;
-  // display: grid;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.banner__hero {
+  --_flow-space: 1.25rem;
+  max-width: 580px;
+}
+
+.banner__logo {
+  --icon-fill: var(--color-primary);
+  width: 4rem;
+  height: 4rem;
+}
+
+/* White text inside YHighlightedText "Compose" */
+.banner__title :deep(.highlighted span) {
   color: white;
-  margin-bottom: 1rem;
-  width: 100%;
-  z-index: 1;
-  // min-height: 100svh;
-
-  row-gap: 1rem;
-  grid-template-areas:
-    'icon-overview'
-    'tagline'
-    'heading'
-    'features'
-    'module-template-example';
-
-  // 'module-template-example module-template-example';
-  // grid-template-columns: auto 1fr;
-
-  // .app-title {
-  //   grid-area: title;
-  //   margin: 0;
-  //   font-size: $text-5-5;
-  // }
-
-  // .description {
-  //   grid-area: description;
-  //   // height: 100%;
-  //   // text-align: center;
-  // }
-
-  // .module-example {
-  //   grid-area: module-example;
-  // }
-
-  // .module-template-example {
-  //   grid-area: module-template-example;
-  //   font-size: 14px;
-  //   // height: 100%;
-
-  //   :deep .prism-code {
-  //     // height: 100%;
-  //   }
-  // }
-  .icons-overview {
-    grid-area: icon-overview;
-    height: 100%;
-    min-height: 8cqb;
-    // grid-row: span 2;
-  }
 }
 
-.highlighted-text > span {
-  // padding: 4.55px 2px 0 2px;
+.banner__title {
+  font-size: var(--font-scale-6); /* 25px → 44px fluid */
+  color: var(--vp-c-text-1);
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin: 0;
+  text-transform: none;
+  font-family: var(--vp-font-family-base);
 }
 
-.heading {
-  max-width: 700px;
-  grid-area: heading;
-  align-self: end;
-  color: white;
-  --gutter: 0.5rem;
-  --_stack-gap: var(--gutter);
-
-  &.y-stack {
-    --gutter: 1rem;
-  }
-  .heading-h1 {
-    position: relative;
-
-    span {
-      color: white;
-    }
-
-    // &::after {
-    //   content: '';
-    //   display: block;
-    //   position: absolute;
-    //   margin: 6px 0 12px;
-    //   background-color: var(--color-primary);
-    //   height: 8px;
-    //   width: 20%;
-    //   // bottom: 0;
-    // }
-  }
-}
-
-.tagline {
-  grid-area: tagline;
-  align-self: end;
+.banner__subtitle {
+  font-size: var(--font-scale-3);
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+  margin: 0;
+  line-height: 1.4;
 
   &::first-letter {
     color: var(--color-primary);
   }
 }
 
-.module-template-example {
-  grid-area: module-template-example;
+.banner__tagline {
+  font-size: var(--font-scale-2);
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+  margin: 0;
 }
 
-.features {
-  grid-area: features;
+.banner__brand {
+  color: var(--color-primary);
+  font-weight: 600;
 }
 
-@include media('md') {
-  .banner {
-    // height: 100%;
-    // align-content: center;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: auto;
-    grid-template-areas:
-      'heading heading'
-      'module-template-example features';
-    // 'description description module-template-example'
-    // 'module-example module-example module-template-example';
-    // grid-template-columns: 1.5fr 1fr;
-    // row-gap: unset;
-    column-gap: 2rem;
-    row-gap: 4rem;
-    // justify-content: flex-start;
-    // flex-direction: row;
+.banner__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
 
-    .title {
-      max-width: 90%;
-    }
-  }
+.banner__actions a {
+  text-decoration: none;
 }
-@container banner (min-width: 0px) {
-  .features {
-    // grid-template-columns: repeat(, minmax(200px, 1cqi));
-    // grid-template-rows: repeat(auto, minmax(160px, 1cqi));
-  }
+
+/* Body: stacked on mobile, side-by-side on desktop */
+.banner__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
-@container banner (min-width: 540px) {
-  .features {
-    grid-template-columns: repeat(2, minmax(260px, 1cqi));
-    grid-template-rows: repeat(auto, minmax(160px, 1cqi));
+
+@media (min-width: 860px) {
+  .banner__body {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3.5rem;
   }
-}
-@container banner (min-width: 1024px) {
-  .features {
-    grid-template-columns: repeat(4, minmax(260px, 1cqi));
-    grid-template-rows: repeat(auto, minmax(160px, 1cqi));
+
+  .banner__example {
+    flex: 0 0 340px;
+    position: sticky;
+    top: calc(var(--vp-nav-height) + 2rem);
+  }
+
+  .banner__features {
+    flex: 1;
   }
 }
 </style>
