@@ -1,7 +1,6 @@
 <template>
   <YStack class="getting-started" style="--gutter: var(--layout-gutter-lg)">
     <h2 class="title">Getting Started (source: https://nuxt-icons.use-compose.com/)</h2>
-    <!-- <div class="code-highlighter"> -->
     <YRow type="switcher">
       <CodeHighlighter v-bind="baseSvgConfig" />
       <CodeHighlighter v-bind="vueComponentsConfig" />

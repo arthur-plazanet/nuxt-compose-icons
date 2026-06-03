@@ -139,6 +139,18 @@ See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
 | **Source of truth**    | ❌                         | ✅                    | ✅                              | ✅                     |
 | **Naming consistency** | ⚠️ library-defined         | ⚠️ developer-defined  | ⚠️ file-based, no enforcement   | ✅                     |
 
+### Real-world Scenarios
+
+| Scenario                                   | Third-party Library         | Manual Components          | SVG Loader                   | **Nuxt Compose Icons**                  |
+| ------------------------------------------ | --------------------------- | -------------------------- | ---------------------------- | --------------------------------------- |
+| **Add a new icon**                         | ⚠️ Install / import         | ⚠️ Create component        | ✅ Add file                  | ✅ Add file                             |
+| **Change one color in one icon**           | ⚠️ Limited to exposed props | ⚠️ Edit component manually | ✅ Override CSS              | ✅ Override via CSS variable            |
+| **Apply global theme color**               | ⚠️ Depends on library API   | ⚠️ Requires conventions    | ✅ CSS-based                 | ✅ Native via CSS variables             |
+| **Preserve original SVG markup**           | ⚠️ Usually wrapped/modified | ✅ Yes                     | ✅ Yes                       | ✅ Yes                                  |
+| **Rename an icon**                         | ⚠️ Library-dependent        | ⚠️ Rename file + component | ✅ Rename file               | ✅ Rename file (component auto-updates) |
+| **Maintain consistency across 100+ icons** | ⚠️ Depends on library       | ❌ Manual discipline       | ⚠️ Flexible but unstructured | ✅ Deterministic, build-generated       |
+| **Type inference in templates**            | ✅ Yes                      | ✅ Yes                     | ⚠️ Sometimes                 | ✅ Yes (generated)                      |
+
 Using pnpm:
 
 ```bash
@@ -159,7 +171,19 @@ yarn add nuxt-compose-icons
 
 ## 🛠 Quick start
 
-**1. Add to `nuxt.config.ts`:**
+**1. Put your icon SVG files in a folder (e.g. `./assets/icons`)**
+
+```graphql
+my-project/
+├── assets/
+│   └── icons/
+│       ├── user-badge.svg
+│       └── arrow-up.svg
+├── nuxt.config.ts
+└── ...
+```
+
+**2. Add basic configuration to `nuxt.config.ts`:**
 
 ```ts
 export default defineNuxtConfig({
@@ -170,37 +194,14 @@ export default defineNuxtConfig({
 });
 ```
 
-**2. Drop your SVGs in `./assets/icons`**
-
-**3. Use them anywhere — no imports needed:**
+**3. You can now use them as any other component — no imports needed:**
 
 ```vue
 <ArrowUpIcon size="md" color="var(--primary)" />
 <UserBadgeIcon size="lg" fill="currentColor" />
 ```
 
-That's it. Every `.svg` becomes a typed, auto-imported Vue component.
-
----
-
-## 🎯 Ideal Use Cases
-
-- Design systems
-- Internal product icon libraries
-- Projects requiring strict visual control
-- Teams wanting predictable DX with full styling power
-
----
-
-## Philosophy
-
-Nuxt Compose Icons does **not** try to abstract SVGs away.
-
-Instead, it embraces them:
-
-- Keep your structure
-- Keep your attributes
-- Just make them composable and scalable
+That's it. Every `.svg` becomes a typed, auto-imported Nuxt/Vue component.
 
 ---
 

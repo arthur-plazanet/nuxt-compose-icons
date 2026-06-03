@@ -59,15 +59,15 @@ The aim is to combine the control and quality of hand-authored components with t
 
 ### Real-world Scenarios
 
-| Scenario                                   | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
-| ------------------------------------------ | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
-| **Change one color in one icon**           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
-| **Apply global theme color**               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
-| **Preserve original SVG markup**           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
-| **Add a new icon**                         | Install / import               | Create component        | Add file                   | Add file                             |
-| **Rename an icon**                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
-| **Maintain consistency across 100+ icons** | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
-| **Type inference in templates**            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
+| Scenario                                   | Third-party Library         | Manual Components          | SVG Loader                   | **Nuxt Compose Icons**                  |
+| ------------------------------------------ | --------------------------- | -------------------------- | ---------------------------- | --------------------------------------- |
+| **Add a new icon**                         | ⚠️ Install / import         | ⚠️ Create component        | ✅ Add file                  | ✅ Add file                             |
+| **Change one color in one icon**           | ⚠️ Limited to exposed props | ⚠️ Edit component manually | ✅ Override CSS              | ✅ Override via CSS variable            |
+| **Apply global theme color**               | ⚠️ Depends on library API   | ⚠️ Requires conventions    | ✅ CSS-based                 | ✅ Native via CSS variables             |
+| **Preserve original SVG markup**           | ⚠️ Usually wrapped/modified | ✅ Yes                     | ✅ Yes                       | ✅ Yes                                  |
+| **Rename an icon**                         | ⚠️ Library-dependent        | ⚠️ Rename file + component | ✅ Rename file               | ✅ Rename file (component auto-updates) |
+| **Maintain consistency across 100+ icons** | ⚠️ Depends on library       | ❌ Manual discipline       | ⚠️ Flexible but unstructured | ✅ Deterministic, build-generated       |
+| **Type inference in templates**            | ✅ Yes                      | ✅ Yes                     | ⚠️ Sometimes                 | ✅ Yes (generated)                      |
 
 ## Example
 
