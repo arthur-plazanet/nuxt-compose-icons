@@ -21,7 +21,7 @@ jobs:
         uses: ./.github/actions/install-dependencies
         with:
           node_version: ${{ inputs.node_version }}
-          pnpm_version: 9
+          pnpm_version: 11
           cache: pnpm
 
       - name: Build module
@@ -53,7 +53,7 @@ jobs:
         uses: ./.github/actions/install-dependencies
         with:
           node_version: ${{ inputs.node_version }}
-          pnpm_version: 9
+          pnpm_version: 11
           cache: pnpm
 
       - name: Build module
