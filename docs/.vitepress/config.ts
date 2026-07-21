@@ -104,6 +104,9 @@ export default defineConfig({
   },
   vite: {
     // publicDir: 'public',
+    resolve: {
+      preserveSymlinks: true,
+    },
     build: {
       rollupOptions: {
         // external: ['@use-compose/ui', '@use-compose/ui/dist/*'],

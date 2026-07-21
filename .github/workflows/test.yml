@@ -62,19 +62,5 @@ jobs:
       - name: Prepare playground
         run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
 
-      - name: Prepare runtime-showcase
-        run: pnpm --filter ./examples/runtime-showcase exec nuxi prepare
-
-      - name: Install Playwright browsers
-        run: pnpm exec playwright-core install --with-deps
-
       - name: Run e2e tests
         run: pnpm exec vitest run --project e2e
-
-      - name: Upload Screenshot
-        if: ${{ !cancelled() && inputs.node_version == 24 }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: screenshot-${{ inputs.node_version }}
-          path: packages/nuxt/test/e2e/screenshots/screenshot.jpeg
-          retention-days: 30
