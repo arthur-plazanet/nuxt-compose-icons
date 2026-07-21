@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "4.2.2",
-    "@use-compose/ui": "0.6.0",
+    "@use-compose/ui": "0.7.0",
     "nuxt": "4.2.2",
     "vue-code-highlighter": "1.1.3",
     "vue-router": "4.6.3"
