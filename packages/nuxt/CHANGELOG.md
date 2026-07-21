@@ -1,5 +1,12 @@
 # nuxt-compose-icons
 
+## 0.8.0
+
+### Minor Changes
+
+- 96d74ac: Optimize package / bundle size
+- 25ebe67: Runtime playground showcase
+
 ## 0.7.0
 
 ### Minor Changes
