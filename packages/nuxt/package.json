@@ -36,6 +36,7 @@
     "playwright-core": "1.58.2",
     "typescript": "6.0.2",
     "vitest": "4.1.2",
+    "vue": "3.5.31",
     "vue-tsc": "3.2.6"
   },
   "exports": {
@@ -85,7 +86,7 @@
   },
   "homepage": "https://nuxt-icons.use-compose.com",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.0.0"
   },
   "sideEffects": false,
   "main": "./dist/module.mjs",

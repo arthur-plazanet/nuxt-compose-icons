@@ -16,7 +16,7 @@ jobs:
     name: Lint, Format and build - Node version ${{ matrix.node_version }}
     strategy:
       matrix:
-        node_version: [20, 22, 24]
+        node_version: [22, 24]
     uses: ./.github/workflows/lint_format.yml
     with:
       node_version: ${{ matrix.node_version }}
@@ -26,7 +26,7 @@ jobs:
     name: Run Tests with Node version ${{ matrix.node_version }}
     strategy:
       matrix:
-        node_version: [20, 22, 24]
+        node_version: [22, 24]
     uses: ./.github/workflows/test.yml
     with:
       node_version: ${{ matrix.node_version }}
@@ -77,7 +77,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy docs-build with rsync
-        run: rsync -avz ./docs-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons.use-compose.com/
+        run: rsync -avz ./docs-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons-test.use-compose.com/
 
       - name: Deploy playground-static with rsync
         run: rsync -avz ./playground-static/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-icons-playground.use-compose.com/

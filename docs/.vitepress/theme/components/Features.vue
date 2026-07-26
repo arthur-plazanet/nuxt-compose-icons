@@ -1,18 +1,9 @@
 <template>
   <div class="features">
-    <YStack
-      v-for="feature in features"
-      :key="feature.title"
-      class="feature padding-md"
-      background-color="bg"
-    >
-      <h3 class="feature-title">{{ feature.title }}</h3>
-      <Separator />
-      <ul aria-label="Feature details" class="feature-details">
-        <li v-for="(detail, index) in feature.details" :key="index">
-          {{ detail }}
-        </li>
-      </ul>
+    <YStack v-for="feature in features" :key="feature.title" class="feature padding-md">
+      <h3 class="feature__title">{{ feature.title }}</h3>
+      <Separator width="24px" no-margin />
+      <p class="feature__desc">{{ feature.desc }}</p>
     </YStack>
   </div>
 </template>
@@ -20,78 +11,56 @@
 <script setup>
 import { YStack } from '@use-compose/ui';
 import Separator from './Separator.vue';
+
 const features = [
   {
-    title: 'SVG to Vue Component at Build time',
-    details: [
-      `One Vue component is created per \`.svg\` file\n`,
-      `No extra wrapper or specific pattern needed. Generated at build time, customizable at runtime using CSS custom properties`,
-    ],
+    title: 'SVG → Vue at build time',
+    desc: 'One component per SVG file, auto-imported and type-safe. No manual registration.',
   },
   {
-    title: 'Auto-Registration in Nuxt',
-    details: [
-      `Icons are generated and injected during the build process, and are available as any other components`,
-    ],
+    title: 'CSS custom property theming',
+    desc: 'Fill, stroke and stroke-width become CSS variables with the original value as fallback.',
   },
   {
-    title: 'Theming and Runtime customization',
-    details: [`Generated at build time, customizable at runtime using CSS custom properties`],
+    title: 'Native Nuxt integration',
+    desc: 'Works with Nuxt auto-import. Full Vue DevTools support.',
   },
   {
-    title: 'Developer Experience',
-    details: [
-      `Auto-completion as part of the Nuxt build process, no extra configuration needed.`,
-      `Vue DevTools support`,
-    ],
+    title: 'Scales with your design system',
+    desc: 'Folder-based namespacing, configurable naming conventions, monorepo-ready.',
   },
 ];
 </script>
 
 <style scoped>
 .features {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: var(--gutter);
 }
 
 .feature {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
   display: flex;
-  height: minmax(120px, 270px);
-  width: 100%;
   flex-direction: column;
-  background: rgba(91, 18, 21, 0.25);
-  background-color: #1c1b1b;
+  gap: 0.75rem;
+}
 
-  & > .feature-title {
-    font-family: gotham, sans-serif;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin: 0;
-  }
+.feature__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--vp-c-text-1);
+  text-transform: none;
+  font-family: var(--vp-font-family-base);
+}
 
-  & > .feature-details {
-    list-style: circle;
-    margin: 0;
-    padding: 0;
-    & > li {
-      display: inline-flex;
-      line-height: normal;
-      gap: var(--spacing-xs);
-    }
-    & > li::before {
-      content: '';
-      border: 4px solid var(--color-primary);
-      border-radius: 50%;
-      display: inline-block;
-      background: transparent;
-      line-height: inherit;
-      height: 1rem;
-      aspect-ratio: 1;
-    }
-  }
+.feature__desc {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
 }
 </style>

@@ -2,11 +2,12 @@ import { fileURLToPath } from 'node:url';
 import { type ComposeIconSize } from '../src/runtime/types';
 
 const iconSizes: ComposeIconSize = {
-  sm: '14px',
-  md: '18px',
-  lg: '24px',
-  hero: '48px',
-  lolilol: '100px',
+  xs: '4px',
+  sm: '8px',
+  md: '16px',
+  lg: '32px',
+  xl: '48px',
+  huge: '100px',
 };
 
 export default defineNuxtConfig({
@@ -19,7 +20,7 @@ export default defineNuxtConfig({
       suffix: 'Icon',
       case: 'pascal',
       destDir: './components/nuxt-compose-icons',
-      iconClasses: ['rt-icon'],
+      iconClasses: ['my-custom-icon-class'],
     },
     includeOverview: true,
     // debug: true,
@@ -27,7 +28,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   compatibilityDate: '2024-12-14',
-  // css: ['@use-compose/ui/style.css'],
+  css: ['@use-compose/ui/style.css', '~/assets/css/main.css'],
   components: [
     {
       path: '~/components',

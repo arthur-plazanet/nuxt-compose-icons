@@ -1,11 +1,11 @@
 <template>
-  <div class="runtime-showcase">
-    <input v-model="q" type="text" placeholder="Search icons…" class="runtime-showcase__search" />
-    <div class="runtime-showcase__grid">
-      <div v-for="icon in filtered" :key="icon.pascalName" class="runtime-showcase__item">
+  <div class="icons-overview">
+    <input v-model="q" type="text" placeholder="Search icons…" class="icons-overview__search" />
+    <div class="icons-overview__grid">
+      <div v-for="icon in filtered" :key="icon.name" class="icons-overview__item">
         <Component :is="icon.component" v-bind="iconProps" />
         <template v-if="hasIconName">
-          <span class="runtime-showcase__pascal">&lt;{{ icon.pascalName }} /&gt;</span>
+          <span class="icons-overview__pascal">&lt;{{ icon.pascalName }} /&gt;</span>
         </template>
       </div>
     </div>
@@ -13,42 +13,26 @@
 </template>
 
 <script setup lang="ts">
-import type { Component } from 'vue';
 import { computed, ref } from 'vue';
+import { useComposeIconRegistry } from '../composables/use-compose-icons-registry';
 import type { ComposeIconProps } from '../types/compose-icons-props';
 
-interface IconEntry {
-  name: string;
-  pascalName: string;
-  kebabName: string;
-  component: Component;
-}
-
-const props = withDefaults(
-  defineProps<ComposeIconProps & { hasIconName?: boolean; icons: IconEntry[] }>(),
-  { hasIconName: false },
-);
-
-const q = ref('');
-const filtered = computed(() => {
-  const term = q.value.trim().toLowerCase();
-  if (!term) return props.icons;
-  return props.icons.filter(
-    (icon) =>
-      icon.name.toLowerCase().includes(term) ||
-      icon.kebabName.includes(term) ||
-      icon.pascalName.toLowerCase().includes(term),
-  );
+const props = withDefaults(defineProps<ComposeIconProps & { hasIconName?: boolean }>(), {
+  hasIconName: false,
 });
 
+const q = ref('');
+const { filteredIcons } = useComposeIconRegistry();
+const filtered = filteredIcons(q);
+
 const iconProps = computed(() => {
-  const entries = Object.entries(props).filter(([k]) => k !== 'hasIconName' && k !== 'icons');
+  const entries = Object.entries(props).filter(([k]) => k !== 'hasIconName');
   return Object.fromEntries(entries) as ComposeIconProps;
 });
 </script>
 
 <style scoped>
-.runtime-showcase__search {
+.icons-overview__search {
   display: block;
   width: 100%;
   margin-bottom: 1.5rem;
@@ -61,17 +45,17 @@ const iconProps = computed(() => {
   box-sizing: border-box;
 }
 
-.runtime-showcase__search::placeholder {
+.icons-overview__search::placeholder {
   color: #555;
 }
 
-.runtime-showcase__grid {
+.icons-overview__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1rem;
 }
 
-.runtime-showcase__item {
+.icons-overview__item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,14 +66,11 @@ const iconProps = computed(() => {
   min-width: 0;
 }
 
-.runtime-showcase__item:hover {
-  background: #222;
-}
-
-.runtime-showcase__pascal {
-  font-size: 1rem;
-  color: #888;
+.icons-overview__pascal {
+  /* font-size: 0.875rem; */
+  color: #1c1b1b;
   word-break: break-all;
-  line-height: 1.3;
+  /* line-height: 1.3; */
+  font-weight: 500;
 }
 </style>
