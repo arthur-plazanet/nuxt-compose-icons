@@ -39,7 +39,9 @@ The goal of this module is to propose a balanced approach which gives design fle
 
 It dynamically generates Vue components from initial SVG files, naming them accordingly and make them accessible as individual components in the Nuxt project.
 
-### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
+#### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
+
+---
 
 ## Features
 
@@ -117,6 +119,8 @@ It dynamically generates Vue components from initial SVG files, naming them acco
 </style>
 ```
 
+---
+
 ## Developer Experience:
 
 - Can provide auto-completion and type-checking in your editor for each icons, as they are directly part of the Nuxt Build like any other component
@@ -156,6 +160,8 @@ Using yarn
 ```bash
 yarn add nuxt-compose-icons
 ```
+
+---
 
 ## 🛠 Quick start
 
@@ -210,9 +216,13 @@ Full documentation and advanced configuration:
 
 👉 [https://nuxt-icons.use-compose.com](https://nuxt-icons.use-compose.com/)
 
+---
+
 ## ▶️ Try it
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthu-pr/nuxt-compose-icons/tree/main/examples/runtime-showcase)
+
+---
 
 ## 🗺 Roadmap
 
