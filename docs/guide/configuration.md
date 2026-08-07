@@ -25,19 +25,19 @@ That's it. Every `.svg` in `./assets/icons` becomes a typed, auto-imported Vue c
 
 ## Options
 
-| Option                   | Type                     | Default                  | Description                                                 |
-| ------------------------ | ------------------------ | ------------------------ | ----------------------------------------------------------- |
-| `pathToIcons`            | `string`                 | —                        | **Required.** Path to your `.svg` directory.                |
-| `component.suffix`       | `string`                 | `'Icon'`                 | Appended to the component name.                             |
-| `component.prefix`       | `string`                 | `undefined`              | Prepended to the component name.                            |
-| `component.case`         | `'pascal' \| 'kebab'`    | `'pascal'`               | Naming convention for generated components.                 |
-| `component.destDir`      | `string`                 | `.nuxt/compose-icons`    | Where generated components are written.                     |
-| `component.fileFormat`   | `'ts' \| 'vue'`          | `'ts'`                   | Output format. `.ts` recommended.                           |
-| `component.hasIndexFile` | `boolean`                | `false`                  | Write an `index.ts` barrel file in `destDir`.               |
-| `iconSizes`              | `Record<string, string>` | `{ xs, sm, md, lg, xl }` | CSS size variables and classes.                             |
-| `includeOverview`        | `boolean`                | `false`                  | Registers `<ComposeIconOverview />`.                        |
-| `includeComposables`     | `boolean`                | `true`                   | Auto-imports `useComposeIcon` and `useComposeIconRegistry`. |
-| `iconClasses`            | `string \| string[]`     | `[]`                     | Extra CSS classes on every icon.                            |
+| Option                   | Type                     | Default               | Description                                   |
+| ------------------------ | ------------------------ | --------------------- | --------------------------------------------- |
+| `pathToIcons`            | `string`                 | —                     | **Required.** Path to your `.svg` directory.  |
+| `component.suffix`       | `string`                 | `'Icon'`              | Appended to the component name.               |
+| `component.prefix`       | `string`                 | `undefined`           | Prepended to the component name.              |
+| `component.case`         | `'pascal' \| 'kebab'`    | `'pascal'`            | Naming convention for generated components.   |
+| `component.destDir`      | `string`                 | `.nuxt/compose-icons` | Where generated components are written.       |
+| `component.fileFormat`   | `'ts' \| 'vue'`          | `'ts'`                | Output format. `.ts` recommended.             |
+| `component.hasIndexFile` | `boolean`                | `false`               | Write an `index.ts` barrel file in `destDir`. |
+| `component.iconClasses`  | `string \| string[]`     | `[]`                  | Extra CSS classes on every icon.              |
+| `iconSizes`              | `Record<string, string>` | `{ sm, md, lg, xl }`  | CSS size variables and classes.               |
+| `includeOverview`        | `boolean`                | `false`               | Registers `<ComposeIconOverview />`.          |
+| `includeComposables`     | `boolean`                | `true`                | Auto-imports the three icon composables.      |
 
 ---
 
@@ -87,14 +87,22 @@ Groups all options related to how components are generated and where they are wr
 - **Default:** `false`
 - Write an `index.ts` barrel file in `destDir` that re-exports all generated components.
 
+#### `component.iconClasses`
+
+- **Type:** `string | string[]`
+- **Default:** `[]`
+- Extra CSS classes added to every generated icon component. The `compose-icon` base class is always included automatically.
+
 ### `iconSizes`
 
 - **Type:** `Record<string, string>`
 - **Default:**
 
 ```ts
-{ xs: '0.5rem', sm: '0.875rem', md: '1rem', lg: '1.5rem', xl: '2.5rem' }
+{ sm: '1.5rem', md: '2rem', lg: '3rem', xl: '4rem' }
 ```
+
+Your sizes are merged on top of these defaults, so keys you don't define stay available.
 
 Generates `--size-*` CSS variables and matching size classes. A CSS file is automatically injected into the build.
 
@@ -108,13 +116,7 @@ Generates `--size-*` CSS variables and matching size classes. A CSS file is auto
 
 - **Type:** `boolean`
 - **Default:** `true`
-- Auto-imports `useComposeIcon` and `useComposeIconRegistry`. Set to `false` if you only use the generated components and don't need dynamic icon lookup.
-
-### `iconClasses`
-
-- **Type:** `string | string[]`
-- **Default:** `[]`
-- Extra CSS classes added to every generated icon component. The `compose-icon` base class is always included automatically.
+- Auto-imports [`useComposeIcon`](/utilities/use-compose-icon), [`useComposeIconRegistry`](/utilities/use-compose-icons-registry) and `useComposeIconTheme`. Set to `false` if you only use the generated components and don't need dynamic icon lookup.
 
 ---
 
@@ -122,12 +124,12 @@ Generates `--size-*` CSS variables and matching size classes. A CSS file is auto
 
 These rarely need to be changed.
 
-| Option         | Type      | Default                     | Description                                                  |
-| -------------- | --------- | --------------------------- | ------------------------------------------------------------ |
-| `dryRun`       | `boolean` | `false`                     | Log what would be generated without writing any files        |
-| `reRunOnBuild` | `boolean` | `true`                      | Re-generate icons on every build                             |
-| `debug`        | `boolean` | `false`                     | Show per-component generation logs during setup              |
-| `cacheDir`     | `string`  | `.cache/nuxt-compose-icons` | SVG processing cache — speeds up rebuilds, safe to gitignore |
+| Option         | Type      | Default                                  | Description                                                  |
+| -------------- | --------- | ---------------------------------------- | ------------------------------------------------------------ |
+| `dryRun`       | `boolean` | `false`                                  | Log what would be generated without writing any files        |
+| `reRunOnBuild` | `boolean` | `false`                                  | Re-generate icons on every build, bypassing the cache        |
+| `debug`        | `boolean` | `false`                                  | Show per-component generation logs during setup              |
+| `cacheDir`     | `string`  | `node_modules/.cache/nuxt-compose-icons` | SVG processing cache — speeds up rebuilds, safe to gitignore |
 
 ---
 
@@ -140,8 +142,8 @@ These rarely need to be changed.
 ### `reRunOnBuild`
 
 - **Type:** `boolean`
-- **Default:** `true`
-- Re-generate icon components on every build. Set to `false` if components are committed and you want to skip generation.
+- **Default:** `false`
+- Re-generate every icon on each build, bypassing the SVG processing cache. Leave it off unless you suspect a stale cache — unchanged SVGs are skipped automatically.
 
 ### `debug`
 
@@ -152,8 +154,8 @@ These rarely need to be changed.
 ### `cacheDir`
 
 - **Type:** `string`
-- **Default:** `.cache/nuxt-compose-icons`
-- Directory used to persist the SVG processing cache across builds. Safe to gitignore.
+- **Default:** `node_modules/.cache/nuxt-compose-icons`
+- Directory used to persist the SVG processing cache across builds. Resolved relative to your project root. Safe to gitignore.
 
 ```ts
 // nuxt.config.ts — example with advanced options
@@ -168,14 +170,6 @@ These rarely need to be changed.
    cacheDir: './.icon-cache',
  }
 ```
-
----
-
-## 🚧 `iconComponentList`
-
-> Not yet implemented — tracked on the [Roadmap](https://github.com/users/arthu-pr/projects/7/views/1).
-
-Will allow registering existing Vue components as icons directly, without SVG files.
 
 ---
 

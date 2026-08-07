@@ -1,12 +1,15 @@
 <img width="1408" height="423" alt="Frame 207" src="https://github.com/user-attachments/assets/4f2a1f2a-57f0-49ca-bf56-075d3df9d043" />
 
-[![npm version](https://img.shields.io/npm/v/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D)](https://npmjs.com/package/nuxt-compose-icons)
-[![npm downloads](https://img.shields.io/npm/dm/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D)](https://npmjs.com/package/nuxt-compose-icons)
-[![CI](https://github.com/arthu-pr/nuxt-compose-icons/actions/workflows/ci.yml/badge.svg)](https://github.com/arthu-pr/nuxt-compose-icons/actions)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/nuxt-compose-icons)](https://bundlephobia.com/package/nuxt-compose-icons)
-![Nuxt](https://img.shields.io/badge/Nuxt-3-and-4-00DC82?logo=nuxt.js)
-![types](https://img.shields.io/npm/types/nuxt-compose-icons)
-![last commit](https://img.shields.io/github/last-commit/artur-pr/nuxt-compose-icons)
+<p align="center">
+  <a href="https://npmjs.com/package/nuxt-compose-icons"><img src="https://img.shields.io/npm/v/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D" alt="npm version" /></a>
+  <a href="https://npmjs.com/package/nuxt-compose-icons"><img src="https://img.shields.io/npm/dm/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D" alt="monthly downloads" /></a>
+  <a href="https://npmjs.com/package/nuxt-compose-icons"><img src="https://img.shields.io/npm/dt/nuxt-compose-icons.svg?style=flat&colorA=000&colorB=C1272D" alt="total downloads" /></a>
+  <a href="https://github.com/arthu-pr/nuxt-compose-icons/actions"><img src="https://github.com/arthu-pr/nuxt-compose-icons/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="https://packagephobia.com/result?p=nuxt-compose-icons"><img src="https://packagephobia.com/badge?p=nuxt-compose-icons" alt="install size" /></a>
+  <img src="https://img.shields.io/badge/Nuxt-3%20%26%204-00DC82?logo=nuxt.js" alt="Nuxt" />
+  <img src="https://img.shields.io/npm/types/nuxt-compose-icons" alt="types" />
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/arthu-pr/nuxt-compose-icons" alt="license" /></a>
+</p>
 
 ---
 
@@ -36,7 +39,9 @@ The goal of this module is to propose a balanced approach which gives design fle
 
 It dynamically generates Vue components from initial SVG files, naming them accordingly and make them accessible as individual components in the Nuxt project.
 
-### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
+#### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
+
+---
 
 ## Features
 
@@ -114,6 +119,8 @@ It dynamically generates Vue components from initial SVG files, naming them acco
 </style>
 ```
 
+---
+
 ## Developer Experience:
 
 - Can provide auto-completion and type-checking in your editor for each icons, as they are directly part of the Nuxt Build like any other component
@@ -125,29 +132,16 @@ See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
 
 ## Comparison with Other Icon Strategies
 
-| Feature                | Third-party Libraries        | Manual Vue Components | SVG Loaders (`vite-svg-loader`) | **Nuxt Compose Icons**      |
-| ---------------------- | ---------------------------- | --------------------- | ------------------------------- | --------------------------- |
-| **Setup**              | ✅ Easy                      | ⚠️ Manual             | ⚠️ Requires config              | ✅ Minimal                  |
-| **Source of truth**    | External package             | Vue files             | SVG files                       | SVG files                   |
-| **SVG output**         | Clean (often wrapped)        | Custom                | Inline                          | Clean, no wrappers          |
-| **SVG control**        | Often abstracted             | ✅ Full               | ✅ Full                         | ✅ Full                     |
-| **Theming**            | ⚠️ Prop-based, limited       | ✅ Manual CSS         | ✅ CSS-based                    | ✅ CSS variables + props    |
-| **Naming consistency** | Library-defined              | Developer-defined     | File-based                      | Deterministic, file-based   |
-| **Typing**             | ✅ Provided                  | ✅ Manual             | Depends on setup                | ✅ Generated & inferred     |
-| **Scaling**            | Dependent on library updates | Maintenance-heavy     | Flexible but unstructured       | Structured, build-generated |
-| **Nuxt integration**   | ✅ Works                     | ✅ Auto-importable    | ⚠️ Requires configuration       | ✅ Native auto-import       |
-
-### Real-world Scenarios
-
-| Scenario                                   | Third-party Library            | Manual Components       | SVG Loader                 | **Nuxt Compose Icons**               |
-| ------------------------------------------ | ------------------------------ | ----------------------- | -------------------------- | ------------------------------------ |
-| **Change one color in one icon**           | Often limited to exposed props | Edit component manually | Modify SVG or override CSS | Override via CSS variable            |
-| **Apply global theme color**               | Depends on library API         | Requires conventions    | CSS-based                  | Native via CSS variables             |
-| **Preserve original SVG markup**           | Usually wrapped/modified       | Yes                     | Yes                        | Yes                                  |
-| **Add a new icon**                         | Install / import               | Create component        | Add file                   | Add file                             |
-| **Rename an icon**                         | Library-dependent              | Rename file + component | Rename file                | Rename file (component auto-updates) |
-| **Maintain consistency across 100+ icons** | Depends on library             | Manual discipline       | Flexible but unstructured  | Deterministic, build-generated       |
-| **Type inference in templates**            | Yes                            | Yes                     | Sometimes                  | Yes (generated)                      |
+| Feature                | Third-party Libraries      | Manual Vue Components | SVG Loaders (`vite-svg-loader`) | **Nuxt Compose Icons** |
+| ---------------------- | -------------------------- | --------------------- | ------------------------------- | ---------------------- |
+| **Setup**              | ✅                         | ⚠️ manual             | ⚠️ requires config              | ✅                     |
+| **SVG output**         | ⚠️ often wrapped           | ✅                    | ✅                              | ✅                     |
+| **Theming**            | ⚠️ prop-based, limited     | ⚠️ manual CSS         | ✅                              | ✅                     |
+| **Typing**             | ✅                         | ⚠️ manual             | ⚠️ depends on setup             | ✅                     |
+| **Nuxt integration**   | ✅                         | ✅                    | ⚠️ requires config              | ✅                     |
+| **Scaling / monorepo** | ⚠️ tied to library updates | ❌                    | ⚠️ unstructured                 | ✅                     |
+| **Source of truth**    | ❌                         | ✅                    | ✅                              | ✅                     |
+| **Naming consistency** | ⚠️ library-defined         | ⚠️ developer-defined  | ⚠️ file-based, no enforcement   | ✅                     |
 
 Using pnpm:
 
@@ -166,6 +160,8 @@ Using yarn
 ```bash
 yarn add nuxt-compose-icons
 ```
+
+---
 
 ## 🛠 Quick start
 
@@ -219,3 +215,15 @@ Instead, it embraces them:
 Full documentation and advanced configuration:
 
 👉 [https://nuxt-icons.use-compose.com](https://nuxt-icons.use-compose.com/)
+
+---
+
+## ▶️ Try it
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthu-pr/nuxt-compose-icons/tree/main/examples/runtime-showcase)
+
+---
+
+## 🗺 Roadmap
+
+👉 [GitHub Projects](https://github.com/users/arthu-pr/projects/7/views/1)
