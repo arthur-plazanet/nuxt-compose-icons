@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.9.0
+
+### Minor Changes
+
+- 4d649f0: Stackblitz 0.0.12
+
 ## 0.8.0
 
 ### Minor Changes
