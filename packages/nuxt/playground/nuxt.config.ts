@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: true },
   compatibilityDate: '2024-12-14',
-  css: ['@use-compose/ui/style.css', '~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
   components: [
     {
       path: '~/components',

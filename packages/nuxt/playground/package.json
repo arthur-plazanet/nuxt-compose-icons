@@ -1,5 +1,5 @@
 {
-  "name": "my-module-playground",
+  "name": "nuxt-compose-icons-playground",
   "private": true,
   "scripts": {
     "build": "nuxi build",
@@ -7,7 +7,6 @@
     "generate": "nuxi generate"
   },
   "dependencies": {
-    "@use-compose/ui": "0.7.0",
     "nuxt": "4.2.2"
   },
   "devDependencies": {
