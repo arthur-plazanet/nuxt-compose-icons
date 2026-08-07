@@ -3,3 +3,8 @@ node_modules
 dist
 .output
 *.tsbuildinfo
+coverage
+.cache
+
+# Local agent/editor config (per-machine, never committed)
+.claude/settings.local.json
