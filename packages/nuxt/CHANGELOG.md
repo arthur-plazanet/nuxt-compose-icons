@@ -4,7 +4,16 @@
 
 ### Minor Changes
 
-- 4d649f0: Stackblitz 0.0.12
+- 4d649f0: Rework `<ComposeIconOverview />` into a searchable icon grid, and derive the
+  default icon size from the configured `iconSizes` instead of a hardcoded `md`.
+  Also updates the playground and README for the StackBlitz example.
+
+  > This entry was written after the fact — the original read "Stackblitz 0.0.12",
+  > which did not describe the release. The published 0.9.0 artifact is unchanged.
+  >
+  > Note: this release also began treating `iconSizes` as the complete set rather than
+  > merging it over the defaults. Combined with the new first-key default above, that
+  > made every unsized icon render at whichever size key was listed first. Fixed in 0.10.0.
 
 ## 0.8.0
 
