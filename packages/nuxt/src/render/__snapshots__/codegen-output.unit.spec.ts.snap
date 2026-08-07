@@ -1,0 +1,190 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`codegen output > file formats > ts format 1`] = `
+"import { defineComponent, h } from 'vue';
+import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import type { ComposeIconProps } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'MinimalIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
+  setup(props: ComposeIconProps) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+  "class": "compose-icon",
+  "viewBox": "0 0 24 24"
+};
+
+    return () => h('svg', buildSvgAttributes(svgAttributes), [
+      h('path', {
+  "d": "M12 2 L22 22 L2 22 Z"
+}, [])
+    ]);
+  }
+});
+ "
+`;
+
+exports[`codegen output > file formats > vue format 1`] = `
+"<script lang="ts">
+import { defineComponent, h } from 'vue';
+import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import type { ComposeIconProps } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'MinimalIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
+  setup(props: ComposeIconProps) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+  "class": "compose-icon",
+  "viewBox": "0 0 24 24"
+};
+
+    return () => h('svg', buildSvgAttributes(svgAttributes), [
+      h('path', {
+  "d": "M12 2 L22 22 L2 22 Z"
+}, [])
+    ]);
+  }
+});
+ 
+</script>
+"
+`;
+
+exports[`codegen output > icon classes > custom classes are applied to the svg element 1`] = `
+"import { defineComponent, h } from 'vue';
+import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import type { ComposeIconProps } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'MinimalIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
+  setup(props: ComposeIconProps) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+  "class": "my-icon compose-icon",
+  "viewBox": "0 0 24 24"
+};
+
+    return () => h('svg', buildSvgAttributes(svgAttributes), [
+      h('path', {
+  "d": "M12 2 L22 22 L2 22 Z"
+}, [])
+    ]);
+  }
+});
+ "
+`;
+
+exports[`codegen output > structure > nested groups, shapes and text nodes 1`] = `
+"import { defineComponent, h } from 'vue';
+import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import type { ComposeIconProps } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'NestedIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
+  setup(props: ComposeIconProps) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+  "class": "compose-icon",
+  "viewBox": "0 0 32 32"
+};
+
+    return () => h('svg', buildSvgAttributes(svgAttributes), [
+      h('g', {
+  "id": "layer",
+  "opacity": "0.5"
+}, [h('circle', {
+  "cx": "16",
+  "cy": "16",
+  "r": "8",
+  "fill": "var(--icon-fill, #123456)"
+}, []),
+h('path', {
+  "stroke": "var(--icon-stroke, #654321)",
+  "d": "M1 1H5V5H1z"
+}, [])]),h('title', {}, ["An icon"])
+    ]);
+  }
+});
+ "
+`;
+
+exports[`codegen output > theming rewrites > full themed output 1`] = `
+"import { defineComponent, h } from 'vue';
+import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import type { ComposeIconProps } from 'nuxt-compose-icons/types';
+
+export default defineComponent({
+  name: 'ThemedIcon',
+  props: {
+    color: String,
+    stroke: String,
+    strokeWidth: [String, Number],
+    fill: String,
+    size: {
+      type: String,
+      default: 'md'
+    }
+  },
+  setup(props: ComposeIconProps) {
+    const { buildSvgAttributes } = useComposeIcon(props);
+    const svgAttributes = {
+  "fill": "var(--icon-fill, #000)",
+  "stroke": "var(--icon-stroke, #fff)",
+  "stroke-width": "var(--icon-stroke-width, 2)",
+  "class": "compose-icon",
+  "viewBox": "0 0 24 24"
+};
+
+    return () => h('svg', buildSvgAttributes(svgAttributes), [
+      h('path', {
+  "fill": "var(--icon-fill, red)",
+  "stroke": "var(--icon-stroke, #0f0)",
+  "stroke-width": "var(--icon-stroke-width, 1.5)",
+  "d": "M4 4h16v16H4z"
+}, [])
+    ]);
+  }
+});
+ "
+`;
