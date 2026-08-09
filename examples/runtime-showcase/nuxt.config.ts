@@ -5,7 +5,7 @@ const options: NuxtComposeIconsOptions = {
   component: {
     suffix: 'Icon',
     case: 'pascal',
-    // destDir: './app/components/icons',
+    destDir: './app/components/icons',
   },
   includeComposables: true,
   includeOverview: true,

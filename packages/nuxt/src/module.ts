@@ -183,14 +183,6 @@ export interface NuxtComposeIconsOptions {
 }
 
 /**
- * Fixed input used to fingerprint the codegen pipeline for cache invalidation.
- * It carries a root paint, a child paint and a stroke width so that a change to any
- * part of the transform shows up in the generated output.
- */
-const CODEGEN_PROBE_SVG =
-  '<svg viewBox="0 0 1 1" fill="#000" stroke-width="2"><path d="M0 0" stroke="#fff"/></svg>';
-
-/**
  * Normalizes iconClasses to a string array and appends the required base class.
  */
 function normalizeIconClasses(options: NuxtComposeIconsOptions): string[] {
@@ -348,36 +340,19 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
     const iconComponentClasses = normalizeIconClasses(options);
 
-    // The cache stores fully generated component code, so it must also be invalidated when
-    // the generator itself changes — not just when the SVG or the naming options change.
-    // Rather than a hand-maintained version constant (which is easy to forget to bump, and
-    // whose cost is silently serving stale components after an upgrade), we run a fixed
-    // probe SVG through the exact pipeline and hash the result. Any change to the SVGO
-    // config, the attribute transform, the component template or the SFC wrapper alters
-    // this fingerprint automatically.
-    let codegenProbe = createSvgComponentCode(
-      'ProbeIcon',
-      optimizeSvg(CODEGEN_PROBE_SVG, { iconClasses: ['probe'] }),
-    );
-    if (fileFormat === 'vue') {
-      codegenProbe = vueSFCWrapper(codegenProbe);
-    }
-
-    const optionsHash = SvgProcessingCache.hash({
+    const resolvedCacheDir = options.cacheDir
+      ? resolveApp(options.cacheDir)
+      : resolveApp('node_modules/.cache/nuxt-compose-icons');
+    const cache = await SvgProcessingCache.create({
+      cacheDir: resolvedCacheDir,
+      rootDir: nuxt.options.rootDir,
+      reRunOnBuild: options.reRunOnBuild,
       iconClasses: iconComponentClasses,
       fileFormat,
       prefix,
       suffix,
       case: _case,
-      codegen: SvgProcessingCache.hash(codegenProbe),
     });
-    const resolvedCacheDir = options.cacheDir
-      ? resolveApp(options.cacheDir)
-      : resolveApp('node_modules/.cache/nuxt-compose-icons');
-    const cache = new SvgProcessingCache(resolvedCacheDir, optionsHash, nuxt.options.rootDir);
-    if (!options.reRunOnBuild) {
-      await cache.load();
-    }
 
     /*
      * For each SVG file we:
