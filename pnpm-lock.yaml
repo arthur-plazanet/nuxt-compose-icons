@@ -128,14 +128,14 @@ importers:
     dependencies:
       nuxt:
         specifier: 4.2.2
-        version: 4.2.2(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(@vue/compiler-sfc@3.5.41)(cac@6.7.14)(commander@14.0.3)(db0@0.3.4)(esbuild@0.27.7)(eslint@9.39.4(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup@4.62.4)(srvx@0.11.22)(stylelint@17.6.0(typescript@6.0.2))(terser@5.49.2)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vue-tsc@3.2.6(typescript@6.0.2))(yaml@2.9.0)
+        version: 4.2.2(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(@vue/compiler-sfc@3.5.41)(cac@6.7.14)(commander@14.0.3)(db0@0.3.4)(esbuild@0.28.2)(eslint@9.39.4(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup@4.62.4)(srvx@0.11.22)(stylelint@17.6.0(typescript@6.0.2))(terser@5.49.2)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vue-tsc@3.2.6(typescript@6.0.2))(yaml@2.9.0)
       vue-router:
         specifier: 4.6.3
         version: 4.6.3(vue@3.5.31(typescript@6.0.2))
     devDependencies:
       '@nuxt/test-utils':
         specifier: 4.0.0
-        version: 4.0.0(@vitest/ui@4.1.2)(crossws@0.4.10(srvx@0.11.22))(esbuild@0.27.7)(magicast@0.5.4)(playwright-core@1.58.2)(rollup@4.62.4)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vitest@4.1.2)
+        version: 4.0.0(@vitest/ui@4.1.2)(crossws@0.4.10(srvx@0.11.22))(esbuild@0.28.2)(magicast@0.5.4)(playwright-core@1.58.2)(rollup@4.62.4)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vitest@4.1.2)
       nuxt-compose-icons:
         specifier: 0.10.0
         version: 0.10.0(magicast@0.5.4)
@@ -144,7 +144,7 @@ importers:
         version: 1.58.2
       vitest:
         specifier: 4.1.2
-        version: 4.1.2(@types/node@26.2.0)(@vitest/ui@4.1.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))
+        version: 4.1.2(@types/node@26.2.0)(@vitest/ui@4.1.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))
 
   packages/nuxt:
     dependencies:
@@ -155,8 +155,8 @@ importers:
         specifier: 2.0.4
         version: 2.0.4
       svgo:
-        specifier: 4.0.1
-        version: 4.0.1
+        specifier: 4.0.2
+        version: 4.0.2
     devDependencies:
       '@nuxt/devtools':
         specifier: 3.2.4
@@ -214,7 +214,7 @@ importers:
     dependencies:
       nuxt:
         specifier: 4.2.2
-        version: 4.2.2(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(@vue/compiler-sfc@3.5.41)(cac@6.7.14)(commander@14.0.3)(db0@0.3.4)(esbuild@0.28.2)(eslint@9.39.4(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup@4.62.4)(srvx@0.11.22)(stylelint@17.6.0(typescript@6.0.2))(terser@5.49.2)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vue-tsc@3.2.6(typescript@6.0.2))(yaml@2.9.0)
+        version: 4.2.2(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(@vue/compiler-sfc@3.5.41)(cac@6.7.14)(commander@14.0.3)(db0@0.3.4)(esbuild@0.27.7)(eslint@9.39.4(jiti@2.7.0))(ioredis@5.11.1)(lightningcss@1.33.0)(magicast@0.5.4)(meow@13.2.0)(optionator@0.9.4)(rollup@4.62.4)(srvx@0.11.22)(stylelint@17.6.0(typescript@6.0.2))(terser@5.49.2)(typescript@6.0.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vue-tsc@3.2.6(typescript@6.0.2))(yaml@2.9.0)
     devDependencies:
       nuxt-compose-icons:
         specifier: workspace:*
@@ -5982,6 +5982,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  svgo@4.0.2:
+    resolution: {integrity: sha512-ekx94z1rRc5LDi6oSUaeRnYhd0UOJxdtQCL2rF8xpWxD3TPAsISWOrxezqGovqS38GRZOdpDfvQe3ts6F7nsng==}
+    engines: {node: '>=16'}
+    hasBin: true
+
   syncpack-darwin-arm64@14.3.0:
     resolution: {integrity: sha512-gpbkBzO7yqa3BONc4EU3jY07yiPSZdoAxcpnz8REV9Bc6FkmKfOejCpYIh8RaogGPS4gOLJ/RUJEECqAaHTcjA==}
     cpu: [arm64]
@@ -9741,7 +9746,7 @@ snapshots:
       sirv: 3.0.2
       tinyglobby: 0.2.17
       tinyrainbow: 3.1.1
-      vitest: 4.1.2(@types/node@26.2.0)(@vitest/ui@4.1.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))
+      vitest: 4.1.2(@types/node@26.2.0)(@vitest/ui@4.1.2)(vite@8.0.3(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))
 
   '@vitest/utils@4.1.2':
     dependencies:
@@ -13022,7 +13027,7 @@ snapshots:
     dependencies:
       postcss: 8.5.26
       postcss-value-parser: 4.2.0
-      svgo: 4.0.1
+      svgo: 4.0.2
 
   postcss-unique-selectors@7.0.7(postcss@8.5.26):
     dependencies:
@@ -13692,6 +13697,16 @@ snapshots:
   svg-tags@1.0.0: {}
 
   svgo@4.0.1:
+    dependencies:
+      commander: 11.1.0
+      css-select: 5.2.2
+      css-tree: 3.2.1
+      css-what: 6.2.2
+      csso: 5.0.5
+      picocolors: 1.1.1
+      sax: 1.6.1
+
+  svgo@4.0.2:
     dependencies:
       commander: 11.1.0
       css-select: 5.2.2
