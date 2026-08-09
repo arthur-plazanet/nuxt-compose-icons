@@ -38,25 +38,11 @@ export default defineNuxtConfig({
 
 ## 3. Provide icons
 
-You must either:
-
-### A. Provide a folder of `.svg` icons
+Point the module at a folder of `.svg` icons:
 
 ```ts
 composeIcons: {
   pathToIcons: './assets/icons',
-}
-```
-
-### B. Or register your own components
-
-```ts
-import CustomIcon from '~/components/CustomIcon.vue';
-
-composeIcons: {
-  iconComponentList: {
-    'custom-icon': CustomIcon,
-  },
 }
 ```
 

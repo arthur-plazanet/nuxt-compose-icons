@@ -2,7 +2,7 @@
 
 # Interface: ComposeIconProps
 
-Defined in: [runtime/types/compose-icons-props.ts:1](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L1)
+Defined in: [runtime/types/compose-icons-props.ts:1](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L1)
 
 ## Properties
 
@@ -12,9 +12,9 @@ Defined in: [runtime/types/compose-icons-props.ts:1](https://github.com/use-comp
 optional color?: string;
 ```
 
-Defined in: [runtime/types/compose-icons-props.ts:2](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L2)
+Defined in: [runtime/types/compose-icons-props.ts:2](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L2)
 
----
+***
 
 ### fill?
 
@@ -22,9 +22,9 @@ Defined in: [runtime/types/compose-icons-props.ts:2](https://github.com/use-comp
 optional fill?: string;
 ```
 
-Defined in: [runtime/types/compose-icons-props.ts:5](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L5)
+Defined in: [runtime/types/compose-icons-props.ts:5](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L5)
 
----
+***
 
 ### size?
 
@@ -32,9 +32,9 @@ Defined in: [runtime/types/compose-icons-props.ts:5](https://github.com/use-comp
 optional size?: string;
 ```
 
-Defined in: [runtime/types/compose-icons-props.ts:6](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L6)
+Defined in: [runtime/types/compose-icons-props.ts:6](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L6)
 
----
+***
 
 ### stroke?
 
@@ -42,9 +42,9 @@ Defined in: [runtime/types/compose-icons-props.ts:6](https://github.com/use-comp
 optional stroke?: string;
 ```
 
-Defined in: [runtime/types/compose-icons-props.ts:3](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L3)
+Defined in: [runtime/types/compose-icons-props.ts:3](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L3)
 
----
+***
 
 ### strokeWidth?
 
@@ -52,4 +52,4 @@ Defined in: [runtime/types/compose-icons-props.ts:3](https://github.com/use-comp
 optional strokeWidth?: string | number;
 ```
 
-Defined in: [runtime/types/compose-icons-props.ts:4](https://github.com/use-compose/nuxt-compose-icons/blob/42c8ba8932cbfc6640bb3c07349983c1ff13085f/packages/nuxt/src/runtime/types/compose-icons-props.ts#L4)
+Defined in: [runtime/types/compose-icons-props.ts:4](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/types/compose-icons-props.ts#L4)

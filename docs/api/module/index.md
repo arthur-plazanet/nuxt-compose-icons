@@ -4,13 +4,13 @@
 
 ## Interfaces
 
-| Interface                                                        | Description |
-| ---------------------------------------------------------------- | ----------- |
-| [ComponentOptions](interfaces/ComponentOptions.md)               | -           |
-| [NuxtComposeIconsOptions](interfaces/NuxtComposeIconsOptions.md) | -           |
+| Interface | Description |
+| ------ | ------ |
+| [IconComponentOptions](interfaces/IconComponentOptions.md) | - |
+| [NuxtComposeIconsOptions](interfaces/NuxtComposeIconsOptions.md) | - |
 
 ## Variables
 
-| Variable                        | Description |
-| ------------------------------- | ----------- |
-| [default](variables/default.md) | -           |
+| Variable | Description |
+| ------ | ------ |
+| [default](variables/default.md) | - |

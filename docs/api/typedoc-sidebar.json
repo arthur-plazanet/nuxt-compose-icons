@@ -9,8 +9,8 @@
         "collapsed": false,
         "items": [
           {
-            "text": "ComponentOptions",
-            "link": "/api/module/interfaces/ComponentOptions.md"
+            "text": "IconComponentOptions",
+            "link": "/api/module/interfaces/IconComponentOptions.md"
           },
           {
             "text": "NuxtComposeIconsOptions",

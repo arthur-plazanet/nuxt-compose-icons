@@ -55,6 +55,7 @@ export default defineConfig([
     ignores: [
       '**/dist/',
       '**/cache/',
+      '**/coverage/',
       '**/.nuxt/',
       '**/.nvm/',
       '**/.output/',

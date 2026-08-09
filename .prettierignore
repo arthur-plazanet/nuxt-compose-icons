@@ -4,3 +4,9 @@ dist
 pnpm-lock.yaml
 pnpm-workspace.yaml
 .nuxt
+
+# Generated output — formatted by the generator, not by hand.
+# Prettier must not gate CI on these.
+docs/api
+**/components/nuxt-compose-icons
+**/__snapshots__

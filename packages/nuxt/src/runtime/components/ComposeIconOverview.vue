@@ -70,6 +70,7 @@ const iconProps = computed(() => {
   /* font-size: 0.875rem; */
   color: #1c1b1b;
   word-break: break-all;
+
   /* line-height: 1.3; */
   font-weight: 500;
 }

@@ -1,46 +1,71 @@
 <template>
-  <VueCodeHighlighter
-    v-if="!multi"
-    :code="simpleCode"
-    :lang="lang"
-    :file-name="fileName"
-    :title="title"
-  />
-  <VueCodeHighlighterMulti v-if="multi" :code="codeMulti" />
+  <figure class="code">
+    <figcaption v-if="title || fileName" class="code__head">
+      <span v-if="title" class="code__title">{{ title }}</span>
+      <span v-if="fileName" class="code__file">{{ fileName }}</span>
+    </figcaption>
+    <!--
+      `code` arrives as a prop holding a plain string, so Vue's text interpolation
+      escapes it and <pre> preserves the whitespace. Writing the same snippet inline
+      in a template would break compilation on `<` and `{{ }}` — which is why this
+      goes through a prop rather than slot content.
+    -->
+    <pre class="code__body"><code>{{ code }}</code></pre>
+  </figure>
 </template>
 
 <script setup lang="ts">
-// import { VueCodeHighlighterMulti } from 'vue-code-highlighter';
-import * as vueCodeH from 'vue-code-highlighter';
-import 'vue-code-highlighter/dist/style.css'; // dont forget to import
-const { VueCodeHighlighterMulti, VueCodeHighlighter } = vueCodeH;
-
-interface CodeHighlighterMulti {
-  code: string;
-  lang: string;
-  title?: string;
-}
-interface CodeHighlighterProps {
-  fileName?: string; // File name to display as metadata
-  code: Array<CodeHighlighterMulti> | string; // Code to highlight, can be a single string or an array of objects
-  multi?: boolean; // Flag to indicate if multiple code blocks are present
-  lang?: string; // Language for syntax highlighting, default is 'html'
-  title?: string; // Optional title for the code block
-}
-
-const props: CodeHighlighterProps = withDefaults(defineProps<CodeHighlighterProps>(), {
-  multi: false,
-  lang: 'html',
-  fileName: undefined,
-  title: undefined,
-});
-
-let simpleCode: string, codeMulti: Array<CodeHighlighterMulti>;
-if (props.multi) {
-  codeMulti = props.code as Array<CodeHighlighterMulti>;
-} else {
-  simpleCode = props.code as string;
-}
-const lang: string = props.multi ? '' : (props.lang as string);
-// const codeHighlighter = props.multi ? VueCodeHighlighterMulti : VueCodeHighlighter;
+withDefaults(
+  defineProps<{
+    /** Code to display, as a plain string. */
+    code: string;
+    /** Optional label shown above the block. */
+    title?: string;
+    /** Optional file name shown as metadata. */
+    fileName?: string;
+  }>(),
+  {
+    title: undefined,
+    fileName: undefined,
+  },
+);
 </script>
+
+<style scoped>
+.code {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius-6);
+  overflow: hidden;
+  background: #141313;
+}
+
+.code__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.code__file {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--faint);
+}
+
+.code__body {
+  margin: 0;
+  padding: var(--spacing-md);
+  overflow-x: auto;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #d8d8d8;
+  tab-size: 2;
+}
+</style>

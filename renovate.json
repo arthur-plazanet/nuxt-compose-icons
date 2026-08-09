@@ -4,17 +4,12 @@
   "separateMinorPatch": true,
   "addLabels": ["dependencies"],
   "branchPrefix": "renovate/",
+  "platformAutomerge": true,
   "packageRules": [
     {
-      "matchDepTypes": ["dependencies"],
+      "matchDepTypes": ["dependencies", "devDependencies"],
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automergeType": "branch",
-      "automerge": true
-    },
-    {
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
-      "automergeType": "branch",
+      "automergeType": "pr",
       "automerge": true
     }
   ]

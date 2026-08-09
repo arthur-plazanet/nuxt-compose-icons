@@ -3,10 +3,10 @@
 # Function: isRawCssSize()
 
 ```ts
-function isRawCssSize(value: string): boolean;
+function isRawCssSize(value): boolean;
 ```
 
-Defined in: [runtime/utils/icon-theming.ts:37](https://github.com/use-compose/nuxt-compose-icons/blob/4fcc142c1b1f3ecd95a80c0a2f02159a0859073b/packages/nuxt/src/runtime/utils/icon-theming.ts#L37)
+Defined in: [runtime/utils/icon-theming.ts:37](https://github.com/arthu-pr/nuxt-compose-icons/blob/d141366874a5b246cf368a85d6ae85bef35b9d9a/packages/nuxt/src/runtime/utils/icon-theming.ts#L37)
 
 ## Parameters
 

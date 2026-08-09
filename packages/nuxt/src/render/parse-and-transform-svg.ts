@@ -118,8 +118,13 @@ export function parseAndTransformSvg(svgContent: string): ParsedSvgResult {
 
   /*
    * We extract the attributes and children from the parsed SVG element.
+   *
+   * Root attributes go through the same transform as the children: an icon that paints
+   * on the root <svg> (fill/stroke/stroke-width there rather than on a child) would
+   * otherwise keep its literal value, nothing would consume --icon-fill, and the
+   * matching prop would silently do nothing.
    */
-  const attributes = svgParentNode.properties || {};
+  const attributes = transformAttributes(svgParentNode.properties || {});
 
   const children = (svgParentNode.children || [])
     .map(convertNodeToVNode)

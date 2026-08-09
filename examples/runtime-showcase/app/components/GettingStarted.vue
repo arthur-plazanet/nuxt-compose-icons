@@ -1,31 +1,22 @@
 <template>
-  <YStack class="getting-started" style="--gutter: var(--layout-gutter-lg)">
-    <h2 class="title">Getting Started (source: https://nuxt-icons.use-compose.com/)</h2>
-    <!-- <div class="code-highlighter"> -->
-    <YRow type="switcher">
-      <CodeHighlighter v-bind="baseSvgConfig" />
-      <CodeHighlighter v-bind="vueComponentsConfig" />
-    </YRow>
-    <YRow type="switcher">
+  <div class="stack getting-started">
+    <h2 class="title">
+      Getting started —
+      <a href="https://nuxt-icons.use-compose.com/" class="title__link">
+        nuxt-icons.use-compose.com
+      </a>
+    </h2>
+    <div class="switcher">
       <CodeHighlighter v-bind="nuxtConfigConfig" />
       <CodeHighlighter v-bind="nuxtBuildConfig" />
-    </YRow>
-  </YStack>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { YRow, YStack } from '@use-compose/ui';
+// Snippets live here as plain strings rather than inline in the template: raw code
+// containing `<` or `{{ }}` cannot be written directly in a Vue template.
 // https://github.com/vuejs/vitepress/issues/603
-const svgFilesTemplate = `├── icons
-  ├─ pictos_modules_chronologie.svg                     
-  ├─ add-note.svg                                       
-  ├─ delete.svg                                         
-  ├─ logo.svg                                           
-  ├─ link.svg                                           
-  ├─ trash.svg                                          
-  └─ twitter.svg                                         
-`;
-
 const nuxtConfigTemplate = `// nuxt.config.ts
 export default defineNuxtConfig({
   modules: ['nuxt-compose-icons'],
@@ -37,20 +28,6 @@ export default defineNuxtConfig({
     },
   },
 });`;
-
-const vueComponentsTemplate = `<template>
-  <section>
-    <!-- add-note.svg -->
-    <AddNoteIcon size="2rem" color="var(--primary)" />
-
-    <!-- time.svg -->
-    <TimeIcon size="xl" color="#36365F" />
-
-    <!-- slide-right.svg -->
-    <SlideRightIcon size="2rem" color="var(--primary)" />
-  </section>
-</template>
-`;
 
 const nuxtBuildTemplate = `/* At build time, generated components appear in .nuxt/components.d.ts
 * Each SVG becomes a fully typed Vue component
@@ -65,54 +42,40 @@ const nuxtBuildTemplate = `/* At build time, generated components appear in .nux
 
 // alongside all your own components`;
 
-const baseSvgConfig = {
-  code: svgFilesTemplate,
-  lang: 'graphql',
-  title: 'SVG Directory',
-};
-
-const vueComponentsConfig = {
-  code: vueComponentsTemplate,
-  lang: 'html',
-  title: 'Vue Component',
-};
 const nuxtConfigConfig = {
   code: nuxtConfigTemplate,
-  lang: 'typescript',
   title: 'Nuxt config',
+  fileName: 'nuxt.config.ts',
 };
+
 const nuxtBuildConfig = {
   code: nuxtBuildTemplate,
-  lang: 'typescript',
-  title: 'Components.d.ts',
+  title: 'Generated types',
+  fileName: 'components.d.ts',
 };
 </script>
 
-<style>
+<style scoped>
 .getting-started {
-  max-height: 35%;
-  background-color: #1c1b1b;
-  padding: 1rem;
+  --gutter: 1.5rem;
+
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border);
 }
 
 .title {
-  grid-area: title;
-  color: white;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f1f1;
 }
 
-.code-svg {
-  grid-area: code-svg;
+.title__link {
+  color: var(--brand);
+  text-decoration: none;
 }
 
-.code-config {
-  grid-area: code-config;
-}
-
-.code-vue {
-  grid-area: code-vue;
-}
-
-.code-dot-nuxt {
-  grid-area: code-dot-nuxt;
+.title__link:hover {
+  text-decoration: underline;
 }
 </style>

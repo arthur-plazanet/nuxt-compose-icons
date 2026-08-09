@@ -27,6 +27,10 @@ export default defineConfig({
       }),
       {
         test: {
+          // The runtime showcase is deliberately NOT included here: it is a standalone
+          // Nuxt app with its own vitest config and resolves the module from npm.
+          // Nesting it in this project breaks Vitest's suite context. It runs in CI
+          // through `pnpm test:showcase` instead.
           name: 'e2e',
           include: ['packages/**/test/e2e/**/*.e2e.{test,spec}.ts'],
           environment: 'node',
