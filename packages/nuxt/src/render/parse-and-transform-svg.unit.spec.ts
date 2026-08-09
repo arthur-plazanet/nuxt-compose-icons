@@ -11,9 +11,12 @@ describe('parseAndTransformSvg', () => {
       const svg = '<svg width="24" height="24" viewBox="0 0 24 24"></svg>';
       const result = parseAndTransformSvg(svg);
 
+      // Root attributes run through transformAttributes, which normalises every
+      // non-theming value to a string. Harmless for codegen — they are serialised
+      // into the component either way.
       expect(result.attributes).toEqual({
-        width: 24,
-        height: 24,
+        width: '24',
+        height: '24',
         viewBox: '0 0 24 24',
       });
       expect(result.children).toEqual([]);
@@ -106,6 +109,33 @@ describe('parseAndTransformSvg', () => {
       expect(result.children[0]).toContain('"fill": "var(--icon-fill, currentcolor)"');
       expect(result.children[0]).toContain('"stroke": "var(--icon-stroke, #000)"');
       expect(result.children[0]).toContain('"stroke-width": "var(--icon-stroke-width, 1.5)"');
+    });
+
+    test('should transform theming attributes on the root <svg> element', () => {
+      // Icons that paint on the root rather than on a child are a common shape.
+      // Without this, --icon-fill is never consumed and the `fill` prop is a no-op.
+      const svg = `<svg ${svgViewBox} fill="#000" stroke="#fff" stroke-width="2">
+        <path d="M0 0" />
+      ${svgClosingTag}`;
+      const result = parseAndTransformSvg(svg);
+
+      expect(result.attributes).toMatchObject({
+        fill: 'var(--icon-fill, #000)',
+        stroke: 'var(--icon-stroke, #fff)',
+        'stroke-width': 'var(--icon-stroke-width, 2)',
+        viewBox: '0 0 24 24',
+      });
+    });
+
+    test('should keep an unpainted root fill overridable without changing its default', () => {
+      // `fill="none"` at the root is extremely common (stroke-only icon sets).
+      // The fallback must stay `none`, so rendering is identical until the prop is set.
+      const svg = `<svg ${svgViewBox} fill="none">
+        <path d="M0 0" stroke="#000" />
+      ${svgClosingTag}`;
+      const result = parseAndTransformSvg(svg);
+
+      expect(result.attributes.fill).toBe('var(--icon-fill, none)');
     });
 
     test('should preserve non-theming attributes as-is', () => {

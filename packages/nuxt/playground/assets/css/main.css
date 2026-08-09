@@ -6,9 +6,19 @@
   --faint: #444;
   --bg: #1c1b1b;
   --bg-overview: #d0d0d0;
+
+  /* Spacing scale, previously inherited from @use-compose/ui. */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3.25rem;
+  --border-radius-4: 4px;
+  --border-radius-6: 6px;
 }
 
 body {
+  margin: 0;
   background: var(--bg);
   font-family: system-ui, sans-serif;
   color: #f1f1f1;

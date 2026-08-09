@@ -3,7 +3,7 @@
   "version": "0.9.0",
   "private": false,
   "scripts": {
-    "dev": "PORT=3008 nuxi dev playground",
+    "dev": "PORT=3007 nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:generate": "nuxi generate playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",

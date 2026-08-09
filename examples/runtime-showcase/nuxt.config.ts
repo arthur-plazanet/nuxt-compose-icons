@@ -34,18 +34,11 @@ export default defineNuxtConfig({
       enabled: true,
     },
   },
-  // compatibilityDate: '2024-12-14',
-  // css: ['@use-compose/ui/style.css'],
   components: [
     {
       path: '~/components',
       pathPrefix: false,
     },
   ],
-  css: ['~/assets/css/main.css', '@use-compose/ui/style.css'],
-  vite: {
-    ssr: {
-      noExternal: ['@use-compose/ui'],
-    },
-  },
+  css: ['~/assets/css/main.css'],
 });

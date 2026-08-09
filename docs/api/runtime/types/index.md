@@ -4,12 +4,12 @@
 
 ## Interfaces
 
-| Interface                                          | Description |
-| -------------------------------------------------- | ----------- |
-| [ComposeIconProps](interfaces/ComposeIconProps.md) | -           |
+| Interface | Description |
+| ------ | ------ |
+| [ComposeIconProps](interfaces/ComposeIconProps.md) | - |
 
 ## Type Aliases
 
-| Type Alias                                         | Description |
-| -------------------------------------------------- | ----------- |
-| [ComposeIconSize](type-aliases/ComposeIconSize.md) | -           |
+| Type Alias | Description |
+| ------ | ------ |
+| [ComposeIconSize](type-aliases/ComposeIconSize.md) | - |

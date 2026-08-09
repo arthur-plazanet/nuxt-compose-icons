@@ -1,5 +1,5 @@
 <template>
-  <YRow type="switcher" class="page" style="--switcher-modifier: 640px; --switcher-gap: 0">
+  <div class="page">
     <aside class="controls">
       <div class="controls__field">
         <div class="controls__label-row">
@@ -75,11 +75,10 @@
         has-icon-name
       />
     </main>
-  </YRow>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { YRow } from '@use-compose/ui';
 import { useComposeIconTheme } from 'nuxt-compose-icons/composables';
 import { useComposeIconRegistry } from 'nuxt-compose-icons/registry';
 import { computed, ref } from 'vue';
@@ -106,6 +105,8 @@ const strokeWidth = computed(() => (strokeWidthEnabled.value ? strokeWidthValue.
 
 <style scoped>
 .page {
+  display: flex;
+  flex-wrap: wrap;
   min-height: 100svh;
 }
 
@@ -208,13 +209,12 @@ const strokeWidth = computed(() => (strokeWidthEnabled.value ? strokeWidthValue.
   background-color: var(--bg-overview);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .controls {
     flex: 1 1 100%;
     position: static;
     height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     gap: var(--spacing-xs) var(--spacing-md);
     border-right: none;
     border-bottom: 1px solid var(--border);

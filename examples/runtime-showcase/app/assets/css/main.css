@@ -1,4 +1,25 @@
-/* 
+/*
+ * Design tokens. Defined here rather than pulled from a UI library, so this
+ * showcase depends on nothing but Nuxt and nuxt-compose-icons itself.
+ */
+:root {
+  --brand: #c1272d;
+  --brand-subtle: #2a1315;
+  --border: #2a2a2a;
+  --muted: #777;
+  --faint: #444;
+  --bg: #1c1b1b;
+  --bg-overview: #d0d0d0;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3.25rem;
+  --border-radius-4: 4px;
+  --border-radius-6: 6px;
+}
+
+/*
  * Override default icon styles
  * to allow icon theming on user interactions like hover
 */
@@ -10,12 +31,36 @@
 
 body {
   margin: 0;
+  background: var(--bg);
+  color: #f1f1f1;
+  font-family: system-ui, sans-serif;
 }
 
 .container {
   box-sizing: border-box;
   max-width: min(1280px, calc(100% - 2rem));
   margin-inline: auto;
+}
+
+/*
+ * Minimal layout primitives.
+ */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gutter, 1rem);
+}
+
+/* Side-by-side until there is no longer room, then stacked. */
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gutter, 1rem);
+}
+
+.switcher > * {
+  flex: 1 1 20rem;
+  min-width: 0;
 }
 
 .compose-icon:hover {

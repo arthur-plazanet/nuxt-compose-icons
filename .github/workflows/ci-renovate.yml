@@ -31,7 +31,7 @@ jobs:
         run: pnpm lint:style
 
       - name: Format
-        run: pnpm format
+        run: pnpm format:check
 
       - name: Build the module (prepack)
         run: pnpm --filter nuxt-compose-icons prepack

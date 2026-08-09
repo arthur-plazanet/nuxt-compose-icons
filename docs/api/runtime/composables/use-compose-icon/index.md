@@ -4,12 +4,12 @@
 
 ## Interfaces
 
-| Interface                                      | Description |
-| ---------------------------------------------- | ----------- |
-| [UseComposeIcon](interfaces/UseComposeIcon.md) | -           |
+| Interface | Description |
+| ------ | ------ |
+| [UseComposeIcon](interfaces/UseComposeIcon.md) | - |
 
 ## Functions
 
-| Function                                      | Description                                                                    |
-| --------------------------------------------- | ------------------------------------------------------------------------------ |
+| Function | Description |
+| ------ | ------ |
 | [useComposeIcon](functions/useComposeIcon.md) | Composes the icon styles, classes, and attributes based on the provided props. |
