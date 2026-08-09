@@ -1,0 +1,62 @@
+name: Claude Dependency & Security Audit
+
+on:
+  schedule:
+    - cron: '0 6 * * 1' # Every Monday at 06:00 UTC
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install dependencies
+        uses: ./.github/actions/install-dependencies
+        with:
+          node_version: 22
+          cache: 'pnpm'
+
+      - name: Run Claude dependency & security audit
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+
+            Audit this pnpm workspace for dependency health and security issues.
+
+            Renovate already opens PRs for routine version bumps here (config in
+            renovate.json), so don't just restate what it will already handle.
+            Focus on what it won't catch:
+
+            1. Run `pnpm audit` across the workspace and `pnpm outdated -r`.
+            2. For anything flagged, check whether it's in `packages/nuxt`
+               (the published module - dependencies are @nuxt/kit, svg-parser,
+               svgo) versus docs/examples/dev tooling. Module runtime deps are
+               higher priority than dev-only tooling.
+            3. Look for packages that are deprecated, unmaintained (no release
+               in 12+ months, archived repo), or have a known advisory that
+               Renovate's automerge could land without anyone noticing.
+            4. Skip anything already covered by an open Renovate PR - check
+               with `gh pr list --search "renovate"` first.
+
+            If you find actionable issues, open a single GitHub issue titled
+            "Dependency audit: <date>" listing each finding with severity and
+            a recommended action. If nothing actionable is found, do not open
+            an issue - just end without creating one.
+
+            This is a read-only audit: do not modify any files, do not open
+            or push to branches, do not open PRs.
+
+          claude_args: |
+            --allowedTools "Read,Bash(pnpm audit),Bash(pnpm outdated:*),Bash(gh issue:*),Bash(gh pr list:*)"
