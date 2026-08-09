@@ -6,6 +6,9 @@ on:
       - main
       - dev
 
+permissions:
+  contents: read
+
 jobs:
   lint_format_build:
     if: ${{ startsWith(github.event.pull_request.head.ref, 'renovate/') }}

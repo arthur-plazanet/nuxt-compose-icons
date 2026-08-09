@@ -10,6 +10,9 @@ on:
       - dev
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   lint_format:
     if: ${{ ! startsWith(github.event.pull_request.head.ref, 'renovate/') }}
