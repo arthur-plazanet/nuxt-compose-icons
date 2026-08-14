@@ -2,7 +2,7 @@
   <!-- <YParallax class="icons-overview parallax"> -->
   <YParallax class="icons-overview">
     <template #back>
-      <!-- <ClientOnly> -->
+      <ClientOnly>
       <Component
         v-for="(icon, index) in icons"
         :is="icon"
@@ -11,7 +11,7 @@
         size="xl"
         :style="generateRandomStyles(index)"
       />
-      <!-- </ClientOnly> -->
+      </ClientOnly>
     </template>
     <template #default>
       <slot />
