@@ -25,123 +25,9 @@ This module generates fully customizable Vue components from your initial raw SV
 
 For building design systems or simply use in-house icons.
 
-## 🎯 Motivation
-
-Icon components should be easy to use, style, and maintain.
-
-Existing solutions often force trade-offs between DX, accessibility, and flexibility:
-
-1. **Third-party libraries** → limited customization
-2. **Manual Vue components** → repetitive and hard to scale
-3. **SVG loaders** → flexible but lack structure and typing
-
-The goal of this module is to propose a balanced approach which gives design flexibility and developer experience.
-
-It dynamically generates Vue components from initial SVG files, naming them accordingly and make them accessible as individual components in the Nuxt project.
-
-#### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
-
 ---
 
-## Features
-
-### SVG to Vue Component at Build Time
-
-- Takes a directory of `.svg` files (e.g. `./assets/icons`)
-- One Vue component is created per `.svg` file
-- Use of the initial name of the icon, converted to PascalCase or snake-case with optional prefix and suffix.
-  Example `user-badge.svg` can give:
-  - `<IconUserBadge />`
-  - `<UserBadgeIcon />`
-  - `<user-badge />`
-- **Versioning support** - optional configuration for folder-based namespacing - icon Components can directly be generated in your codebase, making the rendered icon components available as part of your codebase
-
-### Auto-Registration in Nuxt and Typing
-
-- **Automatically registered in Nuxt’s component auto-import** system (no manual registration needed) - each icon will be automatically imported and registered in the Nuxt project as individual Vue component in the tree
-- **Type-safe usage** in `<template>`
-
-## SVG Output - Accessibility
-
-- **No wrappers** - the component root element is a single `<svg>` element
-- No additional wrappers or nested templates
-- Attributes from the original SVG are preserved
-
-### Theming with CSS Custom Properties and Runtime Access
-
-- Generated components rewrite static SVG attributes (such as `fill`, `stroke`, and `stroke-width`) with CSS Custom Properties ([CSS Custom Properties Guide](https://css-tricks.com/a-complete-guide-to-custom-properties/)) while keeping original values as fallback:
-
-```xml
-<!-- Input: user-badge.svg -->
-<svg fill="#000" stroke="#fff" stroke-width="2">
-  <path d="..." />
-</svg>
-```
-
-```vue
-<!-- Output: IconUserBadge.vue -->
-<template>
-  <svg
-    fill="var(--icon-fill, #000)"
-    stroke="var(--icon-stroke, #fff)"
-    stroke-width="var(--icon-stroke-width, 2)"
-  >
-    <path d="..." />
-  </svg>
-</template>
-```
-
-- Since CSS Custom Properties work at runtime, theming can be done dynamically in cascade (if you use design tokens), with component props or with scoped styles, giving you full control over the look of your icons.
-
-```vue
-<template>
-  <div>
-    <!-- Using props -->
-    <IconUserBadge stroke="blue" fill="red" size="lg" />
-
-    <!-- Using cascading styles -->
-    <div class="icon-container" style="--icon-fill: red; --icon-stroke: blue;">
-      <!-- Icons will inherit styles from the container -->
-      <IconUserBadge />
-      <!-- This icon will be red with blue stroke -->
-    </div>
-
-    <!-- Using scoped or global styles -->
-    <IconUserBadge class="primary-icon" />
-    <!-- This icon will use styles from the .primary-icon class -->
-  </div>
-</template>
-<style>
-.primary-icon {
-  --icon-fill: var(--color-primary);
-  --icon-stroke: var(--color-primary-dark);
-}
-</style>
-```
-
----
-
-## Developer Experience:
-
-- Can provide auto-completion and type-checking in your editor for each icons, as they are directly part of the Nuxt Build like any other component
-- Vue DevTools support - unlike other solutions, this module generates Vue components that can be inspected and debugged in the Vue DevTools
-
-This provides a balance of control, flexibility, and developer experience, tailored for projects using custom icons or building design systems.
-
-See full [list of features](https://nuxt-icons.use-compose.com/guide/features)
-
-## Comparison with Other Icon Strategies
-
-| Feature                | Third-party Libraries      | Manual Vue Components | SVG Loaders (`vite-svg-loader`) | **Nuxt Compose Icons** |
-| ---------------------- | -------------------------- | --------------------- | ------------------------------- | ---------------------- |
-| **Setup**              | ✅                         | ⚠️ manual             | ⚠️ requires config              | ✅                     |
-| **SVG output**         | ⚠️ often wrapped           | ✅                    | ✅                              | ✅                     |
-| **Theming**            | ⚠️ prop-based, limited     | ⚠️ manual CSS         | ✅                              | ✅                     |
-| **Typing**             | ✅                         | ⚠️ manual             | ⚠️ depends on setup             | ✅                     |
-| **Nuxt integration**   | ✅                         | ✅                    | ⚠️ requires config              | ✅                     |
-| **Scaling / monorepo** | ⚠️ tied to library updates | ❌                    | ⚠️ unstructured                 | ✅                     |
-| **Source of truth**    | ❌                         | ✅                    | ✅                              | ✅                     |
-| **Naming consistency** | ⚠️ library-defined         | ⚠️ developer-defined  | ⚠️ file-based, no enforcement   | ✅                     |
+## 📦 Installation
 
 Using pnpm:
 
@@ -186,6 +72,32 @@ export default defineNuxtConfig({
 ```
 
 That's it. Every `.svg` becomes a typed, auto-imported Vue component.
+
+---
+
+## 🎯 Motivation
+
+Existing icon solutions often force trade-offs between DX, accessibility, and flexibility:
+
+1. **Third-party libraries** → limited customization
+2. **Manual Vue components** → repetitive and hard to scale
+3. **SVG loaders** → flexible but lack structure and typing
+
+Nuxt Compose Icons dynamically generates Vue components from your SVG files, giving you design flexibility and developer experience without the trade-offs.
+
+→ Full writeup: [Motivation](https://nuxt-icons.use-compose.com/guide/motivation) · [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches)
+
+---
+
+## Features
+
+- **SVG to Vue Component at build time** — one component per `.svg` file, named in PascalCase or kebab-case with optional prefix/suffix
+- **Auto-registered in Nuxt** — no manual imports, type-safe usage in `<template>`
+- **No wrappers** — the component root is a single `<svg>` element, original attributes preserved
+- **Theming via CSS Custom Properties** — `fill`, `stroke`, `stroke-width` become `var(--icon-*, original)`, overridable via props, cascading styles, or scoped CSS
+- **Developer Experience** — full autocompletion/type-checking, and Vue DevTools support since generated icons are real components
+
+→ Full feature list with examples and a [comparison with other icon strategies](https://nuxt-icons.use-compose.com/guide/features)
 
 ---
 
