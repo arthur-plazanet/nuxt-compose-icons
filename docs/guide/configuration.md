@@ -116,7 +116,7 @@ Generates `--size-*` CSS variables and matching size classes. A CSS file is auto
 
 - **Type:** `boolean`
 - **Default:** `true`
-- Auto-imports [`useComposeIcon`](/utilities/use-compose-icon), [`useComposeIconRegistry`](/utilities/use-compose-icons-registry) and `useComposeIconTheme`. Set to `false` if you only use the generated components and don't need dynamic icon lookup.
+- Auto-imports [`useComposeIcon`](/utilities/use-compose-icon), [`useComposeIconRegistry`](/utilities/use-compose-icons-registry) and [`useComposeIconTheme`](/utilities/theming#referencing-size-tokens-with-usecomposeicontheme). Set to `false` if you only use the generated components and don't need dynamic icon lookup.
 
 ---
 

@@ -2,7 +2,7 @@ import type { ClassValue, StyleValue, SVGAttributes } from 'vue';
 import { computed } from 'vue';
 import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
-import { isRawCssSize } from '../utils/icon-theming';
+import { isRawCssSize } from '../utils/icon-sizing';
 import { useComposeIconTheme } from './use-compose-icon-theme';
 
 export { useComposeIcon };
