@@ -97,6 +97,29 @@ Nuxt Compose Icons dynamically generates Vue components from your SVG files, giv
 - **Theming via CSS Custom Properties** — `fill`, `stroke`, `stroke-width` become `var(--icon-*, original)`, overridable via props, cascading styles, or scoped CSS
 - **Developer Experience** — full autocompletion/type-checking, and Vue DevTools support since generated icons are real components
 
+```xml
+<!-- Input: user-badge.svg -->
+<svg fill="#000" stroke="#fff" stroke-width="2">
+  <path d="..." />
+</svg>
+```
+
+```vue
+<!-- Output: IconUserBadge.vue -->
+<template>
+  <svg
+    fill="var(--icon-fill, #000)"
+    stroke="var(--icon-stroke, #fff)"
+    stroke-width="var(--icon-stroke-width, 2)"
+  >
+    <path d="..." />
+  </svg>
+</template>
+
+<!-- Theme it -->
+<IconUserBadge stroke="blue" fill="red" size="lg" />
+```
+
 → Full feature list with examples and a [comparison with other icon strategies](https://nuxt-icons.use-compose.com/guide/features)
 
 ---
