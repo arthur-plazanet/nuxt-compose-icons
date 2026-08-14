@@ -2,18 +2,18 @@ import { describe, expect, test } from 'vitest';
 import { parseAndTransformSvg } from './parse-and-transform-svg';
 
 // CLEANUP: https://github.com/arthu-pr/nuxt-compose-icons/issues/194
-describe('parseAndTransformSvg', () => {
+describe('Parse and transform SVG', () => {
   const svgViewBox = `viewBox="0 0 24 24"`;
   const svgOpeningTag = `<svg ${svgViewBox} xmlns="http://www.w3.org/2000/svg">`;
   const svgClosingTag = `</svg>`;
+
   describe('basic parsing', () => {
     test('should parse a simple SVG and return attributes and children', () => {
       const svg = '<svg width="24" height="24" viewBox="0 0 24 24"></svg>';
       const result = parseAndTransformSvg(svg);
 
       // Root attributes run through transformAttributes, which normalises every
-      // non-theming value to a string. Harmless for codegen — they are serialised
-      // into the component either way.
+      // non-theming value to a string.
       expect(result.attributes).toEqual({
         width: '24',
         height: '24',
