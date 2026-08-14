@@ -3,8 +3,9 @@
     "./packages/nuxt/src/module.ts",
     "./packages/nuxt/src/runtime/types/index.ts",
     "./packages/nuxt/src/runtime/composables/use-compose-icon.ts",
-    "./packages/nuxt/src/runtime/composables/use-compose-icons-registry.ts",
-    "./packages/nuxt/src/runtime/utils/icon-theming.ts"
+    "./packages/nuxt/src/runtime/composables/use-compose-icon-registry.ts",
+    "./packages/nuxt/src/runtime/composables/use-compose-icon-theme.ts",
+    "./packages/nuxt/src/runtime/utils/icon-sizing.ts"
   ],
   "name": "nuxt-compose-icons",
 

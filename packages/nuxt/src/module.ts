@@ -15,7 +15,7 @@ import { createSvgComponentCode } from './render/svg-codegen';
 import { vueSFCWrapper } from './render/vue-sfc-wrapper';
 import type { ComposeIconSize } from './runtime/types/icon-sizes';
 import { assertAbsolute } from './runtime/types/path';
-import { iconSizeDefault } from './runtime/utils/icon-theming';
+import { iconSizeDefault } from './runtime/utils/icon-sizing';
 import {
   createComponentFromName,
   generateComponentName,
@@ -536,7 +536,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
         { name: 'useComposeIcon', from: resolve('runtime/composables/use-compose-icon') },
         {
           name: 'useComposeIconRegistry',
-          from: resolve('runtime/composables/use-compose-icons-registry'),
+          from: resolve('runtime/composables/use-compose-icon-registry'),
         },
         {
           name: 'useComposeIconTheme',
