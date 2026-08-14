@@ -170,6 +170,11 @@ h4.heading-h4 {
   margin: 1rem 0;
 }
 
+.vp-doc div[class*='language-'],
+.vp-block {
+  background-color: var(--vp-c-gray-3);
+}
+
 .reference {
   font-size: 0.875rem;
   color: var(--vp-c-text);

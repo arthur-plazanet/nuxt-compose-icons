@@ -520,8 +520,16 @@
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-sidebar-width: 220px;
+  --vp-sidebar-width: 264px;
   --vp-sidebar-bg-color: var(--vp-c-bg-alt);
+}
+
+/* 220px was too narrow for labels like "useComposeIconsRegistry" — they
+   overflowed the sidebar instead of wrapping. Widened above; this is a
+   safety net so a future long label degrades gracefully instead of again
+   spilling past the sidebar edge. */
+.VPSidebarItem .text {
+  overflow-wrap: break-word;
 }
 
 /**

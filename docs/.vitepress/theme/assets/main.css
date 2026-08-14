@@ -1,14 +1,19 @@
-@layer reset, base, compose, components;
+@layer reset, base, vendor, custom;
 
 /* Low-priority base — can be overridden by anything unlayered */
 @import './base/reset.css' layer(reset);
 @import './base/typography.css' layer(base);
-@import '@use-compose/ui/style.css' layer(compose);
+
+/* Vendor CSS — can be overridden by anything unlayered */
+/* Patched: original vue-code-highlighter/dist/style.css had a blocking @import
+   for fonts.cdnfonts.com. This copy has that line removed. */
+@import './vendor/vue-code-highlighter.css' layer(vendor);
+@import '@use-compose/ui/style.css' layer(vendor);
 
 /* VitePress overrides — unlayered so they win over VitePress default CSS */
-@import './global.css';
+@import './global.css' layer(custom);
 @import './vitepress/theme.css';
 @import './vitepress/custom-vp.css';
-@import './compose.css';
-@import './base/utilities.css';
-@import './components/buttons.css' layer(components);
+@import './compose.css' layer(custom);
+@import './base/utilities.css' layer(custom);
+@import './components/buttons.css' layer(custom);

@@ -1,24 +1,26 @@
 <template>
-  <div class="icons-overview parallax">
-    <div class="parallax__layer parallax__layer--back">
-      <ClientOnly>
-        <Component
-          v-for="(icon, index) in icons"
-          :is="icon"
-          :key="index"
-          class="icon"
-          size="xl"
-          :style="generateRandomStyles(index)"
-        />
-      </ClientOnly>
-    </div>
-    <div class="parallax__layer parallax__layer--base">
+  <!-- <YParallax class="icons-overview parallax"> -->
+  <YParallax class="icons-overview">
+    <template #back>
+      <!-- <ClientOnly> -->
+      <Component
+        v-for="(icon, index) in icons"
+        :is="icon"
+        :key="index"
+        class="icon"
+        size="xl"
+        :style="generateRandomStyles(index)"
+      />
+      <!-- </ClientOnly> -->
+    </template>
+    <template #default>
       <slot />
-    </div>
-  </div>
+    </template>
+  </YParallax>
 </template>
 
 <script setup>
+import { YParallax } from '@use-compose/ui';
 import { shallowRef } from 'vue';
 import {
   AjouterIcon,
@@ -196,14 +198,58 @@ function generateRandomStyles(index) {
   z-index: 0;
   inset: 0;
 
+  & > .parallax-back {
+    opacity: 0.3;
+    z-index: 0;
+    animation: zTransform 30s ease-in-out infinite alternate;
+    --_scale: 1.5;
+  }
+
   .icon {
     position: absolute;
     transform: translate(var(--left, var(--_left)), var(--top, var(--_top)))
       scale(var(--scale, var(--_scale)));
+    /* animation: scaling 10s ease-in-out infinite alternate; */
   }
 
-  .parallax__layer--back {
+  & > :last-child {
+    z-index: 1;
+  }
+
+  /* .parallax__layer--back {
     opacity: 0.3;
+  } */
+}
+
+@keyframes zTransform {
+  0% {
+    transform: translateZ(calc(-0.3px * var(--_scale))) scale(var(--_scale));
+  }
+  100% {
+    transform: translateZ(calc(-1px * var(--_scale))) scale(var(--_scale));
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .icons-overview > .parallax-back {
+    animation: none;
+  }
+}
+/* 
+@keyframes scaling {
+  0% {
+    --_scale: calc(var(--_scale) * 90 + 50%);
+    --left: calc(var(--_left) * 100svh + 50%);
+    --top: calc(var(--_top) * 90 + 50%);
+    transform: translate(var(--left, var(--_left), var(--_vw)), var(--top, var(--_top), var(--_vh)))
+      scale(var(--scale, var(--_scale)));
+  }
+  100% {
+    --left: calc(var(--_left) * 90 + 50%);
+    --top: calc(var(--_top) * 90 + 50%);
+    --_scale: calc(var(--_scale) * 90 + 50%);
+    transform: translate(var(--left, var(--_left)), var(--top, var(--_top)))
+      scale(calc(var(--scale, var(--_scale)) * 1.2));
+  }
+} */
 </style>

@@ -4,9 +4,7 @@
 </template>
 
 <script setup lang="ts">
-// import { VueCodeHighlighterMulti } from 'vue-code-highlighter';
 import * as vueCodeH from 'vue-code-highlighter';
-import 'vue-code-highlighter/dist/style.css'; // dont forget to import
 const { VueCodeHighlighterMulti, VueCodeHighlighter } = vueCodeH;
 interface CodeHighlighterProps {
   fileName?: string; // File name to display as metadata
