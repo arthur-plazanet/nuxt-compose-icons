@@ -29,6 +29,6 @@ module. See [`../../CLAUDE.md`](../../CLAUDE.md) for repo-wide commands and conv
   `docs/api` typedoc, coverage) must stay out of prettier/stylelint/eslint
   gates and is gitignored — codegen changes never show in a diff, verify them
   on disk instead.
-- The icon registry (`registry/`, `useComposeIconsRegistry`) exists only to
+- The icon registry (`registry/`, `useComposeIconRegistry`) exists only to
   power `<ComposeIconOverview />`'s search — nothing else reads it. Both are
   gated behind the `includeOverview` option, not generated unconditionally.
