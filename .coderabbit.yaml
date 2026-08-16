@@ -1,5 +1,6 @@
 reviews:
   auto_review:
-    enabled: true
-    labels:
-      - feature
+    base_branches:
+      - "dev"
+      - "feature/.*"
+      - "fix/.*"
