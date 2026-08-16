@@ -29,12 +29,12 @@ the output rather than assuming 3008.
 
 ## Layout
 
-| Path | What |
-| --- | --- |
-| `packages/nuxt/` | the published module — see its own CLAUDE.md |
-| `docs/` | VitePress docs site (guide, utilities, typedoc-generated API reference) |
-| `packages/nuxt/playground` | dev playground, loads the module via `../src/module` |
-| `examples/runtime-showcase` | standalone example, the StackBlitz target |
+| Path                        | What                                                                    |
+| --------------------------- | ----------------------------------------------------------------------- |
+| `packages/nuxt/`            | the published module — see its own CLAUDE.md                            |
+| `docs/`                     | VitePress docs site (guide, utilities, typedoc-generated API reference) |
+| `packages/nuxt/playground`  | dev playground, loads the module via `../src/module`                    |
+| `examples/runtime-showcase` | standalone example, the StackBlitz target                               |
 
 ## Invariants
 
@@ -47,7 +47,7 @@ Deliberate design decisions — do not "simplify" these:
   intentionally routed through the same transform as child nodes.
 - **`examples/runtime-showcase` resolves `nuxt-compose-icons` from npm, never
   `workspace:*`.** Its StackBlitz link imports that subfolder standalone, so a
-  workspace protocol would break it. Bump the pinned version *after* publishing,
+  workspace protocol would break it. Bump the pinned version _after_ publishing,
   never before.
 - **The playground cannot be the StackBlitz target** — it loads the module via
   `../src/module`, a path outside the folder StackBlitz imports.

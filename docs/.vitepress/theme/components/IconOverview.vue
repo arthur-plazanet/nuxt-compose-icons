@@ -3,14 +3,14 @@
   <YParallax class="icons-overview">
     <template #back>
       <ClientOnly>
-      <Component
-        v-for="(icon, index) in icons"
-        :is="icon"
-        :key="index"
-        class="icon"
-        size="xl"
-        :style="generateRandomStyles(index)"
-      />
+        <Component
+          v-for="(icon, index) in icons"
+          :is="icon"
+          :key="index"
+          class="icon"
+          size="xl"
+          :style="generateRandomStyles(index)"
+        />
       </ClientOnly>
     </template>
     <template #default>
