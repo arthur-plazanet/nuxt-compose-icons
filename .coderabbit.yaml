@@ -1,6 +1,6 @@
 reviews:
   auto_review:
     base_branches:
-      - "dev"
-      - "feature/.*"
-      - "fix/.*"
+      - 'dev'
+      - 'feature/.*'
+      - 'fix/.*'
