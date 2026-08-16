@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useComposeIconRegistry } from '../composables/use-compose-icons-registry';
+import { useComposeIconRegistry } from '../composables/use-compose-icon-registry';
 import type { ComposeIconProps } from '../types/compose-icons-props';
 
 const props = withDefaults(defineProps<ComposeIconProps & { hasIconName?: boolean }>(), {

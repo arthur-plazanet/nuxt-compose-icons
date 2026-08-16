@@ -121,7 +121,10 @@ export default defineConfig({
       },
     },
     ssr: {
-      noExternal: [/\.css$/, '@use-compose/ui', '@use-compose/ui/style.css'],
+      noExternal: ['@use-compose/ui'],
+    },
+    optimizeDeps: {
+      include: ['@use-compose/ui'],
     },
     server: {
       allowedHosts: ['http://arthur.icon-docs'],

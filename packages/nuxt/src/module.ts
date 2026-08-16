@@ -15,7 +15,7 @@ import { createSvgComponentCode } from './render/svg-codegen';
 import { vueSFCWrapper } from './render/vue-sfc-wrapper';
 import type { ComposeIconSize } from './runtime/types/icon-sizes';
 import { assertAbsolute } from './runtime/types/path';
-import { iconSizeDefault } from './runtime/utils/icon-theming';
+import { iconSizeDefault } from './runtime/utils/icon-sizing';
 import {
   createComponentFromName,
   generateComponentName,
@@ -130,14 +130,20 @@ export interface NuxtComposeIconsOptions {
    * Register the built-in `<ComposeIconOverview />` component.
    * Useful during development to browse all available icons.
    *
+   * Also generates the icon registry (`#compose-icons/registry`) that the component
+   * searches over — nothing else reads it, so it's skipped entirely when this is off.
+   *
    * @type {?boolean}
    * @default false
    */
   includeOverview?: boolean;
 
   /**
-   * Auto-import `useComposeIcon` and `useComposeIconRegistry` composables.
-   * Disable if you only use the generated components and don't need dynamic lookup.
+   * Auto-import `useComposeIcon` and `useComposeIconTheme`.
+   * Disable if you only use the generated components and don't need these directly.
+   *
+   * `useComposeIconRegistry` is auto-imported alongside this when `includeOverview`
+   * is also on, since it only has data to work with in that case.
    *
    * @type {?boolean}
    * @default true
@@ -370,8 +376,9 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
      * 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array
      * 8. Generate the icons index file (if component.hasIndexFile is true)
      * 9. Register each component with Nuxt's auto-import system
-     * 10. Generate the icon registry file and expose it via the #compose-icons/registry alias
-     * 11. Add composables (useComposeIcon, useComposeIconRegistry)
+     * 10. If includeOverview: generate the icon registry, alias #compose-icons/registry,
+     *     and register ComposeIconOverview
+     * 11. Add composables (useComposeIcon, useComposeIconTheme)
      *
      * We use a literal string template to create the Vue component.
      * See https://nuxt-icons.use-compose.com/guide/concept
@@ -492,37 +499,55 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
       `📦 ${generatedComponents.length} components generated and registered from ${componentsDir}`,
     );
 
-    // 10. Generate the icon registry file and expose it via the #compose-icons/registry alias
-    let registryPath: string;
-
-    if (componentsDir !== defaultDir) {
-      // Custom component.destDir: write registry there (alias points directly to it).
-      // No need for a .nuxt copy — paths are already correct relative to componentsDir.
-      const iconsRegistryContent = await generateIconsRegistry(generatedComponents, componentsDir);
-      registryPath = path.join(componentsDir, 'icon-registry.ts');
-      await writeFile(assertAbsolute(registryPath), iconsRegistryContent);
-    } else {
-      // Default (.nuxt/compose-icons): use addTemplate so Nuxt manages the file lifecycle.
-      const templateRegistryContent = await generateIconsRegistry(generatedComponents, defaultDir);
-      const registryTemplate = addTemplate({
-        filename: 'compose-icons/icon-registry.ts',
-        getContents: () => templateRegistryContent,
-        write: true,
-      });
-      registryPath = registryTemplate.dst;
-    }
-
-    // Make #compose-icons/registry resolvable in Vite's transform phase (client + SSR).
-    // Nitro gets the same alias — icon component files are written via addTemplate so they
-    // survive the prepare-phase cleanup and are present when Nitro bundles the server.
-    nuxt.options.alias['#compose-icons/registry'] = registryPath;
-
+    // 10. The icon registry (#compose-icons/registry) only exists to power
+    // ComposeIconOverview's search — generate and alias it only when that's enabled,
+    // rather than paying for it on every build regardless of whether anything reads it.
     if (options.includeOverview) {
+      let registryPath: string;
+
+      if (componentsDir !== defaultDir) {
+        // Custom component.destDir: write registry there (alias points directly to it).
+        // No need for a .nuxt copy — paths are already correct relative to componentsDir.
+        const iconsRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          componentsDir,
+        );
+        registryPath = path.join(componentsDir, 'icon-registry.ts');
+        await writeFile(assertAbsolute(registryPath), iconsRegistryContent);
+      } else {
+        // Default (.nuxt/compose-icons): use addTemplate so Nuxt manages the file lifecycle.
+        const templateRegistryContent = await generateIconsRegistry(
+          generatedComponents,
+          defaultDir,
+        );
+        const registryTemplate = addTemplate({
+          filename: 'compose-icons/icon-registry.ts',
+          getContents: () => templateRegistryContent,
+          write: true,
+        });
+        registryPath = registryTemplate.dst;
+      }
+
+      // Make #compose-icons/registry resolvable in Vite's transform phase (client + SSR).
+      // Nitro gets the same alias — icon component files are written via addTemplate so they
+      // survive the prepare-phase cleanup and are present when Nitro bundles the server.
+      nuxt.options.alias['#compose-icons/registry'] = registryPath;
+
       addComponent({
         name: 'ComposeIconOverview',
         filePath: resolve('runtime/components/ComposeIconOverview.vue'),
       });
+
+      if (options.includeComposables) {
+        addImports([
+          {
+            name: 'useComposeIconRegistry',
+            from: resolve('runtime/composables/use-compose-icon-registry'),
+          },
+        ]);
+      }
     }
+
     // 11. Add composables
     if (options.includeComposables) {
       // Merge over the defaults, exactly as generateCssFile() does. The two must agree:
@@ -534,10 +559,6 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
       addImports([
         { name: 'useComposeIcon', from: resolve('runtime/composables/use-compose-icon') },
-        {
-          name: 'useComposeIconRegistry',
-          from: resolve('runtime/composables/use-compose-icons-registry'),
-        },
         {
           name: 'useComposeIconTheme',
           from: resolve('runtime/composables/use-compose-icon-theme'),

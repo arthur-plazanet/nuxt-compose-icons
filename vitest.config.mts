@@ -15,7 +15,11 @@ export default defineConfig({
         },
         test: {
           name: 'unit',
-          include: ['**/src/**/*.unit.spec.ts', '**/test/unit/**/*.{test,spec}.ts'],
+          include: [
+            '**/src/**/*.unit.spec.ts',
+            '**/src/**/*.pipeline.spec.ts',
+            '**/test/unit/**/*.{test,spec}.ts',
+          ],
           environment: 'node',
         },
       },

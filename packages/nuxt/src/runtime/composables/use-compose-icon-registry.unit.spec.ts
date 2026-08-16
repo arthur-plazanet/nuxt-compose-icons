@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import { ref } from 'vue';
-import { useComposeIconRegistry } from './use-compose-icons-registry';
+import { useComposeIconRegistry } from './use-compose-icon-registry';
 
 describe('useComposeIconRegistry', () => {
   describe('getIconsByName', () => {
