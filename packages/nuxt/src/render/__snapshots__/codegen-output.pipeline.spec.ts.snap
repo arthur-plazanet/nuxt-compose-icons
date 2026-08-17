@@ -2,7 +2,7 @@
 
 exports[`codegen output > file formats > ts format 1`] = `
 "import { defineComponent, h } from 'vue';
-import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import { useComposeIcon } from 'nuxt-compose-icons/composables/use-compose-icon';
 import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
 exports[`codegen output > file formats > vue format 1`] = `
 "<script lang="ts">
 import { defineComponent, h } from 'vue';
-import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import { useComposeIcon } from 'nuxt-compose-icons/composables/use-compose-icon';
 import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 
 export default defineComponent({
@@ -73,7 +73,7 @@ export default defineComponent({
 
 exports[`codegen output > icon classes > custom classes are applied to the svg element 1`] = `
 "import { defineComponent, h } from 'vue';
-import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import { useComposeIcon } from 'nuxt-compose-icons/composables/use-compose-icon';
 import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 
 export default defineComponent({
@@ -107,7 +107,7 @@ export default defineComponent({
 
 exports[`codegen output > structure > nested groups, shapes and text nodes 1`] = `
 "import { defineComponent, h } from 'vue';
-import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import { useComposeIcon } from 'nuxt-compose-icons/composables/use-compose-icon';
 import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 
 export default defineComponent({
@@ -151,7 +151,7 @@ h('path', {
 
 exports[`codegen output > theming rewrites > full themed output 1`] = `
 "import { defineComponent, h } from 'vue';
-import { useComposeIcon } from 'nuxt-compose-icons/composables';
+import { useComposeIcon } from 'nuxt-compose-icons/composables/use-compose-icon';
 import type { ComposeIconProps } from 'nuxt-compose-icons/types';
 
 export default defineComponent({
