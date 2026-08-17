@@ -1,5 +1,5 @@
 <template>
-  <div class="home-bg">
+  <YWrapper class="home-bg">
     <IconOverview>
       <div class="home-content">
         <div class="home">
@@ -7,10 +7,11 @@
         </div>
       </div>
     </IconOverview>
-  </div>
+  </YWrapper>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { YWrapper } from '@use-compose/ui';
 import Banner from './Banner.vue';
 import IconOverview from './IconOverview.vue';
 </script>

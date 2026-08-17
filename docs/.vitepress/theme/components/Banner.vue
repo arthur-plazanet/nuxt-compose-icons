@@ -1,64 +1,54 @@
 <template>
-  <AppCompose :theme="theme">
-    <section class="banner">
-      <header class="banner__hero y-flow">
-        <LogoIcon class="banner__logo" />
+  <YStack style="--gutter: 4rem">
+    <YFlow class="banner__hero y-flow">
+      <LogoIcon class="banner__logo" />
 
-        <h1 class="banner__title">
-          Nuxt <YHighlightedText active>Compose</YHighlightedText> Icons
-        </h1>
+      <h1 class="banner__title">
+        Nuxt <YHighlightedText active as="span">Compose</YHighlightedText> Icons
+      </h1>
 
-        <Separator width="60px" />
+      <Separator width="60px" />
 
-        <p class="banner__subtitle">Compose your own Icon components library</p>
+      <p class="banner__subtitle">Compose your own Icon components library</p>
 
-        <p class="banner__tagline">
-          No extra wrapper needed.<br />
-          <span class="banner__brand">Generated</span> at build time,
-          <span class="banner__brand">customizable</span> at runtime using CSS custom properties
-        </p>
+      <p class="banner__tagline">
+        No extra wrapper needed.<br />
+        <span class="banner__brand">Generated</span> at build time,
+        <span class="banner__brand">customizable</span> at runtime using CSS custom properties
+      </p>
 
-        <div class="banner__actions">
-          <a href="/guide/motivation">
-            <YButton color="primary" tabindex="-1">Get Started</YButton>
-          </a>
-          <a href="https://github.com/arthu-pr/nuxt-compose-icons" target="_blank" rel="noopener">
-            <YButton color="secondary" tabindex="-1">GitHub</YButton>
-          </a>
-        </div>
-      </header>
+      div
 
-      <div class="banner__body">
-        <ClientOnly>
-          <ModuleTemplateExample class="banner__example" />
-        </ClientOnly>
-        <Features class="banner__features" />
+      <div class="banner__actions">
+        <VPButton href="/guide/motivation" text="Get Started" />
+        <VPButton
+          href="https://github.com/arthu-pr/nuxt-compose-icons"
+          target="_blank"
+          rel="noopener"
+          text="GitHub"
+        />
       </div>
-    </section>
-  </AppCompose>
+    </YFlow>
+
+    <div class="banner__body">
+      <ClientOnly>
+        <ModuleTemplateExample class="banner__example" />
+      </ClientOnly>
+      <Features class="banner__features" />
+    </div>
+  </YStack>
 </template>
 
 <script setup lang="ts">
-import { AppCompose, YButton, YHighlightedText, type YTheme } from '@use-compose/ui';
+import { YFlow, YHighlightedText, YStack } from '@use-compose/ui';
+import { VPButton } from 'vitepress/theme';
 import Features from './Features.vue';
 import LogoIcon from './icons/LogoIcon.vue';
 import ModuleTemplateExample from './ModuleTemplateExample.vue';
 import Separator from './Separator.vue';
-
-const theme: YTheme = {
-  primary: '#c1272d',
-  secondary: '#1e1e1e',
-  background: '#000000',
-};
 </script>
 
 <style scoped>
-.banner {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
 .banner__hero {
   --_flow-space: 1.25rem;
   max-width: 580px;
