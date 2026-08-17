@@ -2,9 +2,17 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme';
 // import BackgroundIcons from './components/BackgroundIcons.vue';
+import type { YTheme } from '@use-compose/ui';
+import { AppCompose } from '@use-compose/ui';
 import LogoIcon from './components/icons/LogoIcon.vue';
 
 const { Layout } = DefaultTheme;
+
+const theme: YTheme = {
+  primary: '#c1272d',
+  secondary: '#1e1e1e',
+  background: '#000000',
+};
 // const route = useRoute();
 // The home page (docs/index.md) renders its own icon background via
 // IconOverview inside Home.vue — skip the layout-level one there to avoid
@@ -13,16 +21,18 @@ const { Layout } = DefaultTheme;
 </script>
 
 <template>
-  <div class="home-layout">
-    <!-- <div v-if="!isHome()" class="docs-bg-icons" aria-hidden="true">
+  <AppCompose :theme="theme">
+    <div class="home-layout">
+      <!-- <div v-if="!isHome()" class="docs-bg-icons" aria-hidden="true">
       <BackgroundIcons :count="12" />
     </div> -->
-    <Layout>
-      <template #nav-bar-title-before>
-        <LogoIcon class="navbar-logo" size="m" />
-      </template>
-    </Layout>
-  </div>
+      <Layout>
+        <template #nav-bar-title-before>
+          <LogoIcon class="navbar-logo" size="m" />
+        </template>
+      </Layout>
+    </div>
+  </AppCompose>
 </template>
 
 <style scoped>

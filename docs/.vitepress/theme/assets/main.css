@@ -8,7 +8,6 @@
 /* Patched: original vue-code-highlighter/dist/style.css had a blocking @import
    for fonts.cdnfonts.com. This copy has that line removed. */
 @import './vendor/vue-code-highlighter.css' layer(vendor);
-@import '@use-compose/ui/style.css' layer(vendor);
 
 /* VitePress overrides — unlayered so they win over VitePress default CSS */
 @import './global.css';
@@ -17,3 +16,5 @@
 @import './compose.css';
 @import './base/utilities.css';
 @import './components/buttons.css';
+
+@import '@use-compose/ui/style.css';
