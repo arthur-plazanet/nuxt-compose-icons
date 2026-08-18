@@ -10,9 +10,13 @@ function generateImports() {
   const imports = [];
 
   const vueImports = generateESMImport({ moduleName: ['defineComponent', 'h'], path: 'vue' });
+  // Import the submodule directly, not the `nuxt-compose-icons/composables` barrel — the
+  // barrel also re-exports useComposeIconRegistry, which statically imports
+  // #compose-icons/registry. Every generated component pulls this in, so going through the
+  // barrel breaks the build whenever includeOverview is off and that alias is never set.
   const composablesImports = generateESMImport({
     moduleName: 'useComposeIcon',
-    path: 'nuxt-compose-icons/composables',
+    path: 'nuxt-compose-icons/composables/use-compose-icon',
   });
   const typesImports = generateESMImport({
     moduleName: 'ComposeIconProps',
