@@ -5,7 +5,7 @@ const options: NuxtComposeIconsOptions = {
   component: {
     suffix: 'Icon',
     case: 'pascal',
-    // destDir: './app/components/icons',
+    destDir: './app/components/icons',
   },
   includeComposables: true,
   includeOverview: true,
@@ -41,4 +41,5 @@ export default defineNuxtConfig({
     },
   ],
   css: ['~/assets/css/main.css'],
+  compatibilityDate: '2026-08-17',
 });
