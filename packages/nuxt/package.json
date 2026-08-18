@@ -56,6 +56,10 @@
       "types": "./dist/runtime/composables/index.d.ts",
       "import": "./dist/runtime/composables/index.js"
     },
+    "./composables/use-compose-icon": {
+      "types": "./dist/runtime/composables/use-compose-icon.d.ts",
+      "import": "./dist/runtime/composables/use-compose-icon.js"
+    },
     "./components": {
       "types": "./dist/runtime/components/*.d.ts",
       "import": "./dist/runtime/components/*.js"
