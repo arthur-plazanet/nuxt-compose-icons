@@ -102,8 +102,8 @@ importers:
         specifier: 0.0.6
         version: 0.0.6
       '@use-compose/ui':
-        specifier: 0.10.2
-        version: 0.10.2(typescript@6.0.2)
+        specifier: 1.1.0
+        version: 1.1.0(typescript@6.0.2)
       '@wdns/vue-code-block':
         specifier: 2.3.5
         version: 2.3.5(typescript@6.0.2)
@@ -2390,8 +2390,8 @@ packages:
   '@use-compose/logger@0.0.6':
     resolution: {integrity: sha512-9/TvTkHP6miDTyTXxfROcCy7aNp5f4xVyS39nEK0vem46A30fZKY3XJejspfFblB6FoNyTxsPoBL+C8DV1Ivdw==}
 
-  '@use-compose/ui@0.10.2':
-    resolution: {integrity: sha512-ikKBr9LBqV5P7OurF1ldZKM7RrhEYynsUjH+pRtMpuObiXecrnX3mOI4bb4Eprli2eOfq1NWFUAw6mxODCTNLQ==}
+  '@use-compose/ui@1.1.0':
+    resolution: {integrity: sha512-jg9AlTKjAC8DefbzrQzR88fvbielj3mLvB8A6vQuEUvO8dxuSY9F/A17Fuz8FoyEQDIuC2SfMip79kB99wMtWw==}
     hasBin: true
 
   '@vercel/nft@1.10.2':
@@ -9546,7 +9546,7 @@ snapshots:
 
   '@use-compose/logger@0.0.6': {}
 
-  '@use-compose/ui@0.10.2(typescript@6.0.2)':
+  '@use-compose/ui@1.1.0(typescript@6.0.2)':
     dependencies:
       '@fontsource-variable/roboto': 5.2.9
       culori: 4.0.1
