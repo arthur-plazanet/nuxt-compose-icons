@@ -102,8 +102,8 @@ importers:
         specifier: 0.0.6
         version: 0.0.6
       '@use-compose/ui':
-        specifier: 0.10.2
-        version: 0.10.2(typescript@6.0.2)
+        specifier: 1.1.0
+        version: 1.1.0(typescript@6.0.2)
       '@wdns/vue-code-block':
         specifier: 2.3.5
         version: 2.3.5(typescript@6.0.2)
@@ -137,8 +137,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0(@vitest/ui@4.1.2)(crossws@0.4.10(srvx@0.11.22))(esbuild@0.28.2)(magicast@0.5.4)(playwright-core@1.58.2)(rolldown@1.2.3)(rollup@4.62.4)(typescript@6.0.2)(vite@8.2.1(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.49.2)(yaml@2.9.0))(vitest@4.1.2)
       nuxt-compose-icons:
-        specifier: 0.10.0
-        version: 0.10.0(magicast@0.5.4)
+        specifier: 0.11.1
+        version: 0.11.1(magicast@0.5.4)
       playwright-core:
         specifier: 1.58.2
         version: 1.58.2
@@ -2390,8 +2390,8 @@ packages:
   '@use-compose/logger@0.0.6':
     resolution: {integrity: sha512-9/TvTkHP6miDTyTXxfROcCy7aNp5f4xVyS39nEK0vem46A30fZKY3XJejspfFblB6FoNyTxsPoBL+C8DV1Ivdw==}
 
-  '@use-compose/ui@0.10.2':
-    resolution: {integrity: sha512-ikKBr9LBqV5P7OurF1ldZKM7RrhEYynsUjH+pRtMpuObiXecrnX3mOI4bb4Eprli2eOfq1NWFUAw6mxODCTNLQ==}
+  '@use-compose/ui@1.1.0':
+    resolution: {integrity: sha512-jg9AlTKjAC8DefbzrQzR88fvbielj3mLvB8A6vQuEUvO8dxuSY9F/A17Fuz8FoyEQDIuC2SfMip79kB99wMtWw==}
     hasBin: true
 
   '@vercel/nft@1.10.2':
@@ -4590,8 +4590,8 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  nuxt-compose-icons@0.10.0:
-    resolution: {integrity: sha512-nvECPdVQSpceOACye+wCeOlYY4JkUL65bgnmsgGyoywrGTPgbAk/CFnNc4KWaqb1OyODi1xkaY5r5tlcLGdZ3w==}
+  nuxt-compose-icons@0.11.1:
+    resolution: {integrity: sha512-oGk3MDzZC4Zdd0D5F543GNLgYs9AH/WooC+Ar0dF+lTjTgGLmp0E21plVByBbdsbXdq83D4GeHjyptrejhXbIQ==}
     engines: {node: '>=22.0.0'}
 
   nuxt@4.5.1:
@@ -5735,11 +5735,6 @@ packages:
 
   svg-tags@1.0.0:
     resolution: {integrity: sha512-ovssysQTa+luh7A5Weu3Rta6FJlFBBbInjOh722LIt6klpU2/HtdUbszju/G4devcvk8PGt7FCLv5wftu3THUA==}
-
-  svgo@4.0.1:
-    resolution: {integrity: sha512-XDpWUOPC6FEibaLzjfe0ucaV0YrOjYotGJO1WpF0Zd+n6ZGEQUsSugaoLq9QkEZtAfQIxT42UChcssDVPP3+/w==}
-    engines: {node: '>=16'}
-    hasBin: true
 
   svgo@4.0.2:
     resolution: {integrity: sha512-ekx94z1rRc5LDi6oSUaeRnYhd0UOJxdtQCL2rF8xpWxD3TPAsISWOrxezqGovqS38GRZOdpDfvQe3ts6F7nsng==}
@@ -9551,7 +9546,7 @@ snapshots:
 
   '@use-compose/logger@0.0.6': {}
 
-  '@use-compose/ui@0.10.2(typescript@6.0.2)':
+  '@use-compose/ui@1.1.0(typescript@6.0.2)':
     dependencies:
       '@fontsource-variable/roboto': 5.2.9
       culori: 4.0.1
@@ -12115,11 +12110,11 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxt-compose-icons@0.10.0(magicast@0.5.4):
+  nuxt-compose-icons@0.11.1(magicast@0.5.4):
     dependencies:
       '@nuxt/kit': 4.2.2(magicast@0.5.4)
       svg-parser: 2.0.4
-      svgo: 4.0.1
+      svgo: 4.0.2
     transitivePeerDependencies:
       - magicast
 
@@ -13531,16 +13526,6 @@ snapshots:
   svg-parser@2.0.4: {}
 
   svg-tags@1.0.0: {}
-
-  svgo@4.0.1:
-    dependencies:
-      commander: 11.1.0
-      css-select: 5.2.2
-      css-tree: 3.2.1
-      css-what: 6.2.2
-      csso: 5.0.5
-      picocolors: 1.1.1
-      sax: 1.6.1
 
   svgo@4.0.2:
     dependencies:
