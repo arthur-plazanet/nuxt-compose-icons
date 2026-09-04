@@ -1,8 +1,15 @@
-import { useRuntimeConfig } from 'nuxt/app';
+import { inject } from 'vue';
+import { SIZES_INJECTION_KEY } from '../utils/sizes-injection-key';
 
 /**
  * Returns helpers to reference icon size CSS variables by key.
- * Size keys and values come from the module config via runtimeConfig.
+ * Size keys and values come from the module config, provided by a Nuxt plugin
+ * (runtime/plugins/provide-sizes.ts) via plain Vue provide/inject.
+ *
+ * Deliberately does not import anything from 'nuxt/app': that import fails to resolve
+ * outside a real Nuxt build, which broke this composable (and useComposeIcon, which calls
+ * it) for any non-Nuxt consumer of the generated components. Outside Nuxt — or if the
+ * module never ran — inject() falls back to {} instead of crashing.
  *
  * @example
  * const { sizes, sizeVar, currentSizeVar } = useComposeIconTheme()
@@ -12,8 +19,7 @@ import { useRuntimeConfig } from 'nuxt/app';
  * currentSizeVar      // 'var(--icon-size)' — whatever the nearest icon has in the cascade
  */
 export function useComposeIconTheme() {
-  const config = useRuntimeConfig();
-  const sizes = (config.public.composeIcons?.sizes ?? {}) as Record<string, string>;
+  const sizes = inject(SIZES_INJECTION_KEY, {} as Record<string, string>);
 
   return {
     /** All configured size keys and their resolved values */

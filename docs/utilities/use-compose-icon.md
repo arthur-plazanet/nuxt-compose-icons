@@ -27,7 +27,7 @@ You can use `useComposeIcon` in any component that uses design tokens or dynamic
 
 ## Usage
 
-1. Access the styles and classes used by the icons:
+1. Bind the reactive styles and classes directly, for a custom element that isn't a generated icon component:
 
 ```vue
 <script setup lang="ts">
@@ -93,8 +93,8 @@ Returns
 
 ```ts
 interface UseComposeIcon {
-  iconStyles: StyleValue;
-  iconClasses: ClassValue[];
+  iconStyles: ComputedRef<StyleValue>;
+  iconClasses: ComputedRef<ClassValue[]>;
   buildSvgAttributes: (svgAttributes?: SVGAttributes) => SVGAttributes & {
     style: StyleValue;
     class: ClassValue;
@@ -102,8 +102,8 @@ interface UseComposeIcon {
 }
 ```
 
-| Name                 | Type                        | Description                                                               |
-| -------------------- | --------------------------- | ------------------------------------------------------------------------- |
-| `iconStyles`         | `StyleValue`                | Reactive styles object with CSS custom properties for color, stroke, size |
-| `iconClasses`        | `ClassValue[]`              | Reactive classes array including `compose-icon` and the size class        |
-| `buildSvgAttributes` | `(svgAttributes?) => attrs` | Merges static SVG attributes with reactive style and class bindings       |
+| Name                 | Type                        | Description                                                                                                                                  |
+| -------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `iconStyles`         | `ComputedRef<StyleValue>`   | Reactive styles with CSS custom properties for color, stroke, size — bind directly (`:style="iconStyles"`), Vue unwraps the ref in templates |
+| `iconClasses`        | `ComputedRef<ClassValue[]>` | Reactive classes including `compose-icon` and the size class                                                                                 |
+| `buildSvgAttributes` | `(svgAttributes?) => attrs` | Merges static SVG attributes with reactive style and class bindings                                                                          |

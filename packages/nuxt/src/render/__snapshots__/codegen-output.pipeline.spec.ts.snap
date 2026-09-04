@@ -20,8 +20,8 @@ export default defineComponent({
   setup(props: ComposeIconProps) {
     const { buildSvgAttributes } = useComposeIcon(props);
     const svgAttributes = {
-  "class": "compose-icon",
-  "viewBox": "0 0 24 24"
+  "viewBox": "0 0 24 24",
+  "class": "compose-icon"
 };
 
     return () => h('svg', buildSvgAttributes(svgAttributes), [
@@ -55,8 +55,8 @@ export default defineComponent({
   setup(props: ComposeIconProps) {
     const { buildSvgAttributes } = useComposeIcon(props);
     const svgAttributes = {
-  "class": "compose-icon",
-  "viewBox": "0 0 24 24"
+  "viewBox": "0 0 24 24",
+  "class": "compose-icon"
 };
 
     return () => h('svg', buildSvgAttributes(svgAttributes), [
@@ -91,8 +91,8 @@ export default defineComponent({
   setup(props: ComposeIconProps) {
     const { buildSvgAttributes } = useComposeIcon(props);
     const svgAttributes = {
-  "class": "my-icon compose-icon",
-  "viewBox": "0 0 24 24"
+  "viewBox": "0 0 24 24",
+  "class": "my-icon compose-icon"
 };
 
     return () => h('svg', buildSvgAttributes(svgAttributes), [
@@ -125,8 +125,8 @@ export default defineComponent({
   setup(props: ComposeIconProps) {
     const { buildSvgAttributes } = useComposeIcon(props);
     const svgAttributes = {
-  "class": "compose-icon",
-  "viewBox": "0 0 32 32"
+  "viewBox": "0 0 32 32",
+  "class": "compose-icon"
 };
 
     return () => h('svg', buildSvgAttributes(svgAttributes), [
@@ -172,8 +172,8 @@ export default defineComponent({
   "fill": "var(--icon-fill, #000)",
   "stroke": "var(--icon-stroke, #fff)",
   "stroke-width": "var(--icon-stroke-width, 2)",
-  "class": "compose-icon",
-  "viewBox": "0 0 24 24"
+  "viewBox": "0 0 24 24",
+  "class": "compose-icon"
 };
 
     return () => h('svg', buildSvgAttributes(svgAttributes), [

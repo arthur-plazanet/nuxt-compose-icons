@@ -21,7 +21,7 @@ const theme: YTheme = {
 </script>
 
 <template>
-  <AppCompose :theme="theme">
+  <AppCompose :theme="theme" class="app-docs">
     <div class="home-layout">
       <!-- <div v-if="!isHome()" class="docs-bg-icons" aria-hidden="true">
       <BackgroundIcons :count="12" />
@@ -43,5 +43,9 @@ const theme: YTheme = {
   overflow: hidden;
   pointer-events: none;
   opacity: 0.05;
+}
+.app-docs {
+  --main-bg: linear-gradient(6deg, #070101 25%, #2f0a0b 55%, #070101 var(--bg-opacity, 75%));
+  background: var(--main-bg);
 }
 </style>

@@ -20,6 +20,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:publint": "pnpm --filter nuxt-compose-icons lint:publint",
     "lint:style": "stylelint \"**/*.{scss,css}\"",
     "lint:style:fix": "stylelint --fix \"**/*.{vue,scss,css}\"",
     "prepack": "pnpm --filter nuxt-compose-icons prepack",

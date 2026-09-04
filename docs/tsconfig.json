@@ -1,0 +1,8 @@
+// TODO-CLAUDE: To keep or not? i created it
+{
+  "include": ["docs/**/*.ts", "docs/**/*.vue", "docs/**/*.md"],
+  "compilerOptions": { "target": "esnext" },
+  "vueCompilerOptions": {
+    "vitePressExtensions": [".md"]
+  }
+}

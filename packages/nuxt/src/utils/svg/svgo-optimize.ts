@@ -9,7 +9,9 @@ export function optimizeSvg(svgContent: string, options?: SVGOOptions): string {
   const iconClasses = options?.iconClasses || 'compose-icon';
 
   const result = optimize(svgContent, {
-    multipass: true,
+    // Tested over 74 icons projects and didn't show any difference (0ms)
+    // To retest later
+    multipass: false,
     plugins: [
       'removeXMLNS',
       'sortAttrs',

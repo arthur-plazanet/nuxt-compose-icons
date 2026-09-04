@@ -16,4 +16,12 @@ describe('simple config', async () => {
     const html = await $fetch('/');
     expect(html).toContain('stroke="var(--icon-stroke');
   });
+
+  // #431: the `composables` export subpath must resolve on the default config, not just
+  // when the module's own generated components import it directly. If this regresses, the
+  // suite fails at build time rather than on this assertion.
+  it('resolves the composables export subpath on the default config', async () => {
+    const html = await $fetch('/');
+    expect(html).toContain('subpaths:function,function');
+  });
 });

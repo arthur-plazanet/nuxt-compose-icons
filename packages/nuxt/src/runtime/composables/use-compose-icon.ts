@@ -1,16 +1,16 @@
-import type { ClassValue, StyleValue, SVGAttributes } from 'vue';
+import type { ClassValue, ComputedRef, StyleValue, SVGAttributes } from 'vue';
 import { computed } from 'vue';
 import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
-import { isRawCssSize } from '../utils/icon-sizing';
+import { isRawCssSize, resolveDefaultSizeKey } from '../utils/icon-sizing';
 import { useComposeIconTheme } from './use-compose-icon-theme';
 
 export { useComposeIcon };
 export type { UseComposeIcon };
 
 interface UseComposeIcon {
-  iconStyles: StyleValue;
-  iconClasses: ClassValue[];
+  iconStyles: ComputedRef<StyleValue>;
+  iconClasses: ComputedRef<ClassValue[]>;
   buildSvgAttributes: (svgAttributes?: SVGAttributes) => SVGAttributes & {
     style: StyleValue;
     class: ClassValue;
@@ -24,9 +24,13 @@ interface UseComposeIcon {
  * @returns {UseComposeIcon} The composed icon styles, classes, and attributes.
  */
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
-  // 1) Size — fall back to the first configured size, not a hardcoded 'md'
+  // 1) Size — see resolveDefaultSizeKey for why this isn't just Object.keys(sizes)[0].
+  // useComposeIconTheme now uses plain Vue provide/inject (not useRuntimeConfig), so this is
+  // safe to call unconditionally: it degrades to {} outside Nuxt instead of failing to
+  // resolve. Every generated component already has a real default baked into its `size`
+  // prop by codegen, so this fallback mainly matters for calling useComposeIcon by hand.
   const { sizes } = useComposeIconTheme();
-  const defaultSize = Object.keys(sizes)[0] ?? 'md';
+  const defaultSize = resolveDefaultSizeKey(sizes);
   const size = computed<string>(() => props.size ?? defaultSize);
 
   const iconSizeClass = computed(() => getIconSizeClass(size.value));
@@ -69,8 +73,12 @@ function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
   };
 
   return {
-    iconStyles: iconStyles.value,
-    iconClasses: iconClasses.value,
+    // Returned as computed refs, not `.value` snapshots — the docs show these bound
+    // directly in a template (`:style="iconStyles"`), which only stays reactive to prop
+    // changes if the ref itself crosses the composable boundary. `buildSvgAttributes` was
+    // never affected: it's a closure that reads `.value` fresh on every call.
+    iconStyles,
+    iconClasses,
     buildSvgAttributes,
   };
 }

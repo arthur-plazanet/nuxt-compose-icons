@@ -1,55 +1,60 @@
 <template>
-  <YStack style="--gutter: 4rem">
-    <YFlow class="banner__hero y-flow">
-      <LogoIcon class="banner__logo" />
+  <YStack style="--gutter: 1.5rem">
+    <YRow type="switcher">
+      <YFlow class="banner__hero y-flow">
+        <LogoIcon class="banner__logo" />
 
-      <h1 class="banner__title">
-        Nuxt <YHighlightedText active as="span">Compose</YHighlightedText> Icons
-      </h1>
+        <h1 class="banner__title">
+          Nuxt <YHighlightedText active as="span">Compose</YHighlightedText> Icons
+        </h1>
 
-      <Separator width="60px" />
+        <Separator width="60px" />
 
-      <p class="banner__subtitle">Compose your own Icon components library</p>
+        <p class="banner__subtitle">Compose your own Icon components library</p>
 
-      <p class="banner__tagline">
-        No extra wrapper needed.<br />
-        <span class="banner__brand">Generated</span> at build time,
-        <span class="banner__brand">customizable</span> at runtime using CSS custom properties
-      </p>
+        <p class="banner__tagline">
+          No extra wrapper needed.<br />
+          <span class="banner__brand">Generated</span> at build time,
+          <span class="banner__brand">customizable</span> at runtime using CSS custom properties
+        </p>
 
-      div
+        <IconShowcase />
 
-      <div class="banner__actions">
-        <VPButton href="/guide/motivation" text="Get Started" />
-        <VPButton
-          href="https://github.com/arthu-pr/nuxt-compose-icons"
-          target="_blank"
-          rel="noopener"
-          text="GitHub"
-        />
-      </div>
-    </YFlow>
+        <div class="banner__actions">
+          <VPButton href="/guide/motivation" text="Get Started" />
+          <VPButton
+            href="https://github.com/arthu-pr/nuxt-compose-icons"
+            target="_blank"
+            rel="noopener"
+            text="GitHub"
+          />
+        </div>
+      </YFlow>
 
-    <div class="banner__body">
       <ClientOnly>
         <ModuleTemplateExample class="banner__example" />
       </ClientOnly>
+    </YRow>
+
+    <div class="banner__body">
       <Features class="banner__features" />
     </div>
   </YStack>
 </template>
 
 <script setup lang="ts">
-import { YFlow, YHighlightedText, YStack } from '@use-compose/ui';
+import { YFlow, YHighlightedText, YRow, YStack } from '@use-compose/ui';
 import { VPButton } from 'vitepress/theme';
 import Features from './Features.vue';
 import LogoIcon from './icons/LogoIcon.vue';
+import IconShowcase from './IconShowcase.vue';
 import ModuleTemplateExample from './ModuleTemplateExample.vue';
 import Separator from './Separator.vue';
 </script>
 
 <style scoped>
 .banner__hero {
+  --theme-current-color: var(--color-primary);
   --_flow-space: 1.25rem;
   max-width: 580px;
 }
@@ -63,6 +68,7 @@ import Separator from './Separator.vue';
 /* White text inside YHighlightedText "Compose" */
 .banner__title :deep(.highlighted span) {
   color: white;
+  padding: 0 1rem;
 }
 
 .banner__title {
@@ -121,12 +127,6 @@ import Separator from './Separator.vue';
     flex-direction: row;
     align-items: flex-start;
     gap: 3.5rem;
-  }
-
-  .banner__example {
-    flex: 0 0 340px;
-    position: sticky;
-    top: calc(var(--vp-nav-height) + 2rem);
   }
 
   .banner__features {

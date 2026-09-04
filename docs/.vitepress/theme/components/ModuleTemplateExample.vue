@@ -60,6 +60,7 @@ const arrayCode = [
 .module-template-example {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1rem;
 }
 
@@ -69,6 +70,47 @@ const arrayCode = [
 
   pre {
     flex-grow: 1;
+  }
+
+  .wrapper-title-codemulti-highlight {
+    span {
+      display: inline;
+      block-size: auto;
+    }
+
+    &.tab-active,
+    &:hover {
+      /* background-color: var(--vp-button-brand-bg); */
+      background-color: transparent;
+      /* color: var(--vp-button-brand-bg); */
+      font-weight: 900;
+      span {
+        position: relative;
+
+        &::after {
+          content: '';
+          display: block;
+          height: 5px;
+          background-color: var(--vp-button-brand-bg);
+          width: 20%;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+        }
+      }
+      /* position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 2px;
+      background-color: var(--vp-button-brand-bg);
+      width: 3px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+    } */
+    }
   }
 }
 </style>

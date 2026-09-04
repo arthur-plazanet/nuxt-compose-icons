@@ -115,4 +115,22 @@ describe('codegen output', () => {
       expect(code).toMatchSnapshot();
     });
   });
+
+  describe('size prop default', () => {
+    test('falls back to "md" when no default is configured', () => {
+      const code = createSvgComponentCode('MinimalIcon', optimizeSvg(minimalSvg));
+      expect(code).toContain("default: 'md'");
+    });
+
+    // A hardcoded 'md' here would silently resolve to a non-existent class/variable for any
+    // project whose iconSizes config doesn't keep an 'md' key — this must follow the module's
+    // actual configured sizes, not a fixed literal.
+    test('follows the configured default size key', () => {
+      const code = createSvgComponentCode('MinimalIcon', optimizeSvg(minimalSvg), {
+        defaultSize: 'compact',
+      });
+      expect(code).toContain("default: 'compact'");
+      expect(code).not.toContain("default: 'md'");
+    });
+  });
 });

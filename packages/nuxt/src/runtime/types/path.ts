@@ -12,6 +12,8 @@ export type { AbsolutePath };
 type AbsolutePath = string & { readonly __brand: 'AbsolutePath' };
 
 function assertAbsolute(p: string): AbsolutePath {
-  if (!path.isAbsolute(p)) throw new Error(`Expected absolute path, got: ${p}`);
+  if (!path.isAbsolute(p)) {
+    throw new Error(`Expected absolute path, got: ${p}`);
+  }
   return p as AbsolutePath;
 }

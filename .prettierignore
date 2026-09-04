@@ -5,8 +5,15 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 .nuxt
 
+# Local-only trees: agent worktrees hold full checkouts of other branches, and VitePress
+# keeps a prebundled dep cache. Both are untracked, so CI never saw them, but they made
+# `pnpm format:check` fail on a clean local clone.
+.claude
+docs/.vitepress/cache
+
 # Generated output — formatted by the generator, not by hand.
 # Prettier must not gate CI on these.
 docs/api
 **/components/nuxt-compose-icons
+examples/runtime-showcase/app/components/icons
 **/__snapshots__
