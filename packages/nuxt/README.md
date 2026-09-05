@@ -25,6 +25,8 @@ This module generates fully customizable Vue components from your initial raw SV
 
 For building design systems or simply use in-house icons.
 
+<img height="24" alt="image" src="https://github.com/user-attachments/assets/0c9ff8dc-e688-41fa-856a-41a18e972a54" style="padding-right: 10px" align="left" /> Used in production at [reteach](https://www.reteach.com/)
+
 ---
 
 ## 📦 Installation
@@ -83,9 +85,9 @@ Existing icon solutions often force trade-offs between DX, accessibility, and fl
 2. **Manual Vue components** → repetitive and hard to scale
 3. **SVG loaders** → flexible but lack structure and typing
 
-Nuxt Compose Icons dynamically generates Vue components from your SVG files, giving you design flexibility and developer experience without the trade-offs.
+Nuxt also has an excellent official icon module, [`@nuxt/icon`](https://github.com/nuxt/icon) — for a huge, ready-made icon set with zero setup, use it. This module solves a different problem: turning **your own** SVG files into **standalone, ownable Vue components**, for a design system or an in-house icon library, without the trade-offs above.
 
-→ Full writeup: [Motivation](https://nuxt-icons.use-compose.com/guide/motivation) · [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches)
+→ Full writeup: [Motivation](https://nuxt-icons.use-compose.com/guide/motivation) · [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches) · [How this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features#how-this-compares-to-nuxt-icon)
 
 ---
 
@@ -105,7 +107,7 @@ Nuxt Compose Icons dynamically generates Vue components from your SVG files, giv
 ```
 
 ```vue
-<!-- Output: IconUserBadge.vue -->
+<!-- Output: UserBadgeIcon.vue -->
 <template>
   <svg
     fill="var(--icon-fill, #000)"
@@ -117,31 +119,26 @@ Nuxt Compose Icons dynamically generates Vue components from your SVG files, giv
 </template>
 
 <!-- Theme it -->
-<IconUserBadge stroke="blue" fill="red" size="lg" />
+<UserBadgeIcon stroke="blue" fill="red" size="lg" />
 ```
 
-→ Full feature list with examples and a [comparison with other icon strategies](https://nuxt-icons.use-compose.com/guide/features)
+→ Full feature list with examples, and [how this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features)
 
 ---
 
-## 🎯 Ideal Use Cases
+## Own your components
 
-- Design systems
-- Internal product icon libraries
-- Projects requiring strict visual control
-- Teams wanting predictable DX with full styling power
+Each icon is a real, standalone Vue component — not a runtime lookup like `<Icon name="my:user-badge" />`. That distinction matters once icons need to live outside a single Nuxt app:
 
----
+- The generated `.vue`/`.ts` files are committed to your repo, versioned like any other component
+- A UI library can ship `<UserBadgeIcon />` directly — apps that consume the UI library never install or configure `nuxt-compose-icons` themselves (the UI library still does, as a normal dependency, since the generated components import from it)
+- Set `component.destDir` and a `compose-icons.css` file is generated alongside the components, with your project's actual theme baked in — commit both, and that's everything a downstream consumer needs for full theming
+- Add `component.hasIndexFile: true` for an `index.ts` barrel that re-exports every icon — one import for the whole set
+- Add a new icon, rebuild — no separate publish/sync step to keep a design system's icon set current
 
-## Philosophy
+This is the intended use case: a design system or in-house icon library where icons are source-controlled assets, not an external dependency.
 
-Nuxt Compose Icons does **not** try to abstract SVGs away.
-
-Instead, it embraces them:
-
-- Keep your structure
-- Keep your attributes
-- Just make them composable and scalable
+→ Full walkthrough, CI wiring, and a live example repo (Nx + pnpm): [Monorepo guide](https://nuxt-icons.use-compose.com/guide/monorepo)
 
 ---
 
@@ -155,7 +152,7 @@ Full documentation and advanced configuration:
 
 ## ▶️ Try it
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthu-pr/nuxt-compose-icons/tree/main/examples/runtime-showcase)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/arthu-pr/nuxt-compose-icons/tree/main/examples/runtime-showcase)
 
 ---
 

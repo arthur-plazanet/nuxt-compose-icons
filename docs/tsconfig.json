@@ -1,0 +1,7 @@
+{
+  "include": ["docs/**/*.ts", "docs/**/*.vue", "docs/**/*.md"],
+  "compilerOptions": { "target": "esnext" },
+  "vueCompilerOptions": {
+    "vitePressExtensions": [".md"]
+  }
+}

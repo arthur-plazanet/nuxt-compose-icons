@@ -4,11 +4,6 @@
   "version": "1.0.0",
   "author": "Arthur Plazanet <plazanet.art@gmail.com>",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arthu-pr/nuxt-compose-icons",
-    "directory": "docs"
-  },
   "scripts": {
     "docs:build": "vitepress build",
     "docs:dev": "vitepress dev",
@@ -17,13 +12,14 @@
   },
   "dependencies": {
     "@use-compose/logger": "0.0.6",
-    "@use-compose/ui": "0.10.2",
+    "@use-compose/ui": "1.2.0",
     "@wdns/vue-code-block": "2.3.5",
     "highlight.js": "11.11.1",
     "vue": "3.5.31",
     "vue-code-highlighter": "1.1.3"
   },
   "devDependencies": {
+    "nuxt-compose-icons": "workspace:*",
     "typescript": "6.0.2",
     "vitepress": "1.6.4"
   },
@@ -32,5 +28,10 @@
   ],
   "keywords": [],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arthu-pr/nuxt-compose-icons",
+    "directory": "docs"
+  },
   "type": "module"
 }

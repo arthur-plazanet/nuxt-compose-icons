@@ -17,8 +17,12 @@ interface CacheFile {
 
 /**
  * Fixed input used to fingerprint the codegen pipeline for cache invalidation.
- * It carries a root paint, a child paint and a stroke width so that a change to any
- * part of the transform shows up in the generated output.
+ *
+ * The probe must exercise every transform the pipeline performs, because the fingerprint is
+ * only as sensitive as the features the probe contains — a transform whose effect never shows
+ * up in the probe's output can ship without invalidating warm caches. It currently carries a
+ * root paint + stroke width (root-attribute rewrite) and a child paint (child-attribute
+ * rewrite). Any future transform needs a corresponding feature added here.
  */
 const CODEGEN_PROBE_SVG =
   '<svg viewBox="0 0 1 1" fill="#000" stroke-width="2"><path d="M0 0" stroke="#fff"/></svg>';
@@ -29,6 +33,12 @@ export interface CacheFingerprintOptions {
   prefix?: string;
   suffix?: string;
   case?: 'pascal' | 'kebab';
+  /**
+   * The generated `size` prop's default value. Not exercised by the codegen probe (which
+   * always uses its own fallback), so it's hashed directly here — same treatment as
+   * `iconClasses`, which the probe also runs with a fixed value rather than the real one.
+   */
+  defaultSize?: string;
 }
 
 export interface SvgProcessingCacheOptions extends CacheFingerprintOptions {
@@ -79,6 +89,7 @@ export class SvgProcessingCache {
       prefix: options.prefix,
       suffix: options.suffix,
       case: options.case,
+      defaultSize: options.defaultSize,
       codegen: SvgProcessingCache.hash(codegenProbe),
     });
   }
@@ -116,6 +127,21 @@ export class SvgProcessingCache {
   set(filePath: string, contentHash: string, componentCode: string): void {
     this.data.entries[path.relative(this.rootDir, filePath)] = { contentHash, componentCode };
     this.dirty = true;
+  }
+
+  /**
+   * Drops entries for SVGs no longer present in the current run. Without this, deleting or
+   * renaming a source icon leaves its entry in cache.json forever — it's dead weight, but
+   * more importantly it means the file only ever grows, unbounded by the actual icon set.
+   */
+  prune(seenFilePaths: string[]): void {
+    const seen = new Set(seenFilePaths.map((filePath) => path.relative(this.rootDir, filePath)));
+    for (const key of Object.keys(this.data.entries)) {
+      if (!seen.has(key)) {
+        delete this.data.entries[key];
+        this.dirty = true;
+      }
+    }
   }
 
   async save(): Promise<void> {

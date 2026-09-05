@@ -57,35 +57,28 @@ The aim is to combine the control and quality of hand-authored components with t
 | **Scaling**            | Dependent on library updates | Maintenance-heavy     | Flexible but unstructured       | Structured, build-generated |
 | **Nuxt integration**   | ✅ Works                     | ✅ Auto-importable    | ⚠️ Requires configuration       | ✅ Native auto-import       |
 
-## Example
+`@nuxt/icon` is the most common example of the "Third-party Libraries" column above — if you're
+specifically weighing it against this module, here's a direct comparison:
 
-:::code-group
+## How This Compares to `@nuxt/icon`
 
-```xml [user-badge.svg]
-<svg viewBox="0 0 24 24" <!-- other attributes...--> >
-  <path d="..." fill="#000" stroke="#fff" stroke-width="2" />
-</svg>
-```
+Nuxt already has an excellent official icon module, [`@nuxt/icon`](https://github.com/nuxt/icon) — if you want instant access to a huge, ready-made icon set (Iconify, emoji, custom collections) with zero setup, use it.
 
-:::
+`nuxt-compose-icons` solves a different problem: turning **your own** SVG files into **standalone, ownable Vue components** — for a design system or an in-house icon library, where the icons need to exist as real components in your codebase, not just a runtime lookup.
 
-**will generate:**
+|                               | `@nuxt/icon`                                                   | **Nuxt Compose Icons**                                                                                                         |
+| ----------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| **Best for**                  | A large, ready-made icon set                                   | Your own SVGs — a design system or in-house icon library                                                                       |
+| **Usage**                     | `<Icon name="my:user-badge" />` — a string-name lookup         | `<UserBadgeIcon />` — a real, individually importable component                                                                |
+| **Ownership**                 | Icons live inside the module's runtime/collection              | Generated files in _your_ repo — committed and versioned like any other component                                              |
+| **Usable without the module** | No — needs `<Icon>` and the collection registered              | Yes — a generated file is a plain `.vue`/`.ts` component; a UI library can ship it without depending on this module at runtime |
+| **Theming**                   | Per-usage `customize()` callback, or CSS overrides on `<Icon>` | `fill`/`stroke`/`stroke-width` become CSS variables on the SVG itself — cascades naturally through design tokens               |
+| **Naming**                    | Iconify name rules (kebab-case only)                           | Derived from your filename — accepts whatever your design tool exports                                                         |
 
-:::code-group
+### When to reach for `@nuxt/icon` instead
 
-```vue [UserBadgeIcon.vue]
-<template>
-  <svg viewBox="0 0 24 24">
-    <path
-      d="..."
-      fill="var(--icon-fill, #000)"
-      stroke="var(--icon-stroke, #fff)"
-      stroke-width="var(--icon-stroke-width, 2)"
-    />
-  </svg>
-</template>
-```
+- You want instant access to a large, pre-built icon set without maintaining your own SVGs
+- You don't need the generated icons to exist independently of Nuxt — e.g. consumed by a separate UI library that shouldn't depend on this module
+- Per-icon customization via a JS callback fits your styling approach better than CSS variables
 
-:::
-
-This provides a balance of control, flexibility, and developer experience, tailored for projects using custom icons or building design systems.
+Both modules can coexist in the same project — reach for whichever fits the icon at hand.

@@ -1,6 +1,6 @@
 import { defineVitestProject } from '@nuxt/test-utils/config';
 import { fileURLToPath } from 'node:url';
-import { defineConfig } from 'vitest/config';
+import { configDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
   test: {
@@ -20,6 +20,8 @@ export default defineConfig({
             '**/src/**/*.pipeline.spec.ts',
             '**/test/unit/**/*.{test,spec}.ts',
           ],
+          // To exclude`.claude/worktrees/*`
+          exclude: [...configDefaults.exclude, '**/.claude/**'],
           environment: 'node',
         },
       },

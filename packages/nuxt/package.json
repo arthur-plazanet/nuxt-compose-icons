@@ -1,6 +1,8 @@
 {
   "name": "nuxt-compose-icons",
+  "description": "Nuxt module that generates fully customizable Vue components from raw SVG files at build time, with theming via CSS variables",
   "version": "0.11.1",
+  "author": "Arthur Plazanet <plazanet.art@gmail.com>",
   "private": false,
   "scripts": {
     "dev": "PORT=3007 nuxi dev playground",
@@ -9,6 +11,7 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:publint": "publint",
     "prepack": "nuxt-module-build build",
     "test": "vitest run --coverage",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
@@ -26,7 +29,7 @@
     "@nuxt/module-builder": "1.0.2",
     "@nuxt/schema": "4.2.2",
     "@nuxt/test-utils": "4.0.0",
-    "@types/node": "latest",
+    "@types/node": "26.4.1",
     "@types/svg-parser": "2.0.6",
     "@vitest/coverage-v8": "4.1.2",
     "@vitest/ui": "4.1.2",
@@ -34,10 +37,17 @@
     "eslint": "9.39.4",
     "nuxt": "4.5.1",
     "playwright-core": "1.58.2",
+    "publint": "0.3.24",
     "typescript": "6.0.2",
     "vitest": "4.1.2",
     "vue": "3.5.31",
     "vue-tsc": "3.2.6"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/arthu-pr/nuxt-compose-icons/issues"
   },
   "exports": {
     ".": {
@@ -60,46 +70,30 @@
       "types": "./dist/runtime/composables/use-compose-icon.d.ts",
       "import": "./dist/runtime/composables/use-compose-icon.js"
     },
-    "./components": {
-      "types": "./dist/runtime/components/*.d.ts",
-      "import": "./dist/runtime/components/*.js"
-    },
-    "./registry": {
-      "types": "./dist/runtime/registry/index.d.ts",
-      "import": "./dist/runtime/registry/index.js"
-    },
     "./package.json": "./package.json"
   },
   "files": [
     "dist/**"
   ],
-  "description": "Nuxt module that generates fully customizable Vue components from raw SVG files at build time, with theming via CSS variables",
+  "homepage": "https://nuxt-icons.use-compose.com",
   "keywords": [
+    "compose",
+    "design-system",
+    "icons",
     "nuxt",
     "nuxt-module",
-    "icons",
     "svg",
-    "vue",
-    "design-system",
-    "compose"
+    "vue"
   ],
-  "author": "Arthur Plazanet <plazanet.art@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/arthu-pr/nuxt-compose-icons/issues"
-  },
-  "homepage": "https://nuxt-icons.use-compose.com",
-  "engines": {
-    "node": ">=22.0.0"
-  },
-  "sideEffects": false,
   "main": "./dist/module.mjs",
   "module": "./dist/module.mjs",
   "packageManager": "pnpm@10.33.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/arthu-pr/nuxt-compose-icons"
+    "url": "git+https://github.com/arthu-pr/nuxt-compose-icons.git"
   },
+  "sideEffects": false,
   "type": "module",
   "types": "./dist/module.d.mts"
 }

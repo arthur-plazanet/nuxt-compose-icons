@@ -1,33 +1,49 @@
 <template>
-  <div class="features">
-    <YStack v-for="feature in features" :key="feature.title" class="feature padding-md">
+  <YRow type="switcher" class="features">
+    <div v-for="feature in features" :key="feature.title" class="feature padding-md">
       <h3 class="feature__title">{{ feature.title }}</h3>
       <Separator width="24px" no-margin />
-      <p class="feature__desc">{{ feature.desc }}</p>
-    </YStack>
-  </div>
+      <p v-for="value in feature.desc" :key="value" class="feature__desc">{{ value }}</p>
+    </div>
+  </YRow>
 </template>
 
 <script setup>
-import { YStack } from '@use-compose/ui';
+import { YRow } from '@use-compose/ui';
 import Separator from './Separator.vue';
 
 const features = [
   {
-    title: 'SVG → Vue at build time',
-    desc: 'One component per SVG file, auto-imported and type-safe. No manual registration.',
+    title: 'SVG file to Vue component at build time',
+    desc: [
+      'One component per SVG file, auto-imported and type-safe.',
+      'No manual registration in a Nuxt project.',
+      'Can be versioned independently.',
+    ],
   },
-  {
-    title: 'CSS custom property theming',
-    desc: 'Fill, stroke and stroke-width become CSS variables with the original value as fallback.',
-  },
-  {
-    title: 'Native Nuxt integration',
-    desc: 'Works with Nuxt auto-import. Full Vue DevTools support.',
-  },
+
   {
     title: 'Scales with your design system',
-    desc: 'Folder-based namespacing, configurable naming conventions, monorepo-ready.',
+    desc: [
+      'Your own in-house icon component library, directly usable',
+      'Configurable naming conventions',
+      'Use CSS Custom Properties for theming, with global or scoped CSS.',
+    ],
+  },
+  {
+    title: 'Icons components can exist independently of Nuxt',
+    desc: [
+      'Built folder from Nuxt can be shipped as independent Vue components.',
+      'Monorepo-friendly setup',
+      'A UI Library can consume these components or use them in Storybook.',
+    ],
+  },
+  {
+    title: 'Developer Experience',
+    desc: [
+      'Auto-completion, type-checking for your icon components as any other Vue component.',
+      'Full Vue DevTools support, Icon component can be inspected individually',
+    ],
   },
 ];
 </script>
@@ -35,22 +51,40 @@ const features = [
 <style scoped>
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(var(--feature-min-width, 220px), 1fr));
   gap: var(--gutter);
+
+  @media screen and (min-width: 764px) {
+    --feature-min-width: 300px;
+  }
+
+  @media screen and (min-width: 1240px) {
+    --feature-min-width: 220px;
+  }
 }
 
 .feature {
+  display: grid;
+  grid-template-rows: 100px auto 1fr;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  --stack-gap: 0.25rem;
+  gap: var(--stack-gap);
+  justify-content: center;
+
+  &:last-child:nth-child(2n + 1) {
+    grid-column-end: span 2;
+  }
+
+  &:nth-last-child(2):nth-child(3n + 1) {
+    grid-column-start: 1;
+  }
 }
 
 .feature__title {
-  font-size: 0.95rem;
-  font-weight: 600;
+  /* font-size: 0.95rem; */
+  font-weight: 700;
   margin: 0;
   color: var(--vp-c-text-1);
   text-transform: none;

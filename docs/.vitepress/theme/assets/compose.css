@@ -63,17 +63,10 @@
   --font-scale-7: clamp(1.802rem, 1.1347rem + 2.9658vw, 3.4332rem);
   /* Step 6: 32.4366px → 68.6646px */
   --font-scale-8: clamp(2.0273rem, 1.101rem + 4.1168vw, 4.2915rem);
+
+  --border-radius-base: 0.5rem;
 }
 
 .highlighted {
   display: inline-block;
-}
-/* TODO: Remove when fixed in @use-compose/ui */
-.wrapper {
-  width: 100%;
-  max-width: clamp(16rem, var(--wrapper-max-width, 80rem), 95vw);
-  padding-left: var(--layout-space-unit);
-  padding-right: var(--layout-space-unit);
-  margin-left: auto;
-  margin-right: auto;
 }

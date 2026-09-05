@@ -1,6 +1,6 @@
 <template>
   <!-- <YParallax class="icons-overview parallax"> -->
-  <YParallax class="icons-overview">
+  <YParallax class="icons-overview" height="auto">
     <template #back>
       <ClientOnly>
         <Component
@@ -197,6 +197,12 @@ function generateRandomStyles(index) {
 .icons-overview {
   z-index: 0;
   inset: 0;
+  height: auto;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 
   & > .parallax-back {
     opacity: 0.3;

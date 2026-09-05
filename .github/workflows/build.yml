@@ -30,6 +30,9 @@ jobs:
       - name: Build the module (prepack)
         run: pnpm --filter nuxt-compose-icons prepack
 
+      - name: Check published exports (publint)
+        run: pnpm lint:publint
+
       - name: Prepare playground
         run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
 

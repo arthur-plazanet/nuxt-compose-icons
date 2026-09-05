@@ -1,5 +1,5 @@
 import type { ComposeIconSize } from '../runtime/types/icon-sizes';
-import { iconSizeDefault } from '../runtime/utils/icon-sizing';
+import { resolveFinalSizes } from '../runtime/utils/icon-sizing';
 import { formatCssClass, formatCssRootVars, generateComment } from './template';
 
 /**
@@ -23,7 +23,7 @@ export function generateCssFile({
   iconSizes?: ComposeIconSize;
   iconClasses?: string[];
 }): string {
-  const sizes = { ...iconSizeDefault, ...iconSizes } as Record<string, string>;
+  const sizes = resolveFinalSizes(iconSizes);
 
   const rootVars = formatCssRootVars(
     Object.fromEntries(Object.keys(sizes).map((key) => [`size-${key}`, sizes[key]])),
