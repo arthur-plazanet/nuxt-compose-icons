@@ -485,7 +485,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     // on the exact same merged map. Set unconditionally (not gated on includeComposables):
     // every generated component's useComposeIcon call depends on this via the provide-sizes
     // plugin, regardless of whether the composables are also auto-imported.
-    nuxt.options.runtimeConfig.public.composeIcons = { sizes: finalSizes };
+    nuxt.options.runtimeConfig.public.composeIcons = { iconSizes: finalSizes };
     addPlugin({ src: resolve('runtime/plugins/provide-sizes') });
 
     if (options.includeComposables) {

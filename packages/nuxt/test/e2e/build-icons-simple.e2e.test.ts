@@ -24,4 +24,9 @@ describe('simple config', async () => {
     const html = await $fetch('/');
     expect(html).toContain('subpaths:function,function');
   });
+
+  it('injects the configured icon sizes into useComposeIconTheme', async () => {
+    const html = await $fetch('/');
+    expect(html).toContain('sizeKeys:lg,md,sm,xl');
+  });
 });

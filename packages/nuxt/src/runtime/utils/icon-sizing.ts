@@ -36,14 +36,14 @@ export function resolveFinalSizes(iconSizes?: ComposeIconSize): Record<string, s
  * Resolves which configured size key is used when no `size` prop is passed.
  *
  * 'md' is the documented default (docs/utilities/use-compose-icon.md) and is kept whenever
- * the caller's sizes actually define it. `Object.keys(sizes)[0]` is not a safe substitute on
- * its own — for `iconSizeDefault` it resolves to `'sm'` (its literal declaration order), not
- * the documented default — so it's only used as a fallback when 'md' isn't a configured key.
- * Shared between build-time codegen (module.ts) and the runtime fallback (useComposeIcon) so
- * both agree on the same default instead of drifting.
+ * the caller's iconSizes actually define it. `Object.keys(iconSizes)[0]` is not a safe
+ * substitute on its own — for `iconSizeDefault` it resolves to `'sm'` (its literal declaration
+ * order), not the documented default — so it's only used as a fallback when 'md' isn't a
+ * configured key. Shared between build-time codegen (module.ts) and the runtime fallback
+ * (useComposeIcon) so both agree on the same default instead of drifting.
  */
-export function resolveDefaultSizeKey(sizes: Record<string, string>): string {
-  return 'md' in sizes ? 'md' : (Object.keys(sizes)[0] ?? 'md');
+export function resolveDefaultSizeKey(iconSizes: Record<string, string>): string {
+  return 'md' in iconSizes ? 'md' : (Object.keys(iconSizes)[0] ?? 'md');
 }
 
 /**

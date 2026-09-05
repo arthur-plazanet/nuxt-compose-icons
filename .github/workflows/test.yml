@@ -33,7 +33,7 @@ jobs:
         run: pnpm --filter ./packages/nuxt/playground exec nuxi prepare
 
       - name: Run unit tests
-        run: pnpm exec vitest run --project unit --project nuxt --coverage
+        run: pnpm exec vitest run --project unit --coverage
 
       - name: Upload HTML report
         if: ${{ !cancelled() && inputs.node_version == 24 }}

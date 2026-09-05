@@ -12,18 +12,18 @@ import { SIZES_INJECTION_KEY } from '../utils/sizes-injection-key';
  * module never ran — inject() falls back to {} instead of crashing.
  *
  * @example
- * const { sizes, sizeVar, currentSizeVar } = useComposeIconTheme()
+ * const { iconSizes, sizeVar, currentSizeVar } = useComposeIconTheme()
  *
- * Object.keys(sizes)  // ['sm', 'md', 'lg', 'hero'] — from your config
- * sizeVar('lg')       // 'var(--size-lg)' — align any element to a named size
- * currentSizeVar      // 'var(--icon-size)' — whatever the nearest icon has in the cascade
+ * Object.keys(iconSizes)  // ['sm', 'md', 'lg', 'hero'] — from your config
+ * sizeVar('lg')           // 'var(--size-lg)' — align any element to a named size
+ * currentSizeVar          // 'var(--icon-size)' — whatever the nearest icon has in the cascade
  */
 export function useComposeIconTheme() {
-  const sizes = inject(SIZES_INJECTION_KEY, {} as Record<string, string>);
+  const iconSizes = inject(SIZES_INJECTION_KEY, {} as Record<string, string>);
 
   return {
     /** All configured size keys and their resolved values */
-    sizes,
+    iconSizes,
     /** Returns the CSS var reference for a given size key */
     sizeVar: (size: string) => `var(--size-${size})`,
     /** CSS var for the size currently applied to the nearest icon in the cascade */

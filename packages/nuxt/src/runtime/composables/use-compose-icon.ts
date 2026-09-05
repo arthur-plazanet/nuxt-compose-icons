@@ -24,13 +24,13 @@ interface UseComposeIcon {
  * @returns {UseComposeIcon} The composed icon styles, classes, and attributes.
  */
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
-  // 1) Size — see resolveDefaultSizeKey for why this isn't just Object.keys(sizes)[0].
+  // 1) Size — see resolveDefaultSizeKey for why this isn't just Object.keys(iconSizes)[0].
   // useComposeIconTheme now uses plain Vue provide/inject (not useRuntimeConfig), so this is
   // safe to call unconditionally: it degrades to {} outside Nuxt instead of failing to
   // resolve. Every generated component already has a real default baked into its `size`
   // prop by codegen, so this fallback mainly matters for calling useComposeIcon by hand.
-  const { sizes } = useComposeIconTheme();
-  const defaultSize = resolveDefaultSizeKey(sizes);
+  const { iconSizes } = useComposeIconTheme();
+  const defaultSize = resolveDefaultSizeKey(iconSizes);
   const size = computed<string>(() => props.size ?? defaultSize);
 
   const iconSizeClass = computed(() => getIconSizeClass(size.value));
