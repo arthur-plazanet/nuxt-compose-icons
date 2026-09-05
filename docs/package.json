@@ -4,11 +4,6 @@
   "version": "1.0.0",
   "author": "Arthur Plazanet <plazanet.art@gmail.com>",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arthu-pr/nuxt-compose-icons",
-    "directory": "docs"
-  },
   "scripts": {
     "docs:build": "vitepress build",
     "docs:dev": "vitepress dev",
@@ -33,5 +28,10 @@
   ],
   "keywords": [],
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arthu-pr/nuxt-compose-icons",
+    "directory": "docs"
+  },
   "type": "module"
 }
