@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.11.2
+
+### Patch Changes
+
+- 59ce343: Fix: useComposeIconTheme()'s configured icon sizes were never actually injected — a Symbol-keyed value returned from a Nuxt plugin's provide never reaches Vue's real provide/inject chain, so iconSizes (renamed from sizes) was always {} regardless of your iconSizes config.
+
 ## 0.11.1
 
 ### Patch Changes
