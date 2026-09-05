@@ -94,7 +94,7 @@ import GettingStarted from '~/components/GettingStarted.vue';
 import * as IconComponents from '~/components/icons';
 
 const icons = Object.entries(IconComponents).map(([name, component]) => ({ name, component }));
-const { sizes: iconSizes } = useComposeIconTheme();
+const { iconSizes } = useComposeIconTheme();
 const sizes = Object.keys(iconSizes);
 
 const sizeIndex = ref(sizes.includes('lg') ? sizes.indexOf('lg') : 0);

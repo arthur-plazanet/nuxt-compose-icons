@@ -85,9 +85,14 @@ Existing icon solutions often force trade-offs between DX, accessibility, and fl
 2. **Manual Vue components** → repetitive and hard to scale
 3. **SVG loaders** → flexible but lack structure and typing
 
+#### See [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches).
+
 Nuxt also has an excellent official icon module, [`@nuxt/icon`](https://github.com/nuxt/icon) — for a huge, ready-made icon set with zero setup, use it. This module solves a different problem: turning **your own** SVG files into **standalone, ownable Vue components**, for a design system or an in-house icon library, without the trade-offs above.
 
-→ Full writeup: [Motivation](https://nuxt-icons.use-compose.com/guide/motivation) · [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches) · [How this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features#how-this-compares-to-nuxt-icon)
+Full writeup:
+
+- [Motivation](https://nuxt-icons.use-compose.com/guide/motivation)
+- [How this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features#how-this-compares-to-nuxt-icon)
 
 ---
 
@@ -122,7 +127,7 @@ Nuxt also has an excellent official icon module, [`@nuxt/icon`](https://github.c
 <UserBadgeIcon stroke="blue" fill="red" size="lg" />
 ```
 
-→ Full feature list with examples, and [how this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features)
+→ Full feature list with examples: [here](https://nuxt-icons.use-compose.com/guide/features)
 
 ---
 
@@ -152,7 +157,7 @@ Full documentation and advanced configuration:
 
 ## ▶️ Try it
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/arthu-pr/nuxt-compose-icons/tree/main/examples/runtime-showcase)
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/fork/github/arthu-pr/nuxt-compose-icons/tree/main/ examples/runtime-showcase)
 
 ---
 
