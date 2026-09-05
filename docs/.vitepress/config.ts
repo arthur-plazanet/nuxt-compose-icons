@@ -12,17 +12,15 @@ const sidebar = {
         { text: 'Features', link: '/guide/features' },
         { text: 'Installation', link: '/guide/installation' },
         { text: 'Configuration', link: '/guide/configuration' },
+        { text: 'Monorepo', link: '/guide/monorepo' },
       ],
     },
     {
       text: 'Utilities',
       items: [
         { text: 'useComposeIcon', link: '/utilities/use-compose-icon' },
-        { text: 'useComposeIconsRegistry', link: '/utilities/use-compose-icons-registry' },
-
-        { text: 'ComposeIconOverview', link: '/utilities/compose-icon-overview' },
         { text: 'Interactivity', link: '/utilities/interactivity' },
-        { text: 'Icon Size', link: '/utilities/theming' },
+        { text: 'Theming', link: '/utilities/theming' },
       ],
     },
     {
@@ -113,6 +111,7 @@ export default defineConfig({
         output: {
           globals: {
             vue: 'Vue',
+            markdown: 'Markdown',
           },
         },
         // external: ['@use-compose/ui', '@use-compose/ui/style.css'],

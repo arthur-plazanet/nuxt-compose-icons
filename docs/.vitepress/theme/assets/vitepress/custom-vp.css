@@ -1,3 +1,6 @@
+:root {
+  --icon-size: 1rem;
+}
 /* https://vitepress-sidebar.cdget.com/advanced-usage/multi-level-sidebar-with-indents */
 .group:has([role='button']) .VPSidebarItem.level-1 .items {
   padding-left: 16px !important;
@@ -102,10 +105,6 @@ h4.heading-h4 {
   fill: currentColor;
 }
 
-.vp-doc {
-  --icon-size: 1rem;
-}
-
 .vp-doc h2 {
   --icon-size: 1.5rem;
 }
@@ -128,9 +127,9 @@ h4.heading-h4 {
   z-index: -1;
 }
 
-.vp-doc p {
+/* .vp-doc p {
   color: var(--vp-c-text-2);
-}
+} */
 
 .vp-doc a[href*='stackoverflow'],
 .vp-doc a[href*='css-tricks'] {
@@ -170,10 +169,10 @@ h4.heading-h4 {
   margin: 1rem 0;
 }
 
-.vp-doc div[class*='language-'],
+/* .vp-doc div[class*='language-'],
 .vp-block {
   background-color: var(--vp-c-gray-3);
-}
+} */
 
 .reference {
   font-size: 0.875rem;

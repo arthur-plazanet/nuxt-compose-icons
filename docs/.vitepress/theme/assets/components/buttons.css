@@ -1,4 +1,4 @@
-.button-group {
+/* .button-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -33,4 +33,4 @@
 .button--secondary:hover {
   background-color: var(--vp-c-bg-mute);
   color: var(--vp-c-text-1);
-}
+} */

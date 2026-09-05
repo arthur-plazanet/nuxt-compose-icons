@@ -16,12 +16,15 @@ body {
 .home-bg {
   /* display: flex;
   flex-direction: column; */
-  min-height: 100vh;
   overflow: hidden;
   z-index: 0;
   position: relative;
   --main-bg: linear-gradient(6deg, #070101 25%, #2f0a0b 55%, #070101 var(--bg-opacity, 75%));
   background: var(--main-bg);
+  min-height: calc(100dvh - var(--vp-nav-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition:
     opacity 800ms,
     transform 0.8s ease;
@@ -132,11 +135,11 @@ body {
   transform: translateZ(-1px) scale(2.5);
 }
 
-.icon {
+/* .icon {
   position: absolute;
   top: 0;
   left: 0;
   pointer-events: none;
   transform: translate(var(--left, var(--_left)), var(--top, var(--_top)))
     scale(var(--scale, var(--_scale)));
-}
+} */

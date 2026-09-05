@@ -5,11 +5,11 @@
 :root {
   --brand: #c1272d;
   --brand-subtle: #2a1315;
-  --border: #2a2a2a;
-  --muted: #777;
+  --border: #1c1b1b;
+  --muted: #7d7d7d;
   --faint: #444;
   --bg: #1c1b1b;
-  --bg-overview: #d0d0d0;
+  --bg-overview: #c4c4c4;
   --spacing-xs: 0.5rem;
   --spacing-sm: 0.75rem;
   --spacing-md: 1rem;

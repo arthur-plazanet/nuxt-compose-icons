@@ -2,7 +2,6 @@
   "name": "nuxt-compose-icons-root",
   "author": "Arthur Plazanet <plazanet.art@gmail.com>",
   "private": true,
-  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "changeset": "changeset",
     "changeset:publish": "changeset publish",
@@ -20,6 +19,7 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "lint:publint": "pnpm --filter nuxt-compose-icons lint:publint",
     "lint:style": "stylelint \"**/*.{scss,css}\"",
     "lint:style:fix": "stylelint --fix \"**/*.{vue,scss,css}\"",
     "prepack": "pnpm --filter nuxt-compose-icons prepack",
@@ -72,12 +72,12 @@
     "vitest": "4.1.2"
   },
   "keywords": [
+    "design-system",
+    "icons",
     "nuxt",
     "nuxt-module",
-    "icons",
     "svg",
-    "vue",
-    "design-system"
+    "vue"
   ],
   "license": "MIT",
   "lint-staged": {
@@ -85,5 +85,6 @@
       "eslint --fix"
     ],
     "**/*": "prettier --write --ignore-unknown"
-  }
+  },
+  "packageManager": "pnpm@10.33.0"
 }

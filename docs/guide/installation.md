@@ -9,21 +9,21 @@ order: 2
 
 Choose your package manager:
 
-```bash
+:::code-group
+
+```bash [pnpm]
 pnpm add -D nuxt-compose-icons
 ```
 
-```bash
+```bash [npm]
 npm install -D nuxt-compose-icons
 ```
 
-```bash
+```bash [yarn]
 yarn add -D nuxt-compose-icons
 ```
 
-> This module runs at build time and is typically added as a dev dependency.
-
----
+:::
 
 ## 2. Register the module
 

@@ -70,25 +70,30 @@
 
     <main class="overview">
       <!-- Rendered on the server too: icons are real components, so they appear
-           before hydration and the e2e test can assert on the SSR markup. -->
-      <ComposeIconOverview
-        :size="size"
-        :fill="fill"
-        :stroke="stroke"
-        :stroke-width="strokeWidth"
-        has-icon-name
-      />
+           before hydration and the e2e test can assert on the SSR markup. This grid is
+           built entirely from the index.ts barrel (component.hasIndexFile: true) —
+           no registry, no built-in overview component. -->
+      <div v-for="icon in icons" :key="icon.name" class="overview__cell">
+        <component
+          :is="icon.component"
+          :size="size"
+          :fill="fill"
+          :stroke="stroke"
+          :stroke-width="strokeWidth"
+        />
+        <span class="overview__name">{{ icon.name }}</span>
+      </div>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useComposeIconTheme } from 'nuxt-compose-icons/composables';
-import { useComposeIconRegistry } from 'nuxt-compose-icons/registry';
 import { computed, ref } from 'vue';
 import GettingStarted from '~/components/GettingStarted.vue';
+import * as IconComponents from '~/components/icons';
 
-const { icons } = useComposeIconRegistry();
+const icons = Object.entries(IconComponents).map(([name, component]) => ({ name, component }));
 const { sizes: iconSizes } = useComposeIconTheme();
 const sizes = Object.keys(iconSizes);
 
@@ -210,8 +215,26 @@ const strokeWidth = computed(() => (strokeWidthEnabled.value ? strokeWidthValue.
 .overview {
   flex: 1;
   min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: var(--spacing-md);
   padding: var(--spacing-lg) var(--spacing-xl);
   background-color: var(--bg-overview);
+  align-content: start;
+}
+
+.overview__cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.overview__name {
+  font-size: 0.65rem;
+  color: var(--faint);
+  text-align: center;
+  word-break: break-word;
 }
 
 @media (width <= 640px) {

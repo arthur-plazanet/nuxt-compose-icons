@@ -2,13 +2,9 @@ export {
   formatCssClass,
   formatCssRootVars,
   generateComment,
-  generateCommentBlock,
   generateCommentLine,
   generateESMExport,
   generateESMImport,
-  generateHeader,
-  generateSeparator,
-  generateSubheader,
   indentString,
   multiLineString,
 };
@@ -19,74 +15,9 @@ function capitalizeFirstLetter(string: string): string {
 
 const startComment = '/* ';
 const endComment = ' */';
-const headerLength = 60;
-const subheaderLength = 20;
-const separatorChar = '-';
-const headerSeparator = ' ';
-
-function generateSeparator(length: number): string {
-  return `${startComment}${separatorChar.repeat(length)}${endComment}`;
-}
 
 function generateCommentLine(content: string): string {
   return `\n${startComment}${content}${endComment}\n`;
-}
-
-/**
- * Will generate a comment block like this:
-/* ------------------------------------------------------------ *\/
-/*                            Title                             *\/
-/* ------------------------------------------------------------ *\/
- *
- */
-function generateCommentBlock(
-  title: string,
-  totalLength: number,
-  separatorChar: string,
-  indent = '',
-): string {
-  const titleTotalLength = totalLength - title.length;
-  const halfLength = Math.floor(titleTotalLength / 2);
-  let titleSeparator = headerSeparator.repeat(halfLength);
-
-  if (totalLength % 2 !== 0) {
-    titleSeparator += separatorChar;
-  }
-
-  return (
-    `\n${indent}${generateSeparator(totalLength)}` +
-    `\n${indent}${startComment}${titleSeparator}${title}${titleSeparator}${endComment}` +
-    `\n${indent}${generateSeparator(totalLength)}\n`
-  );
-}
-
-/**
- * Generates a header comment block for a given header string.
- * /* ------------------------------------------------------------ *\/
- * /*                            Header                            *\/
- * /* ------------------------------------------------------------ *\/
- */
-function generateHeader(header: string): string {
-  if (!header) return '';
-
-  return generateCommentBlock(capitalizeFirstLetter(header), headerLength, separatorChar, '');
-}
-
-/**
- * Generates a subheader comment block for a given subheader string.
- * /* ---------------------- \/*
- * /*       Subheader        *\/
- * /* ---------------------- *\/
- */
-function generateSubheader(subheader: string): string {
-  if (!subheader) return '';
-
-  return generateCommentBlock(
-    capitalizeFirstLetter(subheader),
-    subheaderLength,
-    separatorChar,
-    '  ',
-  );
 }
 
 /**

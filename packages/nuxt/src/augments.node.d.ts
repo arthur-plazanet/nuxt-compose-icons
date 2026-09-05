@@ -8,10 +8,6 @@ declare module '@nuxt/schema' {
   interface NuxtOptions {
     composeIcons?: NuxtComposeIconsOptions;
   }
-
-  interface PublicRuntimeConfig {
-    composeIcons?: {
-      sizes: Record<string, string>;
-    };
-  }
 }
+
+export {};

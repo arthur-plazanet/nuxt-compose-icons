@@ -14,30 +14,27 @@ All options are passed under the `composeIcons` key in your `nuxt.config.ts`.
 export default defineNuxtConfig({
   modules: ['nuxt-compose-icons'],
   composeIcons: {
-    pathToIcons: './assets/icons',
+    pathToIcons: './assets/icons', // path to your SVG icons directory
   },
 });
 ```
 
 That's it. Every `.svg` in `./assets/icons` becomes a typed, auto-imported Vue component — `arrow-up.svg` → `<ArrowUpIcon />`.
 
----
-
 ## Options
 
-| Option                   | Type                     | Default               | Description                                                |
-| ------------------------ | ------------------------ | --------------------- | ---------------------------------------------------------- |
-| `pathToIcons`            | `string`                 | —                     | **Required.** Path to your `.svg` directory.               |
-| `component.suffix`       | `string`                 | `'Icon'`              | Appended to the component name.                            |
-| `component.prefix`       | `string`                 | `undefined`           | Prepended to the component name.                           |
-| `component.case`         | `'pascal' \| 'kebab'`    | `'pascal'`            | Naming convention for generated components.                |
-| `component.destDir`      | `string`                 | `.nuxt/compose-icons` | Where generated components are written.                    |
-| `component.fileFormat`   | `'ts' \| 'vue'`          | `'ts'`                | Output format. `.ts` recommended.                          |
-| `component.hasIndexFile` | `boolean`                | `false`               | Write an `index.ts` barrel file in `destDir`.              |
-| `component.iconClasses`  | `string \| string[]`     | `[]`                  | Extra CSS classes on every icon.                           |
-| `iconSizes`              | `Record<string, string>` | `{ sm, md, lg, xl }`  | CSS size variables and classes.                            |
-| `includeOverview`        | `boolean`                | `false`               | Registers `<ComposeIconOverview />` and its icon registry. |
-| `includeComposables`     | `boolean`                | `true`                | Auto-imports `useComposeIcon` and `useComposeIconTheme`.   |
+| Option                   | Type                     | Default               | Description                                                                             |
+| ------------------------ | ------------------------ | --------------------- | --------------------------------------------------------------------------------------- |
+| `pathToIcons`            | `string`                 | —                     | **Required.** Path to your `.svg` directory.                                            |
+| `component.suffix`       | `string`                 | `'Icon'`              | Appended to the component name.                                                         |
+| `component.prefix`       | `string`                 | `undefined`           | Prepended to the component name.                                                        |
+| `component.case`         | `'pascal' \| 'kebab'`    | `'pascal'`            | Naming convention for generated components.                                             |
+| `component.destDir`      | `string`                 | `.nuxt/compose-icons` | Where generated components are written. Default in the `.nuxt` folder (non-persistent). |
+| `component.fileFormat`   | `'ts' \| 'vue'`          | `'ts'`                | Output format. `.ts` recommended.                                                       |
+| `component.hasIndexFile` | `boolean`                | `false`               | Write an `index.ts` barrel file in `destDir`.                                           |
+| `component.iconClasses`  | `string \| string[]`     | `[]`                  | Extra CSS classes on every icon.                                                        |
+| `iconSizes`              | `Record<string, string>` | `{ sm, md, lg, xl }`  | CSS size variables and classes.                                                         |
+| `includeComposables`     | `boolean`                | `true`                | Auto-imports `useComposeIcon` and `useComposeIconTheme`.                                |
 
 ---
 
@@ -74,6 +71,7 @@ Groups all options related to how components are generated and where they are wr
 - **Type:** `string`
 - **Default:** `.nuxt/compose-icons`
 - Where generated components are written. Set to a path inside your app directory to commit them to your codebase.
+- A `compose-icons.css` file is also written to this directory, combining the base theming rules with your project's actual `iconSizes` — everything a generated component needs to render and theme correctly. This is what makes the components portable: commit both the `.vue`/`.ts` files and this CSS file, and a downstream consumer (e.g. a UI library shipping these icons to other apps) gets full theming by importing that one CSS file — no `nuxt-compose-icons` dependency required on their side.
 
 #### `component.fileFormat`
 
@@ -85,7 +83,7 @@ Groups all options related to how components are generated and where they are wr
 
 - **Type:** `boolean`
 - **Default:** `false`
-- Write an `index.ts` barrel file in `destDir` that re-exports all generated components.
+- Write an `index.ts` barrel file in `destDir` that re-exports all generated components — combined with `component.destDir` and the `compose-icons.css` file described above, this gives a downstream consumer a single import for the whole icon set plus its theming.
 
 #### `component.iconClasses`
 
@@ -105,13 +103,6 @@ Groups all options related to how components are generated and where they are wr
 Your sizes are merged on top of these defaults, so keys you don't define stay available.
 
 Generates `--size-*` CSS variables and matching size classes. A CSS file is automatically injected into the build.
-
-### `includeOverview`
-
-- **Type:** `boolean`
-- **Default:** `false`
-- Registers the built-in [`<ComposeIconOverview />`](/utilities/compose-icon-overview) component — a searchable grid of all your icons. Useful in development.
-- Also generates the icon registry (`#compose-icons/registry`) the component searches over, and auto-imports [`useComposeIconRegistry`](/utilities/use-compose-icons-registry) (if `includeComposables` is also on) so you can build your own icon-browsing UI on the same data. Nothing else reads the registry, so it's skipped entirely when this is off.
 
 ### `includeComposables`
 

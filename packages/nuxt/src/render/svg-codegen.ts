@@ -10,10 +10,9 @@ function generateImports() {
   const imports = [];
 
   const vueImports = generateESMImport({ moduleName: ['defineComponent', 'h'], path: 'vue' });
-  // Import the submodule directly, not the `nuxt-compose-icons/composables` barrel — the
-  // barrel also re-exports useComposeIconRegistry, which statically imports
-  // #compose-icons/registry. Every generated component pulls this in, so going through the
-  // barrel breaks the build whenever includeOverview is off and that alias is never set.
+  // Import the submodule directly rather than the `nuxt-compose-icons/composables` barrel —
+  // keeps every generated component's import graph minimal instead of pulling in the whole
+  // composables surface just to use one of them.
   const composablesImports = generateESMImport({
     moduleName: 'useComposeIcon',
     path: 'nuxt-compose-icons/composables/use-compose-icon',
@@ -32,15 +31,27 @@ function generateImports() {
   return imports.join('\n');
 }
 
+interface CreateSvgComponentCodeOptions {
+  defaultSize?: string;
+}
+
 /**
  * Creates a Vue component code string from the provided SVG content.
  *
  * @param name - Name of the component to be generated
  * @param svgContent - SVG content as a string
+ * @param {CreateSvgComponentCodeOptions} options - Size key used when the `size` prop isn't passed. Must be one of
+ *   the module's actually configured `iconSizes` keys — a hardcoded `'md'` here would silently
+ *   resolve to a non-existent CSS class/variable for any project that doesn't keep that key.
  * @returns {string} - Literal string containing the Vue component code
  */
-export function createSvgComponentCode(name: string, svgContent: string) {
+export function createSvgComponentCode(
+  name: string,
+  svgContent: string,
+  options?: CreateSvgComponentCodeOptions,
+) {
   const { attributes, children } = parseAndTransformSvg(svgContent);
+  const defaultSize = options?.defaultSize ?? 'md';
 
   return `${generateImports()}
 
@@ -53,7 +64,7 @@ export default defineComponent({
     fill: String,
     size: {
       type: String,
-      default: 'md'
+      default: '${defaultSize}'
     }
   },
   setup(props: ComposeIconProps) {
