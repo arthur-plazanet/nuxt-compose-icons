@@ -11,9 +11,9 @@
 
 /* VitePress overrides — unlayered so they win over VitePress default CSS */
 @import './global.css';
+@import './compose.css';
 @import './vitepress/theme.css';
 @import './vitepress/custom-vp.css';
-@import './compose.css';
 @import './base/utilities.css';
 @import './components/buttons.css';
 
