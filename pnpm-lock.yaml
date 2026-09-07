@@ -137,8 +137,8 @@ importers:
         specifier: 4.0.0
         version: 4.0.0(@vitest/ui@4.1.2)(crossws@0.4.12(srvx@0.11.22))(esbuild@0.28.2)(magicast@0.5.4)(playwright-core@1.58.2)(rolldown@1.2.7)(rollup@4.63.1)(typescript@6.0.2)(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))(vitest@4.1.2)
       nuxt-compose-icons:
-        specifier: 0.11.2
-        version: 0.11.2(magicast@0.5.4)
+        specifier: 0.11.3
+        version: 0.11.3(magicast@0.5.4)
       vitest:
         specifier: 4.1.2
         version: 4.1.2(@types/node@26.4.1)(@vitest/ui@4.1.2)(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.0))
@@ -4559,8 +4559,8 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  nuxt-compose-icons@0.11.2:
-    resolution: {integrity: sha512-AgGLl6OebVJGUYfDqiOYW0PtvoIqTqFPV3tJfI8DL5/e+35GEjRZuJk+iojIWG1m8fKU/bUH98b0I3ZRuMb1qQ==}
+  nuxt-compose-icons@0.11.3:
+    resolution: {integrity: sha512-rKQbhfENFrHVavZm0wVcpxcCreziVSmZbdcM2RwAxtVopQAyseaQG85kshczQPA4FwFej1deIiWnHiTRIoQl/w==}
     engines: {node: '>=22.0.0'}
 
   nuxt@4.5.1:
@@ -11987,9 +11987,10 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nuxt-compose-icons@0.11.2(magicast@0.5.4):
+  nuxt-compose-icons@0.11.3(magicast@0.5.4):
     dependencies:
       '@nuxt/kit': 4.2.2(magicast@0.5.4)
+      defu: 6.1.7
       svg-parser: 2.0.4
       svgo: 4.0.2
     transitivePeerDependencies:
