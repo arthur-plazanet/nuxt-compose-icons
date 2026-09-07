@@ -3,9 +3,9 @@ outline: [2, 3]
 order: 2
 ---
 
-# Installation
+# Setup
 
-## 1. Add the module
+## 1. Installation
 
 Choose your package manager:
 

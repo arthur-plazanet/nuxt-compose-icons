@@ -42,6 +42,8 @@
 
   /* Bridge @use-compose/ui primary to VitePress brand color */
   --color-primary: var(--vp-c-brand-1);
+  /* Manually overwrite - mismatch between @use-compose/ui styles and Vitepress automatic global styling */
+  --theme-current-color: var(--color-primary);
 
   /* @link https://utopia.fyi/type/calculator?c=360,16,1.125,1240,18,1.25,6,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
 

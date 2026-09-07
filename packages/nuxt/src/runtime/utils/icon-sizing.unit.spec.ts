@@ -15,6 +15,33 @@ describe('resolveFinalSizes', () => {
       huge: '100px',
     });
   });
+
+  it('orders keys by real (parsed) size, not by merge/insertion order', () => {
+    // xs/huge are appended after the sm/md/lg/xl defaults by the spread merge — without
+    // sorting, Object.keys() would read sm, md, lg, xl, xs, huge: non-monotonic, and exactly
+    // what a size picker iterating this map (e.g. the playground) would render in order.
+    const result = resolveFinalSizes({ xs: '4px', huge: '100px' });
+    expect(Object.keys(result)).toEqual(['xs', 'sm', 'md', 'lg', 'xl', 'huge']);
+  });
+
+  it('mixes px, rem, and em units on a common comparable basis', () => {
+    const result = resolveFinalSizes({ a: '10px', b: '0.5rem', c: '2em', d: '1rem' });
+    // a=10px, b=8px, d=16px, c=32px
+    expect(Object.keys(result).filter((k) => ['a', 'b', 'c', 'd'].includes(k))).toEqual([
+      'b',
+      'a',
+      'd',
+      'c',
+    ]);
+  });
+
+  it('pins unparseable values at their original position, sorting parseable ones around them', () => {
+    // Merge order is sm, md, lg, xl, hero, tiny. 'hero' can't be parsed, so it stays at its
+    // original index (4, between lg and xl); the parseable entries (sm/md/lg/xl/tiny) are
+    // sorted by real size and fill the remaining slots in that order.
+    const result = resolveFinalSizes({ hero: 'var(--spacing-8)', tiny: '2px' });
+    expect(Object.keys(result)).toEqual(['tiny', 'sm', 'md', 'lg', 'hero', 'xl']);
+  });
 });
 
 describe('resolveDefaultSizeKey', () => {

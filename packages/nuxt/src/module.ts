@@ -8,13 +8,14 @@ import {
   useLogger,
 } from '@nuxt/kit';
 import type { Component } from '@nuxt/schema';
+import { defu } from 'defu';
 import * as fs from 'node:fs';
 import { promises as fsp } from 'node:fs';
 import * as path from 'node:path';
 import { generateIconsIndex } from './files-generation/generate-icon-index';
 import { createSvgComponentCode } from './render/svg-codegen';
 import { vueSFCWrapper } from './render/vue-sfc-wrapper';
-import type { ComposeIconSize } from './runtime/types/icon-sizes';
+import type { ComposeIconSize, PublicIconSizes } from './runtime/types/icon-sizes';
 import { assertAbsolute } from './runtime/types/path';
 import { resolveDefaultSizeKey, resolveFinalSizes } from './runtime/utils/icon-sizing';
 import {
@@ -435,7 +436,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     }
 
     // 7. Generate a CSS file with the icon sizes and add it to the Nuxt app's CSS array
-    const baseIconStylesPath = resolve('runtime/assets/compose-icon.css');
+    const baseIconStylesPath = resolve('runtime/assets/compose-icon-base.css');
     nuxt.options.css.push(baseIconStylesPath);
 
     const cssFileContent = generateCssFile({ iconSizes, iconClasses: iconComponentClasses });
@@ -444,6 +445,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     const tpl = addTemplate({
       filename: cssFileName,
       getContents: () => completeIconStyles,
+      write: true,
     });
     nuxt.options.css.push(tpl.dst);
 
@@ -485,7 +487,12 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     // on the exact same merged map. Set unconditionally (not gated on includeComposables):
     // every generated component's useComposeIcon call depends on this via the provide-sizes
     // plugin, regardless of whether the composables are also auto-imported.
-    nuxt.options.runtimeConfig.public.composeIcons = { iconSizes: finalSizes };
+    // Cast: nuxt.options.runtimeConfig.public.composeIcons hits the same '@nuxt/schema' vs
+    // 'nuxt/schema' bridging gap as provide-sizes.ts — see the comment there.
+    nuxt.options.runtimeConfig.public.composeIcons = defu(
+      nuxt.options.runtimeConfig.public.composeIcons as PublicIconSizes | undefined,
+      { iconSizes: finalSizes },
+    );
     addPlugin({ src: resolve('runtime/plugins/provide-sizes') });
 
     if (options.includeComposables) {

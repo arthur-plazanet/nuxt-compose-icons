@@ -1,11 +1,9 @@
-import type { ComposeIconSize } from './types/icon-sizes';
+import type { PublicIconSizes } from './types/icon-sizes';
 
 declare module '@nuxt/schema' {
-  interface RuntimeConfig {
-    public: {
-      composeIcons: {
-        iconSizes: ComposeIconSize;
-      };
-    };
+  interface PublicRuntimeConfig {
+    composeIcons: PublicIconSizes;
   }
 }
+
+export {};
