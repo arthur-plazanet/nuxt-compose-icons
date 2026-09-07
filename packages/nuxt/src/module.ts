@@ -112,7 +112,8 @@ export interface NuxtComposeIconsOptions {
 
   /**
    * Icon sizes used to generate `--size-*` CSS variables and size classes.
-   * Merged on top of the defaults, so unspecified keys remain available.
+   * When provided, **fully replaces** the built-in defaults — this is your whole scale, not a
+   * patch on top of it. Omit entirely to use the defaults below unchanged.
    *
    * defaults: {
    *  sm: '1.5rem',
@@ -123,6 +124,15 @@ export interface NuxtComposeIconsOptions {
    * @type {?ComposeIconSize}
    */
   iconSizes?: ComposeIconSize;
+
+  /**
+   * The size key used when no `size` prop is passed to a generated component or
+   * `useComposeIcon`. Falls back to `'md'` if present, then to the first configured key.
+   * Mainly useful with a custom `iconSizes` scale that has no `md` key.
+   *
+   * @type {?string}
+   */
+  defaultSize?: string;
 
   // -------------------------------------------------------------------------
   // Features
@@ -316,12 +326,16 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
 
     const iconComponentClasses = normalizeIconClasses(options);
 
-    // Computed once and reused both for codegen's `size` prop default and for
-    // useComposeIconTheme's runtimeConfig (step 11) — previously computed independently in
-    // each place, which is how the generated prop's default ended up hardcoded to 'md'
-    // instead of following the user's actual configured `iconSizes`.
+    // Computed once, reused for both codegen's `size` prop default and the runtimeConfig
+    // below (step 11) — computing it independently in each place is how the prop default
+    // once ended up hardcoded to 'md' instead of following the actual configured sizes.
     const finalSizes = resolveFinalSizes(iconSizes);
-    const defaultSizeKey = resolveDefaultSizeKey(finalSizes);
+    if (options.defaultSize && !(options.defaultSize in finalSizes)) {
+      logger.warn(
+        `defaultSize "${options.defaultSize}" is not a configured size key — falling back to 'md' or the first configured size.`,
+      );
+    }
+    const defaultSizeKey = resolveDefaultSizeKey(finalSizes, options.defaultSize);
 
     const resolvedCacheDir = options.cacheDir
       ? resolveApp(options.cacheDir)
@@ -357,7 +371,7 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
      * 10. Add composables (useComposeIcon, useComposeIconTheme)
      *
      * We use a literal string template to create the Vue component.
-     * See https://nuxt-icons.use-compose.com/guide/concept
+     * See https://nuxt-compose-icons.dev/guide/concept
      *
      * Files are processed in parallel (Promise.all) to overlap I/O.
      * SVGO (step 2) is skipped for any SVG whose content hash matches the persistent cache.
@@ -482,16 +496,12 @@ export default defineNuxtModule<NuxtComposeIconsOptions>({
     );
 
     // 10. Add composables
-    // finalSizes computed once above, alongside defaultSizeKey — the CSS emits a size class
-    // per key, and the generated `size` prop defaults to the first key, so both must agree
-    // on the exact same merged map. Set unconditionally (not gated on includeComposables):
-    // every generated component's useComposeIcon call depends on this via the provide-sizes
-    // plugin, regardless of whether the composables are also auto-imported.
-    // Cast: nuxt.options.runtimeConfig.public.composeIcons hits the same '@nuxt/schema' vs
-    // 'nuxt/schema' bridging gap as provide-sizes.ts — see the comment there.
+    // Set unconditionally (not gated on includeComposables): every generated component's
+    // useComposeIcon call depends on this via the provide-sizes plugin either way.
+    // Cast: same '@nuxt/schema' vs 'nuxt/schema' bridging gap as provide-sizes.ts.
     nuxt.options.runtimeConfig.public.composeIcons = defu(
       nuxt.options.runtimeConfig.public.composeIcons as PublicIconSizes | undefined,
-      { iconSizes: finalSizes },
+      { iconSizes: finalSizes, defaultSize: options.defaultSize },
     );
     addPlugin({ src: resolve('runtime/plugins/provide-sizes') });
 

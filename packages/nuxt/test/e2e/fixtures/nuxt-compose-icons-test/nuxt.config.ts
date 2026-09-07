@@ -14,6 +14,7 @@ const iconSizes: ComposeIconSize = {
 const composeIconsOptions: NuxtComposeIconsOptions = {
   pathToIcons: fileURLToPath(new URL('./assets/icons', import.meta.url)),
   iconSizes,
+  defaultSize: 'lg',
   component: {
     prefix: 'build',
     suffix: 'icon',

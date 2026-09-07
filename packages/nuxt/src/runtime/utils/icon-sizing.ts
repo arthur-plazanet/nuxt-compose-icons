@@ -22,11 +22,9 @@ const iconSizeDefault: DefaultSizes = {
 };
 
 /**
- * Parses a CSS length into a comparable px-equivalent number. `rem`/`em` assume the common
- * 16px root, which is only ever used for *relative ordering* between sizes, never rendered —
- * an actual different root font size doesn't change which size is visually bigger. Values that
- * aren't a plain length (`var(--x)`, `clamp(...)`, tokens, etc.) can't be compared this way and
- * return null, so they keep their original relative order instead of being sorted arbitrarily.
+ * Parses a CSS length to a comparable px-equivalent, for sorting only — rem/em assume a 16px
+ * root but that value is never rendered, only compared. Returns null for anything that isn't a
+ * plain length (`var(...)`, `clamp(...)`, tokens), so those are left unsorted.
  */
 function parseSizeForSort(value: string): number | null {
   const match = /^(-?[\d.]+)(px|rem|em|%)?$/.exec(value.trim());
@@ -43,28 +41,22 @@ function parseSizeForSort(value: string): number | null {
 }
 
 /**
- * Merges a project's configured sizes on top of the defaults — the one merge every icon
- * consumer must agree on (codegen's `size` prop default, the generated CSS, and the runtime
- * fallback all key off the exact same resulting map). Previously duplicated independently in
- * module.ts and generate-css-file.ts, which is exactly the kind of drift resolveDefaultSizeKey
- * was written to prevent for the default key specifically.
+ * Resolves the project's final size scale, shared by codegen's `size` prop default, the
+ * generated CSS, and the runtime fallback so all three agree on the same map.
  *
- * Also reorders the merge by real (parsed) size, ascending, rather than leaving it in
- * default-keys-then-custom-keys insertion order — a size picker iterating `Object.keys()`
- * (e.g. the playground) would otherwise jump around non-monotonically once custom keys like
- * `xs`/`huge` are appended after the defaults. Unparseable values (CSS vars, `clamp()`, design
- * tokens) keep their relative position instead of being sorted, since their real size isn't
- * knowable at build time.
+ * `iconSizes`, when given, fully replaces the defaults rather than merging with them — it's
+ * your whole scale, not a patch. Only omitting it entirely applies the built-in sm/md/lg/xl.
+ *
+ * Result is ordered by real (parsed) size, ascending, rather than declaration order — a size
+ * picker iterating `Object.keys()` would otherwise render non-monotonically. Unparseable values
+ * (CSS vars, `clamp()`, tokens) keep their original relative position instead.
  */
 export function resolveFinalSizes(iconSizes?: ComposeIconSize): Record<string, string> {
-  const merged = { ...iconSizeDefault, ...iconSizes } as Record<string, string>;
-  const entries = Object.entries(merged);
+  const sizes = (iconSizes ?? iconSizeDefault) as Record<string, string>;
+  const entries = Object.entries(sizes);
 
-  // Sort only the parseable entries against each other, then fill back into the original
-  // sequence one at a time wherever a parseable entry used to be — a plain `.sort()` over the
-  // whole list can't do this correctly, since mixing "keep original position" (for unparseable
-  // entries) and "compare by value" (for parseable ones) in one comparator isn't a transitive
-  // order, which real sort algorithms silently produce wrong results for.
+  // Sort just the parseable entries, then refill them into their original slots — one
+  // comparator can't mix "keep position" and "compare by value" into a valid order.
   const parseableSorted = entries
     .filter(([, value]) => parseSizeForSort(value) !== null)
     .sort((a, b) => parseSizeForSort(a[1])! - parseSizeForSort(b[1])!);
@@ -76,16 +68,17 @@ export function resolveFinalSizes(iconSizes?: ComposeIconSize): Record<string, s
 }
 
 /**
- * Resolves which configured size key is used when no `size` prop is passed.
- *
- * 'md' is the documented default (docs/utilities/use-compose-icon.md) and is kept whenever
- * the caller's iconSizes actually define it. `Object.keys(iconSizes)[0]` is not a safe
- * substitute on its own — for `iconSizeDefault` it resolves to `'sm'` (its literal declaration
- * order), not the documented default — so it's only used as a fallback when 'md' isn't a
- * configured key. Shared between build-time codegen (module.ts) and the runtime fallback
- * (useComposeIcon) so both agree on the same default instead of drifting.
+ * Resolves the default size key: `defaultSize` if it names a real key, else `'md'` if present,
+ * else the first configured key — arbitrary (the smallest once sorted) but never crashes.
+ * Shared by build-time codegen and the runtime fallback so both agree on the same default.
  */
-export function resolveDefaultSizeKey(iconSizes: Record<string, string>): string {
+export function resolveDefaultSizeKey(
+  iconSizes: Record<string, string>,
+  defaultSize?: string,
+): string {
+  if (defaultSize && defaultSize in iconSizes) {
+    return defaultSize;
+  }
   return 'md' in iconSizes ? 'md' : (Object.keys(iconSizes)[0] ?? 'md');
 }
 

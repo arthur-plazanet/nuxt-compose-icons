@@ -6,13 +6,13 @@ import { formatCssClass, formatCssRootVars, generateComment } from './template';
  * Generates a CSS string with icon size classes and :root CSS variables.
  *
  * Produces:
- * - `:root` vars: `--size-xs`, `--size-sm`, etc. (merged with defaults)
+ * - `:root` vars: `--size-xs`, `--size-sm`, etc.
  * - `.compose-icon.size-xs { --icon-size: var(--size-xs) }` etc.
  *
  * If the component `size` prop changes, it updates `--icon-size` via the matching
  * size class, driving width/height entirely through CSS with no extra JavaScript.
  *
- * @param iconSizes - Custom sizes merged on top of the defaults
+ * @param iconSizes - Resolved via resolveFinalSizes (defaults, or your own scale if set)
  * @param iconClasses - CSS classes scoping the size rules (always includes `compose-icon`)
  * @returns Generated CSS content as a string
  */

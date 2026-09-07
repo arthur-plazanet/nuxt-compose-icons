@@ -2,9 +2,7 @@
   <div class="stack getting-started">
     <h2 class="title">
       Getting started —
-      <a href="https://nuxt-icons.use-compose.com/" class="title__link">
-        nuxt-icons.use-compose.com
-      </a>
+      <a href="https://nuxt-compose-icons.dev/" class="title__link"> nuxt-compose-icons.dev </a>
     </h2>
     <div class="switcher">
       <CodeHighlighter v-bind="nuxtConfigConfig" />
