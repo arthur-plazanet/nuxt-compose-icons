@@ -71,6 +71,7 @@ jobs:
           # TODO: add to Wiki https://github.com/github/vscode-github-actions/issues/222
           key: ${{ secrets.SSH_KEY }}
           known_hosts: unnecessary
+          name: id_ed25519
 
       - name: Set up SSH key
         run: |
