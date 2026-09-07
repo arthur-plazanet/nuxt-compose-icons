@@ -108,7 +108,7 @@ Generates `--size-*` CSS variables and matching size classes. A CSS file is auto
 
 - **Type:** `boolean`
 - **Default:** `true`
-- Auto-imports [`useComposeIcon`](/utilities/use-compose-icon) and [`useComposeIconTheme`](/utilities/theming#referencing-size-tokens-with-usecomposeicontheme). Set to `false` if you only use the generated components and don't need these directly.
+- Auto-imports [`useComposeIcon`](/utilities/use-compose-icon) and [`useComposeIconTheme`](/utilities/use-compose-icon#usecomposeicontheme). Set to `false` if you only use the generated components and don't need these directly.
 
 ---
 
@@ -170,6 +170,6 @@ These rarely need to be changed.
 The module injects two CSS files at build time:
 
 - `compose-icon-sizes.css` — generated from given `iconSizes` config, exposes `--icon-size-{key}` variables
-- `compose-icon.css` — base styles shared across all icon components
+- `compose-icon-base.css` — base styles shared across all icon components
 
 Both can be overridden with your own CSS variables or theming layer.

@@ -10,7 +10,7 @@ const sidebar = {
       items: [
         { text: 'Motivation', link: '/guide/motivation' },
         { text: 'Features', link: '/guide/features' },
-        { text: 'Installation', link: '/guide/installation' },
+        { text: 'Setup', link: '/guide/setup' },
         { text: 'Configuration', link: '/guide/configuration' },
         { text: 'Monorepo', link: '/guide/monorepo' },
       ],
@@ -18,7 +18,7 @@ const sidebar = {
     {
       text: 'Utilities',
       items: [
-        { text: 'useComposeIcon', link: '/utilities/use-compose-icon' },
+        { text: 'Composables', link: '/utilities/use-compose-icon' },
         { text: 'Interactivity', link: '/utilities/interactivity' },
         { text: 'Theming', link: '/utilities/theming' },
       ],
@@ -75,7 +75,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Introduction', link: '/guide/motivation' },
-      { text: 'Playground', link: 'https://nuxt-icons-playground.use-compose.com' },
+      { text: 'Showcase', link: 'https://showcase.nuxt-compose-icons.dev' },
     ],
 
     search: {

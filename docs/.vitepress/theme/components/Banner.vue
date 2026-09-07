@@ -54,7 +54,6 @@ import Separator from './Separator.vue';
 
 <style scoped>
 .banner__hero {
-  --theme-current-color: var(--color-primary);
   --_flow-space: 1.25rem;
   max-width: 580px;
 }

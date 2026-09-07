@@ -59,22 +59,9 @@ You can safely combine runtime props with global variables (props take priority)
 
 ---
 
-## 📐 Referencing size tokens with `useComposeIconTheme`
+## 📐 Referencing size tokens from your own code
 
-`--icon-size` above is set per icon from the `size` prop, but sometimes you need
-to reference the module's **configured size scale** from your own application
-code — for example, to build a size-picker UI or align a non-icon element to
-the same scale. `useComposeIconTheme()` reads the `sizes` map from your module
-config and exposes helpers to reference it as CSS variables:
-
-```vue
-<script setup>
-const { sizes, sizeVar, currentSizeVar } = useComposeIconTheme();
-// Object.keys(sizes) -> ['sm', 'md', 'lg', 'hero'] — from your config
-// sizeVar('lg')       -> 'var(--size-lg)', to align any element to a named size
-// currentSizeVar      -> 'var(--icon-size)', the size active on the nearest icon
-</script>
-```
-
-This is purely a size-token accessor, not a general theming API — colors and
-stroke are controlled by the CSS variables above, not by this composable.
+`--icon-size` above is set per icon from the `size` prop. To reference the module's configured
+size scale outside of a generated icon — e.g. to build a size-picker UI or align a non-icon
+element to the same scale — see [`useComposeIconTheme`](/utilities/use-compose-icon#usecomposeicontheme)
+in Composables.

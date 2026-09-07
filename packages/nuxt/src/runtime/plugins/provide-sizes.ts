@@ -1,4 +1,5 @@
 import { defineNuxtPlugin, useRuntimeConfig } from 'nuxt/app';
+import type { PublicIconSizes } from '../types/icon-sizes';
 import { SIZES_INJECTION_KEY } from '../utils/sizes-injection-key';
 
 /**
@@ -19,7 +20,12 @@ export default defineNuxtPlugin({
   setup(nuxtApp) {
     const publicRuntimeConfig = useRuntimeConfig().public;
 
-    const composeIcons = publicRuntimeConfig.composeIcons;
+    // Cast, not a workaround to remove: useRuntimeConfig() (nuxt/app) types RuntimeConfig from
+    // 'nuxt/schema', not '@nuxt/schema'. Nuxt bridges a hand-picked set of interfaces
+    // (NuxtConfig, NuxtOptions, ...) from '@nuxt/schema' into 'nuxt/schema' for exactly this
+    // reason (see node_modules/nuxt/schema.d.ts) — RuntimeConfig/PublicRuntimeConfig aren't on
+    // that list, so augmenting '@nuxt/schema' per the docs never reaches this call's type.
+    const composeIcons = publicRuntimeConfig.composeIcons as PublicIconSizes;
     nuxtApp.vueApp.provide(
       SIZES_INJECTION_KEY,
       ((composeIcons && composeIcons.iconSizes) ?? {}) as Record<string, string>,

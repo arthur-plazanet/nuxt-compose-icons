@@ -54,8 +54,8 @@ exports[`generated files > size stylesheet > custom icon classes widen the selec
 
 exports[`generated files > size stylesheet > custom sizes are merged on top of the defaults 1`] = `
 ":root {
-    --size-sm: 1.5rem;
     --size-md: 20px;
+    --size-sm: 1.5rem;
     --size-lg: 3rem;
     --size-xl: 4rem;
     --size-huge: 100px;
@@ -66,9 +66,9 @@ exports[`generated files > size stylesheet > custom sizes are merged on top of t
  * we rely on the original value from the SVG. 
  */
 .compose-icon {
-&.size-sm {--icon-size: var(--size-sm)}
-
 &.size-md {--icon-size: var(--size-md)}
+
+&.size-sm {--icon-size: var(--size-sm)}
 
 &.size-lg {--icon-size: var(--size-lg)}
 

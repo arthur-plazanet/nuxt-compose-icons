@@ -80,6 +80,13 @@ jobs:
       - name: Test showcase
         run: pnpm test:showcase
 
+      - name: Upload showcase artifact
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: showcase-build
+          path: ./packages/nuxt/showcase/.output/public/
+
   build-docs:
     runs-on: ubuntu-latest
 
