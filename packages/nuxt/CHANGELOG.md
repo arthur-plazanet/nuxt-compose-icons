@@ -1,5 +1,11 @@
 # nuxt-compose-icons
 
+## 0.11.3
+
+### Patch Changes
+
+- 2c1efc1: Fix runtime config using defu
+
 ## 0.11.2
 
 ### Patch Changes
