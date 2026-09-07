@@ -49,7 +49,7 @@ jobs:
           name: playground-static
           path: ./packages/nuxt/playground/.output/public/
 
-      - name: Upload-artifact if will deploy
+      - name: Upload playground static if will deploy
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: actions/upload-artifact@v7
         with:
@@ -74,8 +74,8 @@ jobs:
           node_version: ${{ inputs.node_version }}
           cache: 'pnpm'
 
-      - name: Build showcase
-        run: pnpm showcase:build
+      - name: Generate showcase
+        run: pnpm showcase:generate
 
       - name: Test showcase
         run: pnpm test:showcase
@@ -84,8 +84,8 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         uses: actions/upload-artifact@v7
         with:
-          name: showcase-build
-          path: ./packages/nuxt/showcase/.output/public/
+          name: showcase-static
+          path: ./examples/runtime-showcase/.output/public/
 
   build-docs:
     runs-on: ubuntu-latest

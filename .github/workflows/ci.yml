@@ -62,8 +62,8 @@ jobs:
       - name: Download showcase artifact
         uses: actions/download-artifact@v8
         with:
-          name: showcase-build
-          path: ./showcase-build
+          name: showcase-static
+          path: ./showcase-static
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -83,4 +83,4 @@ jobs:
         run: rsync -avz ./docs-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/nuxt-compose-icons.dev/
 
       - name: Deploy showcase-build with rsync
-        run: rsync -avz ./showcase-build/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/showcase.nuxt-compose-icons.dev/
+        run: rsync -avz ./showcase-static/ ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/showcase.nuxt-compose-icons.dev/
