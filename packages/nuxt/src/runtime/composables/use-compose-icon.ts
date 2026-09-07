@@ -2,7 +2,7 @@ import type { ClassValue, ComputedRef, StyleValue, SVGAttributes } from 'vue';
 import { computed } from 'vue';
 import type { ComposeIconProps } from '../types';
 import { getIconSizeClass } from '../utils';
-import { isRawCssSize, resolveDefaultSizeKey } from '../utils/icon-sizing';
+import { isRawCssSize } from '../utils/icon-sizing';
 import { useComposeIconTheme } from './use-compose-icon-theme';
 
 export { useComposeIcon };
@@ -24,14 +24,10 @@ interface UseComposeIcon {
  * @returns {UseComposeIcon} The composed icon styles, classes, and attributes.
  */
 function useComposeIcon(props: ComposeIconProps): UseComposeIcon {
-  // 1) Size — see resolveDefaultSizeKey for why this isn't just Object.keys(iconSizes)[0].
-  // useComposeIconTheme now uses plain Vue provide/inject (not useRuntimeConfig), so this is
-  // safe to call unconditionally: it degrades to {} outside Nuxt instead of failing to
-  // resolve. Every generated component already has a real default baked into its `size`
-  // prop by codegen, so this fallback mainly matters for calling useComposeIcon by hand.
-  const { iconSizes } = useComposeIconTheme();
-  const defaultSize = resolveDefaultSizeKey(iconSizes);
-  const size = computed<string>(() => props.size ?? defaultSize);
+  // Generated components already bake a real default into their `size` prop via codegen, so
+  // this mainly matters for calling useComposeIcon by hand.
+  const { defaultSizeKey } = useComposeIconTheme();
+  const size = computed<string>(() => props.size ?? defaultSizeKey);
 
   const iconSizeClass = computed(() => getIconSizeClass(size.value));
   // 2) Styles: only include what's defined

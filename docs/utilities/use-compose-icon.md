@@ -117,9 +117,10 @@ interface UseComposeIcon {
 
 ## useComposeIconTheme
 
-Read-only access to the module's **configured size scale** — the `iconSizes` map merged with
-the built-in defaults. Useful when you need to reference a size outside of a generated icon
-component, e.g. to build a size-picker UI or align a non-icon element to the same scale.
+Read-only access to the module's **configured size scale** — the resolved `iconSizes` (defaults,
+or your own scale if you set one). Useful when you need to reference a size outside of a
+generated icon component, e.g. to build a size-picker UI or align a non-icon element to the
+same scale.
 
 This is purely a size-token accessor, not a general theming API — colors and stroke are
 controlled by the CSS variables in [Theming](/utilities/theming), not by this composable.
@@ -130,9 +131,10 @@ controlled by the CSS variables in [Theming](/utilities/theming), not by this co
 <script setup lang="ts">
 import { useComposeIconTheme } from 'nuxt-compose-icons';
 
-const { iconSizes, sizeVar, currentSizeVar } = useComposeIconTheme();
+const { iconSizes, defaultSizeKey, sizeVar, currentSizeVar } = useComposeIconTheme();
 
 Object.keys(iconSizes); // ['sm', 'md', 'lg', 'hero'] — from your config
+defaultSizeKey; // 'md' — the key used when no `size` prop is passed
 sizeVar('lg'); // 'var(--size-lg)' — align any element to a named size
 currentSizeVar; // 'var(--icon-size)' — whatever the nearest icon has in the cascade
 </script>
@@ -145,13 +147,15 @@ Returns
 ```ts
 interface UseComposeIconTheme {
   iconSizes: Record<string, string>;
+  defaultSizeKey: string;
   sizeVar: (size: string) => string;
   currentSizeVar: 'var(--icon-size)';
 }
 ```
 
-| Name             | Type                       | Description                                                                      |
-| ---------------- | -------------------------- | -------------------------------------------------------------------------------- |
-| `iconSizes`      | `Record<string, string>`   | All configured size keys and their resolved CSS values                           |
-| `sizeVar`        | `(size: string) => string` | Returns the CSS var reference for a given size key (`'lg'` → `'var(--size-lg)'`) |
-| `currentSizeVar` | `'var(--icon-size)'`       | CSS var for the size currently applied to the nearest icon in the cascade        |
+| Name             | Type                       | Description                                                                                                                                              |
+| ---------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `iconSizes`      | `Record<string, string>`   | All configured size keys and their resolved CSS values                                                                                                   |
+| `defaultSizeKey` | `string`                   | The key used when no `size` prop is passed — same resolution generated components use (`defaultSize` option, then `'md'`, then the first configured key) |
+| `sizeVar`        | `(size: string) => string` | Returns the CSS var reference for a given size key (`'lg'` → `'var(--size-lg)'`)                                                                         |
+| `currentSizeVar` | `'var(--icon-size)'`       | CSS var for the size currently applied to the nearest icon in the cascade                                                                                |

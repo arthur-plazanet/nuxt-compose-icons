@@ -19,10 +19,15 @@ describe('advanced config', async () => {
     expect(html).toContain('stroke="var(--icon-stroke');
   });
 
-  it('applies custom iconSizes class', async () => {
+  it('applies the configured defaultSize, not "md", to the generated component prop', async () => {
     const html = await $fetch('/');
-    // default size prop renders compose-icon + size-md classes
-    expect(html).toContain('class="compose-icon size-md"');
+    // this fixture sets defaultSize: 'lg' — codegen must bake that in, not a hardcoded 'md'
+    expect(html).toContain('class="compose-icon size-lg"');
+  });
+
+  it('threads defaultSize through to useComposeIconTheme() too, not just codegen', async () => {
+    const html = await $fetch('/');
+    expect(html).toContain('defaultSizeKey:lg');
   });
 
   // component.destDir is what makes generated components portable to a UI library that

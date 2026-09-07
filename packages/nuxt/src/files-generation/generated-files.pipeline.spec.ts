@@ -27,7 +27,7 @@ describe('generated files', () => {
       expect(generateCssFile({})).toMatchSnapshot();
     });
 
-    test('custom sizes are merged on top of the defaults', () => {
+    test('custom sizes fully replace the defaults', () => {
       expect(generateCssFile({ iconSizes: { md: '20px', huge: '100px' } })).toMatchSnapshot();
     });
 

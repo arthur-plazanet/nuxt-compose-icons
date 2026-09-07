@@ -85,11 +85,11 @@ Existing icon solutions often force trade-offs between DX, accessibility, and fl
 2. **Manual Vue components** → repetitive and hard to scale
 3. **SVG loaders** → flexible but lack structure and typing
 
+→ Read more: [Motivation](https://nuxt-compose-icons.dev/guide/motivation) · [Common Approaches](https://nuxt-compose-icons.dev/guide/concept#common-approaches)
+
 Nuxt also has an excellent official icon module, [`@nuxt/icon`](https://github.com/nuxt/icon) — for a huge, ready-made icon set with zero setup, use it. This module solves a different problem: turning **your own** SVG files into **standalone, ownable Vue components**, for a design system or an in-house icon library, without the trade-offs above.
 
-→ Full writeup: [Motivation](https://nuxt-icons.use-compose.com/guide/motivation) · [Common Approaches](https://nuxt-icons.use-compose.com/guide/concept#common-approaches) · [How this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features#how-this-compares-to-nuxt-icon)
-
----
+· [How this compares to `@nuxt/icon`](https://nuxt-compose-icons.dev/guide/features#how-this-compares-to-nuxt-icon)
 
 ## Features
 
@@ -122,7 +122,7 @@ Nuxt also has an excellent official icon module, [`@nuxt/icon`](https://github.c
 <UserBadgeIcon stroke="blue" fill="red" size="lg" />
 ```
 
-→ Full feature list with examples, and [how this compares to `@nuxt/icon`](https://nuxt-icons.use-compose.com/guide/features)
+→ [Full feature list with examples](https://nuxt-compose-icons.dev/guide/features)
 
 ---
 
@@ -138,7 +138,7 @@ Each icon is a real, standalone Vue component — not a runtime lookup like `<Ic
 
 This is the intended use case: a design system or in-house icon library where icons are source-controlled assets, not an external dependency.
 
-→ Full walkthrough, CI wiring, and a live example repo (Nx + pnpm): [Monorepo guide](https://nuxt-icons.use-compose.com/guide/monorepo)
+→ Full walkthrough, CI wiring, and a live example repo (Nx + pnpm): [Monorepo guide](https://nuxt-compose-icons.dev/guide/monorepo)
 
 ---
 
@@ -146,7 +146,7 @@ This is the intended use case: a design system or in-house icon library where ic
 
 Full documentation and advanced configuration:
 
-👉 [https://nuxt-icons.use-compose.com](https://nuxt-icons.use-compose.com/)
+👉 [https://nuxt-compose-icons.dev](https://nuxt-compose-icons.dev/)
 
 ---
 

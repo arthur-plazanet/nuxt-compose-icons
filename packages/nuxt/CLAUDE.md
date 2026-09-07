@@ -60,7 +60,7 @@ module. See [`../../CLAUDE.md`](../../CLAUDE.md) for repo-wide commands and conv
 - Every generated component depends on `runtime/plugins/provide-sizes.ts`
   (registered via `addPlugin`) for its default size — it bridges
   `runtimeConfig.public.composeIcons.sizes` to plain Vue `provide`/`inject`
-  (`SIZES_INJECTION_KEY`). This is deliberate: `useComposeIconTheme` used to
+  (`iconSizesKey`). This is deliberate: `useComposeIconTheme` used to
   import `useRuntimeConfig` from `nuxt/app` directly, which fails to even
   _resolve_ outside a real Nuxt build (`#build/nuxt.config.mjs` is a virtual
   module) — breaking every non-Nuxt consumer of the generated components

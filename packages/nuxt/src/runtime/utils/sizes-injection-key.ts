@@ -1,13 +1,9 @@
 import type { InjectionKey } from 'vue';
-import type { ComposeIconSize } from '../types';
+import type { PublicIconSizes } from '../types/icon-sizes';
 
 /**
- * Carries the project's configured icon sizes across the Vue app boundary via plain
- * provide/inject, instead of Nuxt's useRuntimeConfig — `nuxt/app` fails to even *resolve*
- * outside a real Nuxt build, which broke every non-Nuxt consumer (VitePress, Storybook, a
- * plain Vue app) of the generated components. inject(key, fallback) degrades gracefully
- * where useRuntimeConfig would hard-fail.
+ * Carries configured icon sizes and defaultSize across the Vue app boundary via plain
+ * provide/inject rather than useRuntimeConfig, which needs 'nuxt/app' and fails to resolve
+ * outside a real Nuxt build — breaking every non-Nuxt consumer of generated components.
  */
-export const SIZES_INJECTION_KEY: InjectionKey<ComposeIconSize> = Symbol(
-  'nuxt-compose-icons:sizes',
-);
+export const iconSizesKey: InjectionKey<PublicIconSizes> = Symbol('nuxt-compose-icons:sizes');

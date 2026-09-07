@@ -6,22 +6,21 @@ describe('resolveFinalSizes', () => {
     expect(resolveFinalSizes()).toEqual(iconSizeDefault);
   });
 
-  it('merges custom sizes on top of the defaults, keeping unspecified keys', () => {
+  it('fully replaces the defaults when iconSizes is provided, not merged on top', () => {
+    // Providing any iconSizes means "this is my whole scale" — sm/lg/xl from the defaults
+    // don't survive just because they weren't mentioned.
     expect(resolveFinalSizes({ md: '1rem', huge: '100px' })).toEqual({
-      sm: '1.5rem',
       md: '1rem',
-      lg: '3rem',
-      xl: '4rem',
       huge: '100px',
     });
   });
 
-  it('orders keys by real (parsed) size, not by merge/insertion order', () => {
-    // xs/huge are appended after the sm/md/lg/xl defaults by the spread merge — without
-    // sorting, Object.keys() would read sm, md, lg, xl, xs, huge: non-monotonic, and exactly
-    // what a size picker iterating this map (e.g. the playground) would render in order.
-    const result = resolveFinalSizes({ xs: '4px', huge: '100px' });
-    expect(Object.keys(result)).toEqual(['xs', 'sm', 'md', 'lg', 'xl', 'huge']);
+  it('orders keys by real (parsed) size, not by declaration order', () => {
+    // Declared out of size order — without sorting, Object.keys() would read them back exactly
+    // as declared: non-monotonic, and exactly what a size picker (e.g. the playground) would
+    // render in order.
+    const result = resolveFinalSizes({ huge: '100px', xs: '4px', md: '16px' });
+    expect(Object.keys(result)).toEqual(['xs', 'md', 'huge']);
   });
 
   it('mixes px, rem, and em units on a common comparable basis', () => {
@@ -36,11 +35,11 @@ describe('resolveFinalSizes', () => {
   });
 
   it('pins unparseable values at their original position, sorting parseable ones around them', () => {
-    // Merge order is sm, md, lg, xl, hero, tiny. 'hero' can't be parsed, so it stays at its
-    // original index (4, between lg and xl); the parseable entries (sm/md/lg/xl/tiny) are
-    // sorted by real size and fill the remaining slots in that order.
-    const result = resolveFinalSizes({ hero: 'var(--spacing-8)', tiny: '2px' });
-    expect(Object.keys(result)).toEqual(['tiny', 'sm', 'md', 'lg', 'hero', 'xl']);
+    // Declared as hero, tiny, small. 'hero' can't be parsed, so it stays at its original
+    // index (0); the parseable entries (tiny/small) are sorted by real size and fill the
+    // remaining slots in declaration order among themselves.
+    const result = resolveFinalSizes({ hero: 'var(--spacing-8)', tiny: '2px', small: '8px' });
+    expect(Object.keys(result)).toEqual(['hero', 'tiny', 'small']);
   });
 });
 
@@ -60,5 +59,15 @@ describe('resolveDefaultSizeKey', () => {
   it('falls back to the first configured key when "md" is not defined at all', () => {
     const sizes = { compact: '1rem', spacious: '3rem' };
     expect(resolveDefaultSizeKey(sizes)).toBe('compact');
+  });
+
+  it('prefers the explicit defaultSize over "md" when it names a real key', () => {
+    const sizes = { compact: '1rem', md: '2rem', spacious: '3rem' };
+    expect(resolveDefaultSizeKey(sizes, 'spacious')).toBe('spacious');
+  });
+
+  it('falls back to "md" when defaultSize is set but not a configured key', () => {
+    const sizes = { compact: '1rem', md: '2rem' };
+    expect(resolveDefaultSizeKey(sizes, 'nonexistent')).toBe('md');
   });
 });
